@@ -1,0 +1,269 @@
+<div>
+    <h1>Manage Program Flow</h1>
+    <div>
+        <h2>Implement Multithreading and Asynchronous Processing</h2>
+        <div>
+            <p><b>Multi-tasking:</b> A single CPU rapidly switching between tasks to give the perception of multiple tasks being worked on at once.</p>
+            <p><b>Concurrent:</b> When two things are happening at the same time.</p>
+            <p><b>Multiple CPUs:</b> This can improve the performance. You can't allocate a CPU to each task, a multi-threaded computer will allocate a task to the next available processor.</p>
+            <p><b>Delays:</b> If a task is delayed, perhaps because the processor is waiting for data from storage, the it can move onto a different task.</p>
+            <p><b>Provider:</b> The ability to run multiple process is provided by the OS, not the C# language. The .NET Framework provides classes to represent tiems of work to be performed.</p></div>
+            <p><b>Dev Control:</b> The developer cannot make any assumptions concering which processes are active at any one time, how much processing time has been given, or when the operation will be completed.</p>
+            <div>
+                <p>This section covers how to:</p>
+                <ul>
+                    <li>Use the Task Parallel library, including the Paralle.For method, PLINQ, and tasks.</li>
+                    <li>Create continuation tasks.</li>
+                    <li>Spawn threads by using ThreadPool.</li>
+                    <li>Unblock the UI.</li>
+                    <li>Use async and await keywords.</li>
+                    <li>Manage data by using concurrent collections.</li>
+                </ul>
+            </div>
+        <div>
+            <h3>The Task Parallel Library</h3>
+            <p><b>Task:</b> An abstraction of a unit of work to be performed. May be performed concurrently with other tasks.</p>
+            <p><b>Task Parallel Library (TPL):</b> A range of resources that allow you to use tasks in an application. In the Task.Parallel class there 3 methods to make parallel execution of tasks possible in applications.</p>
+            <p><b>Action Delegate:</b> An encapsulation of a method that accepts no parameters and does not return a result. Can be replaced with a lamba expression.</p>
+            <p><b>Parallel.Invoke:</b> In Systems.Threading.Tasks namespace. Accepts a number of Action delegates and creates a Task for each of them. Can start a large number of tasks at once but you have no control over order or which processor gets assigned them. It returns when all tasks have been completed.</p>
+            <p><code>
+                static void Task1()
+                {
+                    Console.WriteLine("Task 1 starting");
+                    Thread.Sleep(2000);
+                    Console.WriteLine("Task 1 ending");
+                }
+
+                static void Task2()
+                {
+                    Console.WriteLine("Task 2 starting");
+                    Thread.Sleep(1000);
+                    Console.WriteLine("Task 2 ending");
+                }
+
+                static void Main(string[] args)
+                {
+                    Parallel.Invoke(()=>Task1(), ()=>Task2());
+
+                    Console.WriteLine("Finished processing!");
+                    Console.ReadKey();
+                }
+
+                // OUTPUT:
+                // Task 1 starting
+                // Task 2 starting
+                // Task 2 ending
+                // Task 1 ending
+                // Finished processing!
+            </code></p>
+            <p><b>Parallel.ForEach:</b> Performs a parallel implementation of the foreach loop construction, in which a specified method is called to process each item in the list. 
+                <i>Note: In the output below some of the tasks are not completed in the same order that they were started.</i></p>
+            <p><code>
+                static void WorkOnItem(object item)
+                {
+                    Console.WriteLine("Started working on: " + item);
+                    Thread.Sleep(100);
+                    Console.WriteLine("Finished working on: "+ item);
+                }
+
+                static void Main(string[] args)
+                {
+                    var items = Enumerable.Range(0, 500);
+
+                    Parallel.ForEach(items, item => 
+                    {
+                        WorkOnItem(item);
+                    });
+
+                    Console.WriteLine("Finished processing!");
+                    Console.ReadKey();
+                }
+
+                // OUTPUT:
+                // ...
+                // Finished working on: 483
+                // Started working on: 489
+                // Finished working on: 477
+                // Finished working on: 486
+                // Finished working on: 489
+                // Finished processing!
+            </code></p>
+            <p><b>Parallel.For:</b> Can be used to parallelize the execution of a for loop, which is governed by a control variable. The below code implements a counter starting at 0 to the length of the items array.</p>
+            <p><code>
+                static void Main(string[] args)
+                {
+                    var items = Enumerable.Range(0, 500).ToArray();
+
+                    ParallelLoopResult result = Parallel.For(0, items.Length, (int i, ParallelLoopState loopState) => {
+                        WorkOnItems(items[i]);
+                    });
+
+                    Console.WriteLine("Finished processing!");
+                    Console.ReadKey();
+                }
+            </code></p>
+            <p><b>Managing For and ForEach:</b> An additional parameter of type ParallelLoopState can be provided to allow the code being iterated to control the iteration process. The For and ForEach methods can also return a value of type ParallelLoopResult that can be used to determine whether or not a parallel loop has successfully completed.</p>
+            <p><code>
+                static void Main(string[] args)
+                {
+                    var items = Enumerable.Range(0, 500).ToArray();
+
+                    Parallel.For(0, items.Count(), i => {
+                        if(i==200) loopState.Stop();
+
+                        WorkOnItems(items[i]);
+                    });
+                  
+                    Console.WriteLine("Completed: " + result.IsCompleted);
+                    Console.WriteLine("Items: " + result.LowestBreakIteration);
+
+                    Console.WriteLine("Finished processing!");
+                    Console.ReadKey();
+                }
+            </code></p>
+            <p><b>Stop and Break:</b> These methods can be used on the ParallelLoopState variable to cease iterations. If stopped on the 200th iteration, all iterations below 200 are guaranteed to be completed.</p>
+        </div>
+        <div>
+            <h3>Parallel LINQ</h3>
+            <p><b>Language-Integrated Query (LINQ):</b> Used to perform queries on items of data in C# programs.</p>
+            <p><b>Parallel Language-Integrated Query (PLINQ):</b> Can be used to allow elements of a query to execute in parallel.</p>
+            <p><b>AsParallel:</b> Examines the query to determine if using a parallel version would speed it up. If determined so, the query is broken down into a number of processes and each is run concurrently.</p>
+            <p><b>Informing Parallelization:</b> WithDegreeOfParallelism(int) can be used to specifiy the max number of processors used and WithExecutionMode(ParallelExecutionMode.ForceParallelism) makes the AsParallel request always parallelized.</p>
+            <p><b>Parallel Processing:</b> A parallel query may process data in a different order from the input data. AsSequential() executes the query in order wheras AsOrdered() returns a sorted result but does not necessarily run the query in order.</p>
+            <p><b>ForAll:</b> Used to iterate through all of the elements in a query in parallel. The parallel nature of the execution means the order of the output will not reflect the ordering of the input data.</p>
+            <p><b>Exceptions in Queries:</b> If any exceptions occur during a PLINQ query an AgregateException will be thrown when the query is completed. This contains a list of InnerExceptions that were thrown during the query.</p>
+        </div>
+        <div>
+            <h3>Tasks</h3>
+            <p><b>Create a Task:</b> A task can be created and started using a single method called Run. Do it this way if you want them to run to completion.</p>
+            <p><code>
+                static void Main(string[] args)
+                {
+                    Task newTask = Task.Run(() => DoWork());
+                    newTask.Wait();
+                }
+            </code></p>
+            <p><b>Return a Value:</b> The program will wait for the task to deliver the result when the Result property of the Task instance is read.</p>
+            <p><code>
+                public static int CalculateResult()
+                {
+                    Console.WriteLine("Work starting);
+                    Thread.Sleep(100);
+                    Console.WriteLine("Work finished");
+                    return 99;
+                }
+
+                static void Main(string[] args)
+                {
+                    Task<int> task = Task.Run(() => return CalculateResult());
+                    Console.WriteLine(task.Result);
+
+                    Console.WriteLine("Finished processing!");
+                    Console.ReadKey();
+                }
+            </code></p>
+            <p><b>Task.Run:</b> Uses TaskFactory.StartNew to create and start the task using the default task scheduler that uses the .NET framework thread pool. The Task class exposes a Factory property.</p>
+            <p><b>Task Scheduler:</b> You can create your own task scheduler or run a task scheduler in the synchronization context of another processor.</p>
+            <p><b>TaskFactory:</b> You can create your own TaskFactory if you want to create a number of tasks with the same configuration. The Run method is the preferred way to create a simple task, particularly if you want to use the task with async or await.</p>
+            <p><b>Wait for Tasks to Complete:</b> Task.WaitAll can be used to pause a program until a number of tasks have completed. Can be used as a place to catch any exceptions thrown by tasks.</p>
+        </div>
+        <div>
+            <h3>Continuation Tasks</h3>
+            <p><b>Continuation Task:</b> Can be nominated to start when an existing task finishes. If the antecedent task produces a result, it can be supplied as an input to the continuation task.</p>
+            <p><b>Create a Task:</b> A Task object exposes a ContinueWith method that can be used to specify a continuation task. </p>
+            <p><code></code></p>
+            <p><b>ContinueWith:</b> An overload that you can use to specify when a given continuation task can run takes a parameter of type TaskContinuationOptions.</p>
+            <p><code></code></p>
+            <p><b>Child Tasks:</b> Child tasks can be created inside a parent Task. They execute independently of their parent. Also known as detached child tasks or detached nested tasks.</p>
+            <p><b>Attached Child Tasks:</b> A parent task can specify that created child tasks are attached. A parent task will not complete until all attached child tasks have completed.</p>
+            <p><code></code></p>
+            <p><b>DenyChildAttach:</b> This option makes any children of the specified Task to be detached child tasks.</p>
+        </div>
+        <div>
+            <h3>Threads and ThreadPool</h3>
+            <p>Threads are a lower level of abstraction than tasks. A Task represents an item of work to be performed, wheras a thread represents a process running within the operating system.</p>
+            <div>
+                <p><b>Threads and Tasks:</b> Though the creation code is similar, there are some important differecnes between Tasks and Threads:</p>
+                <ul>
+                    <li>Threads are created as foreground processes which the OS runs until completion. An appliction will not terminated with an active foreground thread. A foreground process can run forever or until 
+                        an uncaught exception is thrown or the OS terminates it. Tasks are created as background processes, meaning they can be terminated before they complete if all the foreground threads in an application complete.</li>
+                    <li>Threads have a priority property that can be changed during the lifetime of the thread. This isn't the same for a Task. Threads have a higher priority request so more processor time is allocated.</li>
+                    <li>A thread can't deliver a result to another thread. Threads must communiacte by using shared variables, which can introduce synchronization issues.</li>
+                    <li>A continuation can't be created on a thread. Threads provide a Join method, which allows one thread to pause until another completes.</li>
+                    <li>Aggregate exceptions can't be created over multiple threads. Thrown exceptions must be handled inside the code in a thread. Tasks provide exception aggregation.</li>
+                </ul>
+            </div>
+            <p><b>Create a Thread:</b> The Thread class is located in the System.Threading namespace. You can pass the name of the method to be run by the thread in the constructor. The Start method will get the thread running.</p>
+            <p><code></code></p>
+            <p><b>Threads and ThreadStart:</b> Older versions of .NET required the creation of a ThreadStart delegate to specify the method to be executed by the thread.</p>
+            <p><code></code></p>
+            <p><b>Threads and Lambda Expressions:</b> Threads can be started using a lambda expression to specify the action of the thread.</p>
+            <p><b>Passing Data Into a Thread:</b> Data can be passed into the thread on creation using the ParameterizedThreadStart delegate. This allows a method with a single object parameter to be used. This can also be done using a lambda
+             expression where the data is passed as a parameter.</p>
+             <p><code></code></p>
+            <p><b>Abort a Thread:</b> The Thread object exposes the Abort method. This instantly terminates a thread. This may leave the program in an ambiguous state. A better way to abort a thread is to use a shared flag variable.</p>
+            <p><code></code></p>
+            <p><b>Thread Synchronization Using Join:</b> Join() allows two threads to synchronize. The caller of Join() is held until the other thread completes.</p>
+            <p><code></code></p>
+            <h4>Thread Data Storage and ThreadLocal</h4>
+            <ul>
+                <li>Threads can share variables.</li>
+                <li>The <b>ThreadStatic</b> attribute allows for each thread to have its own version of a variable.</li>
+                <li>The <b>ThreadLocal&lt;t&gt;</b> class allows local data to be initalised for each thread.</li>
+            </ul>
+            <h4>Thread Execution Context</h4>
+            <ul>
+                <li>Thread instances expose a range of context information; Some items can be read, others read and set.</li>
+                <li>Information available includes: thread name, priority, foreground or background, thread culture, and the security context.</li>
+                <li>The <b>Thread.CurrentThread</b> property can be used by a thread to discover this information.</li>
+            </ul>
+            <div><code></code></div>
+            <h4>Thread Pools</h4>
+            <ul>
+                <li>Threads are managed as objects. Hence need to be created and destroyed.</li>
+                <li>A <b>thread pool</b> stores a collection of reusable thread objects.</li>
+                <li>A new Thread can be requested from here rather than creating a new instance.</li>
+                <li>When a Thread completes it returns to the thread pool for use by another process.</li>
+                <li><b>ThreadPool</b> provides <b>QueueUserWorkItem</b> which allocates a thread to run the supplied item of work.</li>
+                <li>The item of work is supplied as a <b>WaitCallback</b> delegate.</li>
+                <li>2 versions: One which provides state information to the thread being started, and one which doesn't accept state information.</li>
+                <li>There are some situations where a <b>ThreadPool</b> is not a good idea:
+                    <ul>
+                        <li>If a large number of threads are idle for a long time the pool may be blocked.</li>
+                        <li>Priority of threads in the pool can't be managed.</li>
+                        <li>Threads in the pool have background priority. You can't obtain one from the pool with foreground priority.</li>
+                        <li>Local state variables are not cleared when a ThreadPool thread is reused. So, they shouldn't be used.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h3>Tasks and the User Interface</h3>
+            <ul>
+                <li>Universal Applications (Windows Store), Windows Presentation Foundation (WPF) apps and WinForms apps can be regarded as having a single thread of execution that is dealing with the UI.</li>
+                <li>If an event handler is responding to an event, no other part of the UI can execute.</li>
+                <li>This can be seen in badly written applications, where the UI becomes unresponsive while an action is carried out.</li>
+                <li>Tasks provide a means to solve this problem by having the event handler start a task to perform the action in the background.</li>
+                <li>Each component on a display has a <b>Dispatcher</b> property that can be used to run tasks in the context of the display.</li>
+            </ul>
+            <h4>Using Async and Await</h4>
+            <ul>
+                <li>Taks are particularly useful if a program has something else it can do while a given task if being performed.</li>
+                <li><i>e.g. A UI can continue to respond to user actions while a long-running background task completes, or a web server can create tasks to assemble responses to web requests.</i></li>
+                <li>Any exceptions generated while a Task peforms an action must be caught and passed back to the application.</li>
+                <li>The <b>async</b> and <b>await</b> keywords allow for asynchronous elements.</li>
+                <li>The <b>async</b> keyword flags a method as "asynchronous". An asynchronous method must contain one or more "awaited" actions.</li>
+                <li></li>
+            </ul>
+        </div>
+        <div>
+            <h3>Using Async and Await</h3>
+            <p><b></b></p>
+        </div>
+        <div>
+            <h3>Using Concurrent Collections</h3>
+            <p><b></b></p>
+        </div>
+    </div>
+</div>
+
