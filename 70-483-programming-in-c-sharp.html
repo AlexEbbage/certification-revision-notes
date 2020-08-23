@@ -20,6 +20,7 @@
                     <li>Manage data by using concurrent collections.</li>
                 </ul>
             </div>
+        </div>
         <div>
             <h3>The Task Parallel Library</h3>
             <p><b>Task:</b> An abstraction of a unit of work to be performed. May be performed concurrently with other tasks.</p>
@@ -246,24 +247,770 @@
                 <li>Tasks provide a means to solve this problem by having the event handler start a task to perform the action in the background.</li>
                 <li>Each component on a display has a <b>Dispatcher</b> property that can be used to run tasks in the context of the display.</li>
             </ul>
-            <h4>Using Async and Await</h4>
+        </div>
+        <div>
+            <h3>Using Async and Await</h3>
             <ul>
                 <li>Taks are particularly useful if a program has something else it can do while a given task if being performed.</li>
                 <li><i>e.g. A UI can continue to respond to user actions while a long-running background task completes, or a web server can create tasks to assemble responses to web requests.</i></li>
                 <li>Any exceptions generated while a Task peforms an action must be caught and passed back to the application.</li>
                 <li>The <b>async</b> and <b>await</b> keywords allow for asynchronous elements.</li>
                 <li>The <b>async</b> keyword flags a method as "asynchronous". An asynchronous method must contain one or more "awaited" actions.</li>
+                <li>An action can be awaited if it returns either a Task or a Task&lt;t&gt;.</li>
+                <li>An method marked with <b>async</b> contains one or more uses of the <b>await</b> keyword.</li>
+                <li>The compiler generats code which causes the async method to return to the caller at the point the <b>await</b> is reached.</li>
+                <li>It'll then generate code to perform the awaited action asynchronously and then will continue with the body of the <b>async</b> method.</li>
+            </ul>
+            <h4>Exceptions and Await/Async</h4>
+            <ul>
+                <li>Though it is possible to create <b>async</b> methods with a <b>void</b> return type, these should be avoided as there is no way to catch exceptions they generate.</li>
+                <li>The only <b>async</b> <b>void</b> methods a program should contain are the event handlers themselves.</li>
+                <li>Even a simple method that just performs an action should return a status value so exceptions can be caught and handled.</li>
+            </ul>
+            <h4>Awaiting Parallel Tasks</h4>
+            <ul>
+                <li>An <b>async</b> method can contained multiple awaited actions. These are completed in sequence.</li>
+                <li>To create an awaitable task which return when a number of parallel tasks have completed you can use the <b>Task.WhenAll</b> method which completes when a given list of tasks completes.</li>
+                <li>The order of the returned collection may not match the order of the submitted list.</li>
+                <li>There is also no aggregation of thrown exceptions.</li>
+                <li><b>WhenAny()</b> will return when any one of the given tasks completes. This works the same as <b>WaitAny()</b>.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Using Concurrent Collections</h3>
+            <h4>BlockingCollection&lt;T&gt;</h4>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <h4>Concurrent Queue</h4>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <h4>Concurrent Stack</h4>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <h4>Concurrent Bag</h4>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <h4>Concurrent Dictionary</h4>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+    <div>
+        <h2>Manage Multithreading</h2>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <div>
+            <h3>Resource Synchronization</h3>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
                 <li></li>
             </ul>
         </div>
         <div>
-            <h3>Using Async and Await</h3>
-            <p><b></b></p>
+            <h3>Implement Locking</h3>
+            <h4>Locks</h4>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <h4>Monitors</h4>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <h4>Deadlocks in Multi-Threaded Code</h4>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <h4>The Lock Object</h4>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <h4>Interlocked Operations</h4>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <h4>Volatile Variables</h4>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
         </div>
         <div>
-            <h3>Using Concurrent Collections</h3>
-            <p><b></b></p>
+            <h3>Cancelling a Long-Running Task</h3>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <h4>The Cancellation Token</h4>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <h4>Raising an Exception When a Task is Cancelled</h4>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
         </div>
+        <div>
+            <h3>Implementing Thread-Safe Methods</h3>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <h4>Thread Safety and Member Variables</h4>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <h4>Thread Safety and Method Parameters</h4>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+    <div>
+        <h2>Implement Program Flow</h2>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <div>
+            <h3>Iterating Across Collections</h3>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <h4>The While Loop Construction</h4>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <h4>The Do-While Loop Construction</h4>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <h4>The For Loop Construction</h4>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <h4>The Foreach Construction</h4>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <h4>The Break Statement</h4>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <h4>The Continue Statement</h4>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+        <div>
+            <h3>Program Decisions</h3>
+            <h4>The If Construction</h4>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <h4>Logical Expressions</h4>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <h4>The Switch Construction</h4>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+        <div>
+            <h3>Evaluating Expressions</h3>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+    <div>
+        <h2>Create and Implement Events and Callbacks</h2>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <div>
+            <h3>Event Handlers</h3>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <h4>Delegates and Events</h4>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <h4>Action Delegate</h4>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <h4>Event Subscribers</h4>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+        <div>
+            <h3>Unsubscribing From a Delegate</h3>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+        <div>            
+            <h3>Using Events</h3>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+        <div>          
+            <h3>Create Events With Built-In Delegate Types</h3>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <h4>Use EventArgs to Deliver Event Information</h4>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <h4>Exceptions in Event Subscribers</h4>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+        <div>          
+            <h3>Create Delegates</h3>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <h4>Delegate vs delegate</h4>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+        <div>          
+            <h3>Use Lambda Expressions (Anonymous Methods)</h3>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <h4>Built in Types For Use With Lambda Expressions</h4>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+        <div>          
+            <h3>Anonymous Methods</h3>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+    <div>
+        <h2>Implement Exception Handling</h2>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <div>
+            <h3>Exception Types</h3>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+        <div>
+            <h3>The Try-Catch Construction</h3>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+        <div>
+            <h3>Using the Base Class of an Exception</h3>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+        <div>
+            <h3>Implement Try-Catch-Finally Blocks</h3>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+        <div>
+            <h3>Throwing Exceptions</h3>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <h4>Inner Exceptions</h4>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+        <div>
+            <h3>Creating Custom Exceptions</h3>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <h4>Conditional Clauses in Catch Blocks</h4>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+        <div>
+            <h3>Handling Inner Exceptions</h3>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+        <div>
+            <h3>Handling Aggregate Exceptions</h3>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+        <div>
+            <h3>Exceptions as Part of Managed Error handling</h3>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+    <div>
+        <h2>Thought Experiments</h2>
+        <div>
+            <h3>Using Multiple Tasks</h3>
+            <ol>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+            </ol>
+            <h3>Managing Multithreading</h3>
+            <ol>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+            </ol>
+            <h3>Program Flow</h3>
+            <ol>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+            </ol>
+            <h3>Events and Callbacks</h3>
+            <ol>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+            </ol>
+            <h3>Exceptions</h3>
+            <ol>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+                <li class="question-answer">          
+                    <div class="question"></div>
+                    <div class="answer"></div>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div>
+        <h2>Chapter Summary</h2>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
     </div>
 </div>
 
