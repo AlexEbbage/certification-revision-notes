@@ -278,102 +278,97 @@
         </div>
         <div>
             <h3>Using Concurrent Collections</h3>
+            <ul>
+                <li><b>Thread Safe:</b> Code elements which work correctly when used from multiple processes at the same time.</li>
+                <li>Standard .NET collections are not thread safe.</li>
+                <li>.NET libraries provide thread safe concurrent collection classes than can be used when creating multi-tasking applications.</li>
+            </ul>
             <h4>BlockingCollection&lt;T&gt;</h4>
             <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
+                <li>From a design perspective, it is best to view a task in multi-threaded applications as either a producer or consumer of data.</li>
+                <li>A task with both is vulnerable to "deadly embrace" situations.</li>
+                <li>BlockingCollection&lt;T&gt; is designed to be used in situations where you have some tasks producing data and others consuming data.</li>
+                <li>It provides thread safe means of adding and removing items to a data store.</li>
+                <li>It is called a blocking collection because a Take action will block a task if there are no items to e taken.</li>
+                <li>A developer can set an upper limit for the size of the collection.</li>
+                <li>Attempts to add items to a full collection are also blocked.</li>
+                <li><b>TryAdd</b> and <b>TryTake</b> are provided to attempt an action. Both can be used with timeout values and cancellation tokens.</li>
+                <li>BlockingCollection can act as a wrapped around other concurrent collections. The collection class to be used is given as the first parameter to the BlockingCollection constructor.</li>
             </ul>
-            <h4>Concurrent Queue</h4>
+            <h4>ConcurrentQueue</h4>
             <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
+                <li>Provides support for concurrent queues.</li>
+                <li>Enqueue adds items to the queue. TryDequeue removes them.</li>
+                <li>TryPeek inspects the element at the start of the queue without removing it.</li>
             </ul>
-            <h4>Concurrent Stack</h4>
+            <h4>ConcurrentStack</h4>
             <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
+                <li>Provides support for concurrent stacks.</li>
+                <li>Push adds items onto the stack. TryPop removes them.</li>
+                <li>PushRange and TryPopRange can be used to push or pop multiple items.</li>
             </ul>
-            <h4>Concurrent Bag</h4>
+            <h4>ConcurrentBag</h4>
             <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
+                <li>Used to store items when the order in which they are added or removed isn't important.</li>
+                <li>Add puts items in the bag. TryTake removes them.</li>
+                <li>TryPeek is available but is less useful because it is possible for the following TryTake to return a different item from the bag.</li>
             </ul>
-            <h4>Concurrent Dictionary</h4>
+            <h4>ConcurrentDictionary</h4>
             <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
+                <li>Provides a concurrent data store indexed by a key.</li>
+                <li>Actions on a dictionary are performed in an atomic manner. Meaning an update action on an item cannot be interrupted by an action from another task.</li>
+                <li>It provides additional methods that are required when a dictioanry is shared between multiple tasks.</li>
+                <li>TryAdd tries to add a new item, returning false if it already exists.</li>
+                <li>TryUpdate is supplied with a key that identifies the item to be updated and two values. The first is the value to be stored. The second is the value to be overwritten.</li>
+                <li>AddOrUpdate provides a behaviour that will perform the update of a given item or add a new item if it doesn't exist.</li>
             </ul>
         </div>
     </div>
     <div>
         <h2>Manage Multithreading</h2>
+        <p>This section covers how to:</p>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>Synchronise resources</li>
+            <li>Implement locking</li>
+            <li>Cancel a long-running task</li>
+            <li>Implement thread-safe methods to handle race conditions</li>
         </ul>
         <div>
             <h3>Resource Synchronization</h3>
             <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
+                <li>When an app is spread across several asynchronous tasks, it becomes impossible to predict the sequencing and timeing of individual actions.</li>
+                <li>Any action may be interrupted in a way that has the potential to damage your application.</li>
+                <li>A <b>race condition</b> occurs between two threads when the behaviour of the program is dependent on which thread accesses a shared variable first.</li>
+                <li>There are several solutions to ensure programs work correctly in multi-threaded environments.</li>
             </ul>
         </div>
         <div>
             <h3>Implement Locking</h3>
             <h4>Locks</h4>
             <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
+                <li>Locking can be used to ensure thate a given action is atomic.</li>
+                <li>Atomic actions are performed to completion, so they cannot be interrupted.</li>
+                <li>Access to atomic actions is controlled by a locking object.</li>
+                <li>It can be thought of as the action using a key borrowed from the locking object to perform a task, then returning the key so another action can borrow it.</li>
+                <li>Though using a locking object fixes dangerous actions, it also nullifies the benefit of multi-tasking and can actually make performance worse than sequential processing if done poorly.</li>
+                <li>When using parallel versions of operations, be mindful of potentail vallue corruption for shared variables. Carefull consider the impact of any locking you perform.</li>
+                <li>Locked code should be as short as possible and should not contain any actions that might take a while to complete. <i>i.e. Input and output should never be performed during a locked block of code.</i></li>
             </ul>
             <h4>Monitors</h4>
             <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
+                <li>Provides a similar set of actions to a lock, but the code is arranged differently.</li>
+                <li>Ensures only one thread at a time can access a particular object.</li>
+                <li><b>Monitor.TryEnter</b> can be used to check if the lock object is in use. If used in an if-else-block, another task can be performed instead.</li>
+                <li>The atomic code is enclosed in calls of <b>Monitor.Enter</b> and <b>Monitor.Exit</b>. Each call is passed a reference to an object that is used as the lock.</li>
+                <li>When an exception is thrown by atomic code, locks that have been claimed to enter the code need to be released.</li>
+                <li>Statement managed by the lock keyword have this happen automatically, while Monitors require locks to be explicitly released.</li>
+                <li>With Monitors, always ensure the atomic code is wrapped in a try-catch block, and that the catch releases the lock.</li>
             </ul>
             <h4>Deadlocks in Multi-Threaded Code</h4>
             <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
+                <li>When two different tasks are waiting for the other to perform an action on a shared collection, a deadlock can occur.</li>
+                <li>Unlike when the program enters an infinite loop where the program will use up the entire CPU, a deadlock will instead have the two tasks sit in memory unable to do anything.</li>
+                <li>A simple way to avoid this is to never nest one lock inside another.</li>
             </ul>
             <h4>The Lock Object</h4>
             <ul>
