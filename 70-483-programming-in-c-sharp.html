@@ -3,51 +3,62 @@
     <div>
         <h2>Implement Multithreading and Asynchronous Processing</h2>
         <div>
-            <p><b>Multi-tasking:</b> A single CPU rapidly switching between tasks to give the perception of multiple tasks being worked on at once.</p>
+            <p><b>Multi-tasking:</b> A single CPU rapidly switching between tasks to give the perception of multiple
+                tasks being worked on at once.</p>
             <p><b>Concurrent:</b> When two things are happening at the same time.</p>
-            <p><b>Multiple CPUs:</b> This can improve the performance. You can't allocate a CPU to each task, a multi-threaded computer will allocate a task to the next available processor.</p>
-            <p><b>Delays:</b> If a task is delayed, perhaps because the processor is waiting for data from storage, the it can move onto a different task.</p>
-            <p><b>Provider:</b> The ability to run multiple process is provided by the OS, not the C# language. The .NET Framework provides classes to represent tiems of work to be performed.</p></div>
-            <p><b>Dev Control:</b> The developer cannot make any assumptions concering which processes are active at any one time, how much processing time has been given, or when the operation will be completed.</p>
-            <div>
-                <p>This section covers how to:</p>
-                <ul>
-                    <li>Use the Task Parallel library, including the Paralle.For method, PLINQ, and tasks.</li>
-                    <li>Create continuation tasks.</li>
-                    <li>Spawn threads by using ThreadPool.</li>
-                    <li>Unblock the UI.</li>
-                    <li>Use async and await keywords.</li>
-                    <li>Manage data by using concurrent collections.</li>
-                </ul>
-            </div>
+            <p><b>Multiple CPUs:</b> This can improve the performance. You can't allocate a CPU to each task, a
+                multi-threaded computer will allocate a task to the next available processor.</p>
+            <p><b>Delays:</b> If a task is delayed, perhaps because the processor is waiting for data from storage, the
+                it can move onto a different task.</p>
+            <p><b>Provider:</b> The ability to run multiple process is provided by the OS, not the C# language. The .NET
+                Framework provides classes to represent tiems of work to be performed.</p>
         </div>
+        <p><b>Dev Control:</b> The developer cannot make any assumptions concering which processes are active at any one
+            time, how much processing time has been given, or when the operation will be completed.</p>
         <div>
-            <h3>The Task Parallel Library</h3>
-            <p><b>Task:</b> An abstraction of a unit of work to be performed. May be performed concurrently with other tasks.</p>
-            <p><b>Task Parallel Library (TPL):</b> A range of resources that allow you to use tasks in an application. In the Task.Parallel class there 3 methods to make parallel execution of tasks possible in applications.</p>
-            <p><b>Action Delegate:</b> An encapsulation of a method that accepts no parameters and does not return a result. Can be replaced with a lamba expression.</p>
-            <p><b>Parallel.Invoke:</b> In Systems.Threading.Tasks namespace. Accepts a number of Action delegates and creates a Task for each of them. Can start a large number of tasks at once but you have no control over order or which processor gets assigned them. It returns when all tasks have been completed.</p>
-            <p><code>
+            <p>This section covers how to:</p>
+            <ul>
+                <li>Use the Task Parallel library, including the Paralle.For method, PLINQ, and tasks.</li>
+                <li>Create continuation tasks.</li>
+                <li>Spawn threads by using ThreadPool.</li>
+                <li>Unblock the UI.</li>
+                <li>Use async and await keywords.</li>
+                <li>Manage data by using concurrent collections.</li>
+            </ul>
+        </div>
+    </div>
+    <div>
+        <h3>The Task Parallel Library</h3>
+        <p><b>Task:</b> An abstraction of a unit of work to be performed. May be performed concurrently with other
+            tasks.</p>
+        <p><b>Task Parallel Library (TPL):</b> A range of resources that allow you to use tasks in an application. In
+            the Task.Parallel class there 3 methods to make parallel execution of tasks possible in applications.</p>
+        <p><b>Action Delegate:</b> An encapsulation of a method that accepts no parameters and does not return a result.
+            Can be replaced with a lamba expression.</p>
+        <p><b>Parallel.Invoke:</b> In Systems.Threading.Tasks namespace. Accepts a number of Action delegates and
+            creates a Task for each of them. Can start a large number of tasks at once but you have no control over
+            order or which processor gets assigned them. It returns when all tasks have been completed.</p>
+        <p><code>
                 static void Task1()
                 {
-                    Console.WriteLine("Task 1 starting");
-                    Thread.Sleep(2000);
-                    Console.WriteLine("Task 1 ending");
+                Console.WriteLine("Task 1 starting");
+                Thread.Sleep(2000);
+                Console.WriteLine("Task 1 ending");
                 }
 
                 static void Task2()
                 {
-                    Console.WriteLine("Task 2 starting");
-                    Thread.Sleep(1000);
-                    Console.WriteLine("Task 2 ending");
+                Console.WriteLine("Task 2 starting");
+                Thread.Sleep(1000);
+                Console.WriteLine("Task 2 ending");
                 }
 
                 static void Main(string[] args)
                 {
-                    Parallel.Invoke(()=>Task1(), ()=>Task2());
+                Parallel.Invoke(()=>Task1(), ()=>Task2());
 
-                    Console.WriteLine("Finished processing!");
-                    Console.ReadKey();
+                Console.WriteLine("Finished processing!");
+                Console.ReadKey();
                 }
 
                 // OUTPUT:
@@ -57,27 +68,29 @@
                 // Task 1 ending
                 // Finished processing!
             </code></p>
-            <p><b>Parallel.ForEach:</b> Performs a parallel implementation of the foreach loop construction, in which a specified method is called to process each item in the list. 
-                <i>Note: In the output below some of the tasks are not completed in the same order that they were started.</i></p>
-            <p><code>
+        <p><b>Parallel.ForEach:</b> Performs a parallel implementation of the foreach loop construction, in which a
+            specified method is called to process each item in the list.
+            <i>Note: In the output below some of the tasks are not completed in the same order that they were
+                started.</i></p>
+        <p><code>
                 static void WorkOnItem(object item)
                 {
-                    Console.WriteLine("Started working on: " + item);
-                    Thread.Sleep(100);
-                    Console.WriteLine("Finished working on: "+ item);
+                Console.WriteLine("Started working on: " + item);
+                Thread.Sleep(100);
+                Console.WriteLine("Finished working on: "+ item);
                 }
 
                 static void Main(string[] args)
                 {
-                    var items = Enumerable.Range(0, 500);
+                var items = Enumerable.Range(0, 500);
 
-                    Parallel.ForEach(items, item => 
-                    {
-                        WorkOnItem(item);
-                    });
+                Parallel.ForEach(items, item =>
+                {
+                WorkOnItem(item);
+                });
 
-                    Console.WriteLine("Finished processing!");
-                    Console.ReadKey();
+                Console.WriteLine("Finished processing!");
+                Console.ReadKey();
                 }
 
                 // OUTPUT:
@@ -89,923 +102,1022 @@
                 // Finished working on: 489
                 // Finished processing!
             </code></p>
-            <p><b>Parallel.For:</b> Can be used to parallelize the execution of a for loop, which is governed by a control variable. The below code implements a counter starting at 0 to the length of the items array.</p>
-            <p><code>
+        <p><b>Parallel.For:</b> Can be used to parallelize the execution of a for loop, which is governed by a control
+            variable. The below code implements a counter starting at 0 to the length of the items array.</p>
+        <p><code>
                 static void Main(string[] args)
                 {
-                    var items = Enumerable.Range(0, 500).ToArray();
+                var items = Enumerable.Range(0, 500).ToArray();
 
-                    ParallelLoopResult result = Parallel.For(0, items.Length, (int i, ParallelLoopState loopState) => {
-                        WorkOnItems(items[i]);
-                    });
+                ParallelLoopResult result = Parallel.For(0, items.Length, (int i, ParallelLoopState loopState) => {
+                WorkOnItems(items[i]);
+                });
 
-                    Console.WriteLine("Finished processing!");
-                    Console.ReadKey();
+                Console.WriteLine("Finished processing!");
+                Console.ReadKey();
                 }
             </code></p>
-            <p><b>Managing For and ForEach:</b> An additional parameter of type ParallelLoopState can be provided to allow the code being iterated to control the iteration process. The For and ForEach methods can also return a value of type ParallelLoopResult that can be used to determine whether or not a parallel loop has successfully completed.</p>
-            <p><code>
+        <p><b>Managing For and ForEach:</b> An additional parameter of type ParallelLoopState can be provided to allow
+            the code being iterated to control the iteration process. The For and ForEach methods can also return a
+            value of type ParallelLoopResult that can be used to determine whether or not a parallel loop has
+            successfully completed.</p>
+        <p><code>
                 static void Main(string[] args)
                 {
-                    var items = Enumerable.Range(0, 500).ToArray();
+                var items = Enumerable.Range(0, 500).ToArray();
 
-                    Parallel.For(0, items.Count(), i => {
-                        if(i==200) loopState.Stop();
+                Parallel.For(0, items.Count(), i => {
+                if(i==200) loopState.Stop();
 
-                        WorkOnItems(items[i]);
-                    });
-                  
-                    Console.WriteLine("Completed: " + result.IsCompleted);
-                    Console.WriteLine("Items: " + result.LowestBreakIteration);
+                WorkOnItems(items[i]);
+                });
 
-                    Console.WriteLine("Finished processing!");
-                    Console.ReadKey();
+                Console.WriteLine("Completed: " + result.IsCompleted);
+                Console.WriteLine("Items: " + result.LowestBreakIteration);
+
+                Console.WriteLine("Finished processing!");
+                Console.ReadKey();
                 }
             </code></p>
-            <p><b>Stop and Break:</b> These methods can be used on the ParallelLoopState variable to cease iterations. If stopped on the 200th iteration, all iterations below 200 are guaranteed to be completed.</p>
-        </div>
-        <div>
-            <h3>Parallel LINQ</h3>
-            <p><b>Language-Integrated Query (LINQ):</b> Used to perform queries on items of data in C# programs.</p>
-            <p><b>Parallel Language-Integrated Query (PLINQ):</b> Can be used to allow elements of a query to execute in parallel.</p>
-            <p><b>AsParallel:</b> Examines the query to determine if using a parallel version would speed it up. If determined so, the query is broken down into a number of processes and each is run concurrently.</p>
-            <p><b>Informing Parallelization:</b> WithDegreeOfParallelism(int) can be used to specifiy the max number of processors used and WithExecutionMode(ParallelExecutionMode.ForceParallelism) makes the AsParallel request always parallelized.</p>
-            <p><b>Parallel Processing:</b> A parallel query may process data in a different order from the input data. AsSequential() executes the query in order wheras AsOrdered() returns a sorted result but does not necessarily run the query in order.</p>
-            <p><b>ForAll:</b> Used to iterate through all of the elements in a query in parallel. The parallel nature of the execution means the order of the output will not reflect the ordering of the input data.</p>
-            <p><b>Exceptions in Queries:</b> If any exceptions occur during a PLINQ query an AgregateException will be thrown when the query is completed. This contains a list of InnerExceptions that were thrown during the query.</p>
-        </div>
-        <div>
-            <h3>Tasks</h3>
-            <p><b>Create a Task:</b> A task can be created and started using a single method called Run. Do it this way if you want them to run to completion.</p>
-            <p><code>
+        <p><b>Stop and Break:</b> These methods can be used on the ParallelLoopState variable to cease iterations. If
+            stopped on the 200th iteration, all iterations below 200 are guaranteed to be completed.</p>
+    </div>
+    <div>
+        <h3>Parallel LINQ</h3>
+        <p><b>Language-Integrated Query (LINQ):</b> Used to perform queries on items of data in C# programs.</p>
+        <p><b>Parallel Language-Integrated Query (PLINQ):</b> Can be used to allow elements of a query to execute in
+            parallel.</p>
+        <p><b>AsParallel:</b> Examines the query to determine if using a parallel version would speed it up. If
+            determined so, the query is broken down into a number of processes and each is run concurrently.</p>
+        <p><b>Informing Parallelization:</b> WithDegreeOfParallelism(int) can be used to specifiy the max number of
+            processors used and WithExecutionMode(ParallelExecutionMode.ForceParallelism) makes the AsParallel request
+            always parallelized.</p>
+        <p><b>Parallel Processing:</b> A parallel query may process data in a different order from the input data.
+            AsSequential() executes the query in order wheras AsOrdered() returns a sorted result but does not
+            necessarily run the query in order.</p>
+        <p><b>ForAll:</b> Used to iterate through all of the elements in a query in parallel. The parallel nature of the
+            execution means the order of the output will not reflect the ordering of the input data.</p>
+        <p><b>Exceptions in Queries:</b> If any exceptions occur during a PLINQ query an AgregateException will be
+            thrown when the query is completed. This contains a list of InnerExceptions that were thrown during the
+            query.</p>
+    </div>
+    <div>
+        <h3>Tasks</h3>
+        <p><b>Create a Task:</b> A task can be created and started using a single method called Run. Do it this way if
+            you want them to run to completion.</p>
+        <p><code>
                 static void Main(string[] args)
                 {
-                    Task newTask = Task.Run(() => DoWork());
-                    newTask.Wait();
+                Task newTask = Task.Run(() => DoWork());
+                newTask.Wait();
                 }
             </code></p>
-            <p><b>Return a Value:</b> The program will wait for the task to deliver the result when the Result property of the Task instance is read.</p>
-            <p><code>
+        <p><b>Return a Value:</b> The program will wait for the task to deliver the result when the Result property of
+            the Task instance is read.</p>
+        <p><code>
                 public static int CalculateResult()
                 {
-                    Console.WriteLine("Work starting);
-                    Thread.Sleep(100);
-                    Console.WriteLine("Work finished");
-                    return 99;
+                Console.WriteLine("Work starting);
+                Thread.Sleep(100);
+                Console.WriteLine("Work finished");
+                return 99;
                 }
 
                 static void Main(string[] args)
                 {
-                    Task<int> task = Task.Run(() => return CalculateResult());
+                Task<int> task = Task.Run(() => return CalculateResult());
                     Console.WriteLine(task.Result);
 
                     Console.WriteLine("Finished processing!");
                     Console.ReadKey();
-                }
+                    }
             </code></p>
-            <p><b>Task.Run:</b> Uses TaskFactory.StartNew to create and start the task using the default task scheduler that uses the .NET framework thread pool. The Task class exposes a Factory property.</p>
-            <p><b>Task Scheduler:</b> You can create your own task scheduler or run a task scheduler in the synchronization context of another processor.</p>
-            <p><b>TaskFactory:</b> You can create your own TaskFactory if you want to create a number of tasks with the same configuration. The Run method is the preferred way to create a simple task, particularly if you want to use the task with async or await.</p>
-            <p><b>Wait for Tasks to Complete:</b> Task.WaitAll can be used to pause a program until a number of tasks have completed. Can be used as a place to catch any exceptions thrown by tasks.</p>
-        </div>
+        <p><b>Task.Run:</b> Uses TaskFactory.StartNew to create and start the task using the default task scheduler that
+            uses the .NET framework thread pool. The Task class exposes a Factory property.</p>
+        <p><b>Task Scheduler:</b> You can create your own task scheduler or run a task scheduler in the synchronization
+            context of another processor.</p>
+        <p><b>TaskFactory:</b> You can create your own TaskFactory if you want to create a number of tasks with the same
+            configuration. The Run method is the preferred way to create a simple task, particularly if you want to use
+            the task with async or await.</p>
+        <p><b>Wait for Tasks to Complete:</b> Task.WaitAll can be used to pause a program until a number of tasks have
+            completed. Can be used as a place to catch any exceptions thrown by tasks.</p>
+    </div>
+    <div>
+        <h3>Continuation Tasks</h3>
+        <p><b>Continuation Task:</b> Can be nominated to start when an existing task finishes. If the antecedent task
+            produces a result, it can be supplied as an input to the continuation task.</p>
+        <p><b>Create a Task:</b> A Task object exposes a ContinueWith method that can be used to specify a continuation
+            task. </p>
+        <p><code></code></p>
+        <p><b>ContinueWith:</b> An overload that you can use to specify when a given continuation task can run takes a
+            parameter of type TaskContinuationOptions.</p>
+        <p><code></code></p>
+        <p><b>Child Tasks:</b> Child tasks can be created inside a parent Task. They execute independently of their
+            parent. Also known as detached child tasks or detached nested tasks.</p>
+        <p><b>Attached Child Tasks:</b> A parent task can specify that created child tasks are attached. A parent task
+            will not complete until all attached child tasks have completed.</p>
+        <p><code></code></p>
+        <p><b>DenyChildAttach:</b> This option makes any children of the specified Task to be detached child tasks.</p>
+    </div>
+    <div>
+        <h3>Threads and ThreadPool</h3>
+        <p>Threads are a lower level of abstraction than tasks. A Task represents an item of work to be performed,
+            wheras a thread represents a process running within the operating system.</p>
         <div>
-            <h3>Continuation Tasks</h3>
-            <p><b>Continuation Task:</b> Can be nominated to start when an existing task finishes. If the antecedent task produces a result, it can be supplied as an input to the continuation task.</p>
-            <p><b>Create a Task:</b> A Task object exposes a ContinueWith method that can be used to specify a continuation task. </p>
-            <p><code></code></p>
-            <p><b>ContinueWith:</b> An overload that you can use to specify when a given continuation task can run takes a parameter of type TaskContinuationOptions.</p>
-            <p><code></code></p>
-            <p><b>Child Tasks:</b> Child tasks can be created inside a parent Task. They execute independently of their parent. Also known as detached child tasks or detached nested tasks.</p>
-            <p><b>Attached Child Tasks:</b> A parent task can specify that created child tasks are attached. A parent task will not complete until all attached child tasks have completed.</p>
-            <p><code></code></p>
-            <p><b>DenyChildAttach:</b> This option makes any children of the specified Task to be detached child tasks.</p>
+            <p><b>Threads and Tasks:</b> Though the creation code is similar, there are some important differecnes
+                between Tasks and Threads:</p>
+            <ul>
+                <li>Threads are created as foreground processes which the OS runs until completion. An appliction will
+                    not terminated with an active foreground thread. A foreground process can run forever or until
+                    an uncaught exception is thrown or the OS terminates it. Tasks are created as background processes,
+                    meaning they can be terminated before they complete if all the foreground threads in an application
+                    complete.</li>
+                <li>Threads have a priority property that can be changed during the lifetime of the thread. This isn't
+                    the same for a Task. Threads have a higher priority request so more processor time is allocated.
+                </li>
+                <li>A thread can't deliver a result to another thread. Threads must communiacte by using shared
+                    variables, which can introduce synchronization issues.</li>
+                <li>A continuation can't be created on a thread. Threads provide a Join method, which allows one thread
+                    to pause until another completes.</li>
+                <li>Aggregate exceptions can't be created over multiple threads. Thrown exceptions must be handled
+                    inside the code in a thread. Tasks provide exception aggregation.</li>
+            </ul>
         </div>
-        <div>
-            <h3>Threads and ThreadPool</h3>
-            <p>Threads are a lower level of abstraction than tasks. A Task represents an item of work to be performed, wheras a thread represents a process running within the operating system.</p>
-            <div>
-                <p><b>Threads and Tasks:</b> Though the creation code is similar, there are some important differecnes between Tasks and Threads:</p>
+        <p><b>Create a Thread:</b> The Thread class is located in the System.Threading namespace. You can pass the name
+            of the method to be run by the thread in the constructor. The Start method will get the thread running.</p>
+        <p><code></code></p>
+        <p><b>Threads and ThreadStart:</b> Older versions of .NET required the creation of a ThreadStart delegate to
+            specify the method to be executed by the thread.</p>
+        <p><code></code></p>
+        <p><b>Threads and Lambda Expressions:</b> Threads can be started using a lambda expression to specify the action
+            of the thread.</p>
+        <p><b>Passing Data Into a Thread:</b> Data can be passed into the thread on creation using the
+            ParameterizedThreadStart delegate. This allows a method with a single object parameter to be used. This can
+            also be done using a lambda
+            expression where the data is passed as a parameter.</p>
+        <p><code></code></p>
+        <p><b>Abort a Thread:</b> The Thread object exposes the Abort method. This instantly terminates a thread. This
+            may leave the program in an ambiguous state. A better way to abort a thread is to use a shared flag
+            variable.</p>
+        <p><code></code></p>
+        <p><b>Thread Synchronization Using Join:</b> Join() allows two threads to synchronize. The caller of Join() is
+            held until the other thread completes.</p>
+        <p><code></code></p>
+        <h4>Thread Data Storage and ThreadLocal</h4>
+        <ul>
+            <li>Threads can share variables.</li>
+            <li>The <b>ThreadStatic</b> attribute allows for each thread to have its own version of a variable.</li>
+            <li>The <b>ThreadLocal&lt;t&gt;</b> class allows local data to be initalised for each thread.</li>
+        </ul>
+        <h4>Thread Execution Context</h4>
+        <ul>
+            <li>Thread instances expose a range of context information; Some items can be read, others read and set.
+            </li>
+            <li>Information available includes: thread name, priority, foreground or background, thread culture, and the
+                security context.</li>
+            <li>The <b>Thread.CurrentThread</b> property can be used by a thread to discover this information.</li>
+        </ul>
+        <div><code></code></div>
+        <h4>Thread Pools</h4>
+        <ul>
+            <li>Threads are managed as objects. Hence need to be created and destroyed.</li>
+            <li>A <b>thread pool</b> stores a collection of reusable thread objects.</li>
+            <li>A new Thread can be requested from here rather than creating a new instance.</li>
+            <li>When a Thread completes it returns to the thread pool for use by another process.</li>
+            <li><b>ThreadPool</b> provides <b>QueueUserWorkItem</b> which allocates a thread to run the supplied item of
+                work.</li>
+            <li>The item of work is supplied as a <b>WaitCallback</b> delegate.</li>
+            <li>2 versions: One which provides state information to the thread being started, and one which doesn't
+                accept state information.</li>
+            <li>There are some situations where a <b>ThreadPool</b> is not a good idea:
                 <ul>
-                    <li>Threads are created as foreground processes which the OS runs until completion. An appliction will not terminated with an active foreground thread. A foreground process can run forever or until 
-                        an uncaught exception is thrown or the OS terminates it. Tasks are created as background processes, meaning they can be terminated before they complete if all the foreground threads in an application complete.</li>
-                    <li>Threads have a priority property that can be changed during the lifetime of the thread. This isn't the same for a Task. Threads have a higher priority request so more processor time is allocated.</li>
-                    <li>A thread can't deliver a result to another thread. Threads must communiacte by using shared variables, which can introduce synchronization issues.</li>
-                    <li>A continuation can't be created on a thread. Threads provide a Join method, which allows one thread to pause until another completes.</li>
-                    <li>Aggregate exceptions can't be created over multiple threads. Thrown exceptions must be handled inside the code in a thread. Tasks provide exception aggregation.</li>
+                    <li>If a large number of threads are idle for a long time the pool may be blocked.</li>
+                    <li>Priority of threads in the pool can't be managed.</li>
+                    <li>Threads in the pool have background priority. You can't obtain one from the pool with foreground
+                        priority.</li>
+                    <li>Local state variables are not cleared when a ThreadPool thread is reused. So, they shouldn't be
+                        used.</li>
                 </ul>
-            </div>
-            <p><b>Create a Thread:</b> The Thread class is located in the System.Threading namespace. You can pass the name of the method to be run by the thread in the constructor. The Start method will get the thread running.</p>
-            <p><code></code></p>
-            <p><b>Threads and ThreadStart:</b> Older versions of .NET required the creation of a ThreadStart delegate to specify the method to be executed by the thread.</p>
-            <p><code></code></p>
-            <p><b>Threads and Lambda Expressions:</b> Threads can be started using a lambda expression to specify the action of the thread.</p>
-            <p><b>Passing Data Into a Thread:</b> Data can be passed into the thread on creation using the ParameterizedThreadStart delegate. This allows a method with a single object parameter to be used. This can also be done using a lambda
-             expression where the data is passed as a parameter.</p>
-             <p><code></code></p>
-            <p><b>Abort a Thread:</b> The Thread object exposes the Abort method. This instantly terminates a thread. This may leave the program in an ambiguous state. A better way to abort a thread is to use a shared flag variable.</p>
-            <p><code></code></p>
-            <p><b>Thread Synchronization Using Join:</b> Join() allows two threads to synchronize. The caller of Join() is held until the other thread completes.</p>
-            <p><code></code></p>
-            <h4>Thread Data Storage and ThreadLocal</h4>
-            <ul>
-                <li>Threads can share variables.</li>
-                <li>The <b>ThreadStatic</b> attribute allows for each thread to have its own version of a variable.</li>
-                <li>The <b>ThreadLocal&lt;t&gt;</b> class allows local data to be initalised for each thread.</li>
-            </ul>
-            <h4>Thread Execution Context</h4>
-            <ul>
-                <li>Thread instances expose a range of context information; Some items can be read, others read and set.</li>
-                <li>Information available includes: thread name, priority, foreground or background, thread culture, and the security context.</li>
-                <li>The <b>Thread.CurrentThread</b> property can be used by a thread to discover this information.</li>
-            </ul>
-            <div><code></code></div>
-            <h4>Thread Pools</h4>
-            <ul>
-                <li>Threads are managed as objects. Hence need to be created and destroyed.</li>
-                <li>A <b>thread pool</b> stores a collection of reusable thread objects.</li>
-                <li>A new Thread can be requested from here rather than creating a new instance.</li>
-                <li>When a Thread completes it returns to the thread pool for use by another process.</li>
-                <li><b>ThreadPool</b> provides <b>QueueUserWorkItem</b> which allocates a thread to run the supplied item of work.</li>
-                <li>The item of work is supplied as a <b>WaitCallback</b> delegate.</li>
-                <li>2 versions: One which provides state information to the thread being started, and one which doesn't accept state information.</li>
-                <li>There are some situations where a <b>ThreadPool</b> is not a good idea:
-                    <ul>
-                        <li>If a large number of threads are idle for a long time the pool may be blocked.</li>
-                        <li>Priority of threads in the pool can't be managed.</li>
-                        <li>Threads in the pool have background priority. You can't obtain one from the pool with foreground priority.</li>
-                        <li>Local state variables are not cleared when a ThreadPool thread is reused. So, they shouldn't be used.</li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-        <div>
-            <h3>Tasks and the User Interface</h3>
-            <ul>
-                <li>Universal Applications (Windows Store), Windows Presentation Foundation (WPF) apps and WinForms apps can be regarded as having a single thread of execution that is dealing with the UI.</li>
-                <li>If an event handler is responding to an event, no other part of the UI can execute.</li>
-                <li>This can be seen in badly written applications, where the UI becomes unresponsive while an action is carried out.</li>
-                <li>Tasks provide a means to solve this problem by having the event handler start a task to perform the action in the background.</li>
-                <li>Each component on a display has a <b>Dispatcher</b> property that can be used to run tasks in the context of the display.</li>
-            </ul>
-        </div>
-        <div>
-            <h3>Using Async and Await</h3>
-            <ul>
-                <li>Taks are particularly useful if a program has something else it can do while a given task if being performed.</li>
-                <li><i>e.g. A UI can continue to respond to user actions while a long-running background task completes, or a web server can create tasks to assemble responses to web requests.</i></li>
-                <li>Any exceptions generated while a Task peforms an action must be caught and passed back to the application.</li>
-                <li>The <b>async</b> and <b>await</b> keywords allow for asynchronous elements.</li>
-                <li>The <b>async</b> keyword flags a method as "asynchronous". An asynchronous method must contain one or more "awaited" actions.</li>
-                <li>An action can be awaited if it returns either a Task or a Task&lt;t&gt;.</li>
-                <li>An method marked with <b>async</b> contains one or more uses of the <b>await</b> keyword.</li>
-                <li>The compiler generats code which causes the async method to return to the caller at the point the <b>await</b> is reached.</li>
-                <li>It'll then generate code to perform the awaited action asynchronously and then will continue with the body of the <b>async</b> method.</li>
-            </ul>
-            <h4>Exceptions and Await/Async</h4>
-            <ul>
-                <li>Though it is possible to create <b>async</b> methods with a <b>void</b> return type, these should be avoided as there is no way to catch exceptions they generate.</li>
-                <li>The only <b>async</b> <b>void</b> methods a program should contain are the event handlers themselves.</li>
-                <li>Even a simple method that just performs an action should return a status value so exceptions can be caught and handled.</li>
-            </ul>
-            <h4>Awaiting Parallel Tasks</h4>
-            <ul>
-                <li>An <b>async</b> method can contained multiple awaited actions. These are completed in sequence.</li>
-                <li>To create an awaitable task which return when a number of parallel tasks have completed you can use the <b>Task.WhenAll</b> method which completes when a given list of tasks completes.</li>
-                <li>The order of the returned collection may not match the order of the submitted list.</li>
-                <li>There is also no aggregation of thrown exceptions.</li>
-                <li><b>WhenAny()</b> will return when any one of the given tasks completes. This works the same as <b>WaitAny()</b>.</li>
-            </ul>
-        </div>
-        <div>
-            <h3>Using Concurrent Collections</h3>
-            <ul>
-                <li><b>Thread Safe:</b> Code elements which work correctly when used from multiple processes at the same time.</li>
-                <li>Standard .NET collections are not thread safe.</li>
-                <li>.NET libraries provide thread safe concurrent collection classes than can be used when creating multi-tasking applications.</li>
-            </ul>
-            <h4>BlockingCollection&lt;T&gt;</h4>
-            <ul>
-                <li>From a design perspective, it is best to view a task in multi-threaded applications as either a producer or consumer of data.</li>
-                <li>A task with both is vulnerable to "deadly embrace" situations.</li>
-                <li>BlockingCollection&lt;T&gt; is designed to be used in situations where you have some tasks producing data and others consuming data.</li>
-                <li>It provides thread safe means of adding and removing items to a data store.</li>
-                <li>It is called a blocking collection because a Take action will block a task if there are no items to e taken.</li>
-                <li>A developer can set an upper limit for the size of the collection.</li>
-                <li>Attempts to add items to a full collection are also blocked.</li>
-                <li><b>TryAdd</b> and <b>TryTake</b> are provided to attempt an action. Both can be used with timeout values and cancellation tokens.</li>
-                <li>BlockingCollection can act as a wrapped around other concurrent collections. The collection class to be used is given as the first parameter to the BlockingCollection constructor.</li>
-            </ul>
-            <h4>ConcurrentQueue</h4>
-            <ul>
-                <li>Provides support for concurrent queues.</li>
-                <li>Enqueue adds items to the queue. TryDequeue removes them.</li>
-                <li>TryPeek inspects the element at the start of the queue without removing it.</li>
-            </ul>
-            <h4>ConcurrentStack</h4>
-            <ul>
-                <li>Provides support for concurrent stacks.</li>
-                <li>Push adds items onto the stack. TryPop removes them.</li>
-                <li>PushRange and TryPopRange can be used to push or pop multiple items.</li>
-            </ul>
-            <h4>ConcurrentBag</h4>
-            <ul>
-                <li>Used to store items when the order in which they are added or removed isn't important.</li>
-                <li>Add puts items in the bag. TryTake removes them.</li>
-                <li>TryPeek is available but is less useful because it is possible for the following TryTake to return a different item from the bag.</li>
-            </ul>
-            <h4>ConcurrentDictionary</h4>
-            <ul>
-                <li>Provides a concurrent data store indexed by a key.</li>
-                <li>Actions on a dictionary are performed in an atomic manner. Meaning an update action on an item cannot be interrupted by an action from another task.</li>
-                <li>It provides additional methods that are required when a dictioanry is shared between multiple tasks.</li>
-                <li>TryAdd tries to add a new item, returning false if it already exists.</li>
-                <li>TryUpdate is supplied with a key that identifies the item to be updated and two values. The first is the value to be stored. The second is the value to be overwritten.</li>
-                <li>AddOrUpdate provides a behaviour that will perform the update of a given item or add a new item if it doesn't exist.</li>
-            </ul>
-        </div>
-    </div>
-    <div>
-        <h2>Manage Multithreading</h2>
-        <p>This section covers how to:</p>
-        <ul>
-            <li>Synchronise resources</li>
-            <li>Implement locking</li>
-            <li>Cancel a long-running task</li>
-            <li>Implement thread-safe methods to handle race conditions</li>
+            </li>
         </ul>
-        <div>
-            <h3>Resource Synchronization</h3>
-            <ul>
-                <li>When an app is spread across several asynchronous tasks, it becomes impossible to predict the sequencing and timeing of individual actions.</li>
-                <li>Any action may be interrupted in a way that has the potential to damage your application.</li>
-                <li>A <b>race condition</b> occurs between two threads when the behaviour of the program is dependent on which thread accesses a shared variable first.</li>
-                <li>There are several solutions to ensure programs work correctly in multi-threaded environments.</li>
-            </ul>
-        </div>
-        <div>
-            <h3>Implement Locking</h3>
-            <h4>Locks</h4>
-            <ul>
-                <li>Locking can be used to ensure thate a given action is atomic.</li>
-                <li>Atomic actions are performed to completion, so they cannot be interrupted.</li>
-                <li>Access to atomic actions is controlled by a locking object.</li>
-                <li>It can be thought of as the action using a key borrowed from the locking object to perform a task, then returning the key so another action can borrow it.</li>
-                <li>Though using a locking object fixes dangerous actions, it also nullifies the benefit of multi-tasking and can actually make performance worse than sequential processing if done poorly.</li>
-                <li>When using parallel versions of operations, be mindful of potentail vallue corruption for shared variables. Carefull consider the impact of any locking you perform.</li>
-                <li>Locked code should be as short as possible and should not contain any actions that might take a while to complete. <i>i.e. Input and output should never be performed during a locked block of code.</i></li>
-            </ul>
-            <h4>Monitors</h4>
-            <ul>
-                <li>Provides a similar set of actions to a lock, but the code is arranged differently.</li>
-                <li>Ensures only one thread at a time can access a particular object.</li>
-                <li><b>Monitor.TryEnter</b> can be used to check if the lock object is in use. If used in an if-else-block, another task can be performed instead.</li>
-                <li>The atomic code is enclosed in calls of <b>Monitor.Enter</b> and <b>Monitor.Exit</b>. Each call is passed a reference to an object that is used as the lock.</li>
-                <li>When an exception is thrown by atomic code, locks that have been claimed to enter the code need to be released.</li>
-                <li>Statement managed by the lock keyword have this happen automatically, while Monitors require locks to be explicitly released.</li>
-                <li>With Monitors, always ensure the atomic code is wrapped in a try-catch block, and that the catch releases the lock.</li>
-            </ul>
-            <h4>Deadlocks in Multi-Threaded Code</h4>
-            <ul>
-                <li>When two different tasks are waiting for the other to perform an action on a shared collection, a deadlock can occur.</li>
-                <li>Unlike when the program enters an infinite loop where the program will use up the entire CPU, a deadlock will instead have the two tasks sit in memory unable to do anything.</li>
-                <li>A simple way to avoid this is to never nest one lock inside another.</li>
-            </ul>
-            <h4>The Lock Object</h4>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-            <h4>Interlocked Operations</h4>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-            <h4>Volatile Variables</h4>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
-        <div>
-            <h3>Cancelling a Long-Running Task</h3>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-            <h4>The Cancellation Token</h4>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-            <h4>Raising an Exception When a Task is Cancelled</h4>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
-        <div>
-            <h3>Implementing Thread-Safe Methods</h3>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-            <h4>Thread Safety and Member Variables</h4>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-            <h4>Thread Safety and Method Parameters</h4>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
     </div>
     <div>
-        <h2>Implement Program Flow</h2>
+        <h3>Tasks and the User Interface</h3>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>Universal Applications (Windows Store), Windows Presentation Foundation (WPF) apps and WinForms apps can
+                be regarded as having a single thread of execution that is dealing with the UI.</li>
+            <li>If an event handler is responding to an event, no other part of the UI can execute.</li>
+            <li>This can be seen in badly written applications, where the UI becomes unresponsive while an action is
+                carried out.</li>
+            <li>Tasks provide a means to solve this problem by having the event handler start a task to perform the
+                action in the background.</li>
+            <li>Each component on a display has a <b>Dispatcher</b> property that can be used to run tasks in the
+                context of the display.</li>
         </ul>
-        <div>
-            <h3>Iterating Across Collections</h3>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-            <h4>The While Loop Construction</h4>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-            <h4>The Do-While Loop Construction</h4>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-            <h4>The For Loop Construction</h4>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-            <h4>The Foreach Construction</h4>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-            <h4>The Break Statement</h4>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-            <h4>The Continue Statement</h4>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
-        <div>
-            <h3>Program Decisions</h3>
-            <h4>The If Construction</h4>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-            <h4>Logical Expressions</h4>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-            <h4>The Switch Construction</h4>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
-        <div>
-            <h3>Evaluating Expressions</h3>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
     </div>
     <div>
-        <h2>Create and Implement Events and Callbacks</h2>
+        <h3>Using Async and Await</h3>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>Taks are particularly useful if a program has something else it can do while a given task if being
+                performed.</li>
+            <li><i>e.g. A UI can continue to respond to user actions while a long-running background task completes, or
+                    a web server can create tasks to assemble responses to web requests.</i></li>
+            <li>Any exceptions generated while a Task peforms an action must be caught and passed back to the
+                application.</li>
+            <li>The <b>async</b> and <b>await</b> keywords allow for asynchronous elements.</li>
+            <li>The <b>async</b> keyword flags a method as "asynchronous". An asynchronous method must contain one or
+                more "awaited" actions.</li>
+            <li>An action can be awaited if it returns either a Task or a Task&lt;t&gt;.</li>
+            <li>An method marked with <b>async</b> contains one or more uses of the <b>await</b> keyword.</li>
+            <li>The compiler generats code which causes the async method to return to the caller at the point the
+                <b>await</b> is reached.</li>
+            <li>It'll then generate code to perform the awaited action asynchronously and then will continue with the
+                body of the <b>async</b> method.</li>
         </ul>
-        <div>
-            <h3>Event Handlers</h3>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-            <h4>Delegates and Events</h4>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-            <h4>Action Delegate</h4>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-            <h4>Event Subscribers</h4>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
-        <div>
-            <h3>Unsubscribing From a Delegate</h3>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
-        <div>            
-            <h3>Using Events</h3>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
-        <div>          
-            <h3>Create Events With Built-In Delegate Types</h3>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-            <h4>Use EventArgs to Deliver Event Information</h4>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-            <h4>Exceptions in Event Subscribers</h4>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
-        <div>          
-            <h3>Create Delegates</h3>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-            <h4>Delegate vs delegate</h4>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
-        <div>          
-            <h3>Use Lambda Expressions (Anonymous Methods)</h3>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-            <h4>Built in Types For Use With Lambda Expressions</h4>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
-        <div>          
-            <h3>Anonymous Methods</h3>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
+        <h4>Exceptions and Await/Async</h4>
+        <ul>
+            <li>Though it is possible to create <b>async</b> methods with a <b>void</b> return type, these should be
+                avoided as there is no way to catch exceptions they generate.</li>
+            <li>The only <b>async</b> <b>void</b> methods a program should contain are the event handlers themselves.
+            </li>
+            <li>Even a simple method that just performs an action should return a status value so exceptions can be
+                caught and handled.</li>
+        </ul>
+        <h4>Awaiting Parallel Tasks</h4>
+        <ul>
+            <li>An <b>async</b> method can contained multiple awaited actions. These are completed in sequence.</li>
+            <li>To create an awaitable task which return when a number of parallel tasks have completed you can use the
+                <b>Task.WhenAll</b> method which completes when a given list of tasks completes.</li>
+            <li>The order of the returned collection may not match the order of the submitted list.</li>
+            <li>There is also no aggregation of thrown exceptions.</li>
+            <li><b>WhenAny()</b> will return when any one of the given tasks completes. This works the same as
+                <b>WaitAny()</b>.</li>
+        </ul>
     </div>
     <div>
-        <h2>Implement Exception Handling</h2>
+        <h3>Using Concurrent Collections</h3>
+        <ul>
+            <li><b>Thread Safe:</b> Code elements which work correctly when used from multiple processes at the same
+                time.</li>
+            <li>Standard .NET collections are not thread safe.</li>
+            <li>.NET libraries provide thread safe concurrent collection classes than can be used when creating
+                multi-tasking applications.</li>
+        </ul>
+        <h4>BlockingCollection&lt;T&gt;</h4>
+        <ul>
+            <li>From a design perspective, it is best to view a task in multi-threaded applications as either a producer
+                or consumer of data.</li>
+            <li>A task with both is vulnerable to "deadly embrace" situations.</li>
+            <li>BlockingCollection&lt;T&gt; is designed to be used in situations where you have some tasks producing
+                data and others consuming data.</li>
+            <li>It provides thread safe means of adding and removing items to a data store.</li>
+            <li>It is called a blocking collection because a Take action will block a task if there are no items to e
+                taken.</li>
+            <li>A developer can set an upper limit for the size of the collection.</li>
+            <li>Attempts to add items to a full collection are also blocked.</li>
+            <li><b>TryAdd</b> and <b>TryTake</b> are provided to attempt an action. Both can be used with timeout values
+                and cancellation tokens.</li>
+            <li>BlockingCollection can act as a wrapped around other concurrent collections. The collection class to be
+                used is given as the first parameter to the BlockingCollection constructor.</li>
+        </ul>
+        <h4>ConcurrentQueue</h4>
+        <ul>
+            <li>Provides support for concurrent queues.</li>
+            <li>Enqueue adds items to the queue. TryDequeue removes them.</li>
+            <li>TryPeek inspects the element at the start of the queue without removing it.</li>
+        </ul>
+        <h4>ConcurrentStack</h4>
+        <ul>
+            <li>Provides support for concurrent stacks.</li>
+            <li>Push adds items onto the stack. TryPop removes them.</li>
+            <li>PushRange and TryPopRange can be used to push or pop multiple items.</li>
+        </ul>
+        <h4>ConcurrentBag</h4>
+        <ul>
+            <li>Used to store items when the order in which they are added or removed isn't important.</li>
+            <li>Add puts items in the bag. TryTake removes them.</li>
+            <li>TryPeek is available but is less useful because it is possible for the following TryTake to return a
+                different item from the bag.</li>
+        </ul>
+        <h4>ConcurrentDictionary</h4>
+        <ul>
+            <li>Provides a concurrent data store indexed by a key.</li>
+            <li>Actions on a dictionary are performed in an atomic manner. Meaning an update action on an item cannot be
+                interrupted by an action from another task.</li>
+            <li>It provides additional methods that are required when a dictioanry is shared between multiple tasks.
+            </li>
+            <li>TryAdd tries to add a new item, returning false if it already exists.</li>
+            <li>TryUpdate is supplied with a key that identifies the item to be updated and two values. The first is the
+                value to be stored. The second is the value to be overwritten.</li>
+            <li>AddOrUpdate provides a behaviour that will perform the update of a given item or add a new item if it
+                doesn't exist.</li>
+        </ul>
+    </div>
+</div>
+<div>
+    <h2>Manage Multithreading</h2>
+    <p>This section covers how to:</p>
+    <ul>
+        <li>Synchronise resources</li>
+        <li>Implement locking</li>
+        <li>Cancel a long-running task</li>
+        <li>Implement thread-safe methods to handle race conditions</li>
+    </ul>
+    <div>
+        <h3>Resource Synchronization</h3>
+        <ul>
+            <li>When an app is spread across several asynchronous tasks, it becomes impossible to predict the sequencing
+                and timeing of individual actions.</li>
+            <li>Any action may be interrupted in a way that has the potential to damage your application.</li>
+            <li>A <b>race condition</b> occurs between two threads when the behaviour of the program is dependent on
+                which thread accesses a shared variable first.</li>
+            <li>There are several solutions to ensure programs work correctly in multi-threaded environments.</li>
+        </ul>
+    </div>
+    <div>
+        <h3>Implement Locking</h3>
+        <h4>Locks</h4>
+        <ul>
+            <li>Locking can be used to ensure thate a given action is atomic.</li>
+            <li>Atomic actions are performed to completion, so they cannot be interrupted.</li>
+            <li>Access to atomic actions is controlled by a locking object.</li>
+            <li>It can be thought of as the action using a key borrowed from the locking object to perform a task, then
+                returning the key so another action can borrow it.</li>
+            <li>Though using a locking object fixes dangerous actions, it also nullifies the benefit of multi-tasking
+                and can actually make performance worse than sequential processing if done poorly.</li>
+            <li>When using parallel versions of operations, be mindful of potentail vallue corruption for shared
+                variables. Carefull consider the impact of any locking you perform.</li>
+            <li>Locked code should be as short as possible and should not contain any actions that might take a while to
+                complete. <i>i.e. Input and output should never be performed during a locked block of code.</i></li>
+        </ul>
+        <h4>Monitors</h4>
+        <ul>
+            <li>Provides a similar set of actions to a lock, but the code is arranged differently.</li>
+            <li>Ensures only one thread at a time can access a particular object.</li>
+            <li><b>Monitor.TryEnter</b> can be used to check if the lock object is in use. If used in an if-else-block,
+                another task can be performed instead.</li>
+            <li>The atomic code is enclosed in calls of <b>Monitor.Enter</b> and <b>Monitor.Exit</b>. Each call is
+                passed a reference to an object that is used as the lock.</li>
+            <li>When an exception is thrown by atomic code, locks that have been claimed to enter the code need to be
+                released.</li>
+            <li>Statement managed by the lock keyword have this happen automatically, while Monitors require locks to be
+                explicitly released.</li>
+            <li>With Monitors, always ensure the atomic code is wrapped in a try-catch block, and that the catch
+                releases the lock.</li>
+        </ul>
+        <h4>Deadlocks in Multi-Threaded Code</h4>
+        <ul>
+            <li>When two different tasks are waiting for the other to perform an action on a shared collection, a
+                deadlock can occur.</li>
+            <li>Unlike when the program enters an infinite loop where the program will use up the entire CPU, a deadlock
+                will instead have the two tasks sit in memory unable to do anything.</li>
+            <li>A simple way to avoid this is to never nest one lock inside another.</li>
+        </ul>
+        <h4>The Lock Object</h4>
+        <ul>
+            <li>The incorrect use of the lock statement can introduce deadlocks into your applications.</li>
+            <li>The scope of a locking object should be restricted to the part of the code containing the cooperating
+                tasks.</li>
+            <li>It is recommended that the object specified as the lock is created for that purpose, rather than using
+                the data or this reference.</li>
+            <li>Strings shouldn't be used as locking objects, as .NET string implementation uses a pool of string during
+                compilation. Each string is only created once so if two tasks use the same word as their locking object,
+                they share the lock and that leads to problems.</li>
+        </ul>
+        <h4>Interlocked Operations</h4>
+        <ul>
+            <li>The Interlocked class is a better way of achieving thread sage access to the contents of a variable.
+            </li>
+            <li>Offers a set of thread-safe operations that can be performed on a variable. Including: increment,
+                decrement, exchange (swap a variable with another), and add.</li>
+        </ul>
+        <h4>Volatile Variables</h4>
+        <ul>
+            <li>The source of a C# program goes through several stages before execution.</li>
+            <li>Compilation involves the examination of the sequence of statements to discover ways that a program can
+                be made to run more quickly.</li>
+            <li>This may result in statements being executed in a different order to the order they were written.</li>
+            <li>In a single threaded situation this is no issue, but with mulitple threads working on the code this
+                could cause unexpected behaviours.</li>
+            <li>The <b>volatile</b> keyword indicates that operations involving a particular variable is not optimized
+                in this way.</li>
+            <li>Operations involving a variable marked like this will now not be optimized, and the value will be
+                fetched from the copy in memory, rather than being cached in the processor. This can making operations
+                involving said variable a lot less efficient.</li>
+        </ul>
+    </div>
+    <div>
+        <h3>Cancelling a Long-Running Task</h3>
+        <ul>
+            <li>The <b>Abort</b> method can be caled on an active <b>Thread</b> instance to close it.</li>
+            <li>This section will cover how to stop an executing <b>Task</b>.</li>
+        </ul>
+        <h4>The Cancellation Token</h4>
+        <ul>
+            <li>A thread can be cancelled at any time.</li>
+            <li>A task must monitor a <b>cancellation token</b> so that it will end when told to.</li>
+            <li>A <b>cancellation token</b> gives a <b>Task</b> the opportunity to tidy up and release resources when
+                being told to cancel.</li>
+        </ul>
+        <h4>Raising an Exception When a Task is Cancelled</h4>
+        <ul>
+            <li>A task can indicate that is has been cancelled by raising an exception.</li>
+            <li>This is useful if a task is started in one place and monitored in another.</li>
+            <li>Used in a while-loop, each time the loop occurs the token is checked. If the task is cancelled it throws
+                an exception.</li>
+        </ul>
+    </div>
+    <div>
+        <h3>Implementing Thread-Safe Methods</h3>
+        <ul>
+            <li>An object can provide services to other objects by exposing methods to them.</li>
+            <li>It's important for methods in multi-threaded applications to behave in a thread safe way.</li>
+            <li>Thread safe means a method can be called from multiple tasks simultaneously without producing incorrect
+                results, or placing an object that is a member of it into an invalid state.</li>
+        </ul>
+        <h4>Thread Safety and Member Variables</h4>
+        <ul>
+            <li>It's very easy to add multi-tasking to an existing application.</li>
+            <li>Which is why it's so important to make sure objects used in the application contain thread safe code.
+            </li>
+            <li>Otherwise, the worst kind of errors can occur; sporadic and inconsistent ones.</li>
+            <li>Any use of a member variable must be thread safe, and done in a way which doesn't compromise
+                multi-threaded performance.</li>
+            <li>Though locks make thing thread safe, badly written ones can make performance worse. </li>
+            <li>Creating a multi-tasked implementation of a system make involve a complete re-write, with processes
+                refacotred as either producers or consumers of data.</li>
+        </ul>
+        <h4>Thread Safety and Method Parameters</h4>
+        <ul>
+            <li>Parameters passed into a method by value are delivered as copies of the data.</li>
+            <li>They are unique to that method cal and cannot be changed by code running in any other task.</li>
+            <li>Objects on the end of reference parameters are susceptible to change by code running in other tasks.
+            </li>
+            <li>If an object is made to be a struct it gets passed by value into a method call.</li>
+            <li>An atomic action can be created to copy incoming data into local variables that are specific to that
+                call of the method.</li>
+            <li>Either way, it is important to consider the ramifications of parallel execution when creating methods
+                that accept reference parameters.</li>
+        </ul>
+    </div>
+</div>
+<div>
+    <h2>Implement Program Flow</h2>
+    <ul>
+        <li>A program is a sequence of instructions that works on some input to produce some output.</li>
+        <li>Programs frequently have to work with collections of data, and C# provides are range of collection types.
+        </li>
+        <li>C# construction allow a program to react to data values and change its behaviour appropriately.</li>
+        <li>There are also logical expressions used to control if-conditions and switch-constructions.</li>
+    </ul>
+    <p>This sections covers how to:</p>
+    <ul>
+        <li>Iterate across collection and array items.</li>
+        <li>Program decisions by using switch statements, if/then, and operators.</li>
+        <li>Evaluate expressions.</li>
+    </ul>
+    <div>
+        <h3>Iterating Across Collections</h3>
+        <ul>
+            <li>C# provides a number of constructions that implement looping behvaiours: the while loop, for loop and do
+                loop.</li>
+        </ul>
+        <h4>The While Loop Construction</h4>
+        <ul>
+            <li>The condition that controls the looping behaviour is tested before the statements controlled by the loop
+                are obeyed.</li>
+            <li>while(false) will produce a compiler warning because the compiler will detect the loop contents is
+                unreachable.</li>
+        </ul>
+        <h4>The Do-While Loop Construction</h4>
+        <ul>
+            <li>Like the while loop, a logical expression controls whether the execution of a block occurs.</li>
+            <li>The condition is checked only once the loop has performed.</li>
+            <li>This is useful for looping an input until the inputted value is valid.</li>
+        </ul>
+        <h4>The For Loop Construction</h4>
+        <ul>
+            <li>A loop that is not infinite can be made up of three things.
+                <ol>
+                    <li>Initialize: Performed to set the loop up.</li>
+                    <li>Test: Will determine if the loop should continue.</li>
+                    <li>Update: Performed each time the action of the loop has been performed.</li>
+                </ol>
+            </li>
+            <li>The for loop provides a way of creating these three elements in a single construction.</li>
+            <li>The initialize, test and update elements of the construct can be anything you wish.</li>
+            <li>Any of these elements can be left out.</li>
+            <li>Elements can contain multiple statements if separated by commas.</li>
+            <li>A conventional use is to perform a loop for a specific number of iterations.</li>
+            <li>It is important that easily understable constructs are used over complex ones where you're showing off,
+                even if they are slightly more efficient.</li>
+        </ul>
+        <h4>The Foreach Construction</h4>
+        <ul>
+            <li>Makes iterating through a collection much easier.</li>
+            <li>Each time around the loop, the value loaded is the next item in the collection.</li>
+            <li>The iterating value's type must match the items in the collection. Otherwise, a compilation error will
+                occur.</li>
+            <li>You can't modify the iterating value unless that value is a reference to an object.</li>
+            <li>Foreach can iterate through any object that implements the IEnumberable interface. These objects expose
+                a method called GetIterator() which must return an object that imlements the IEnumerator interface.</li>
+            <li>It is important the collection being iterated through does not have items added or removed from it.</li>
+        </ul>
+        <h4>The Break Statement</h4>
+        <ul>
+            <li>Any of the loop constructions can be ended early by the use of the break statement.</li>
+            <li>The program immediately exists the loop when the break statement is hit.</li>
+            <li>It is discouraged to use many breaks in one loop as it can make the flow hard to follow.</li>
+        </ul>
+        <h4>The Continue Statement</h4>
+        <ul>
+            <li>The continue statement ends the current pass through the code controlled by the loop.</li>
+            <li>The terminating condition is then tested to determine if the loop should continue.</li>
+        </ul>
+    </div>
+    <div>
+        <h3>Program Decisions</h3>
+        <h4>The If Construction</h4>
+        <ul>
+            <li>An if construction uses a logical expression to control the execution of a statement or block of code.
+            </li>
+            <li>There is never any confusion about which if condition a given else vinds to, since it is always the
+                nearest one.</li>
+        </ul>
+        <h4>Logical Expressions</h4>
+        <ul>
+            <li>A logical expression is one that evaluates to a boolean value.</li>
+            <li>It can contain operators used to compare values. Relational operators are used to compare two values.
+            </li>
+            <li>Exclusive Or: The "^" operator can be used to flag true if the lef-hand operand is not the same as the
+                right-hand operand.</li>
+            <li>The & and | operators have conditional versions where the second operand is only checked if it can't be
+                determined if the operator is true or false.</li>
+            <li>It is standard practice to use conditional operators as they can improve performance.</li>
+        </ul>
+        <h4>The Switch Construction</h4>
+        <ul>
+            <li>Lets a program use a value to select one of a number of different options.</li>
+            <li>Replaces a long sequence of if-then-else constructions that would otherwise be required.</li>
+            <li>The switch keyword is followed b an expression that controls the switch.</li>
+            <li>At run time the program will look for a matching value on a particular case clause, which identifies the
+                code to be executed for that value.</li>
+            <li>The code controlled by the case continues until a break statement, which marks the end of that clause.
+            </li>
+            <li>A switch can specify a default clause which is performed if the control value doesn't match any case.
+            </li>
+        </ul>
+    </div>
+    <div>
+        <h3>Evaluating Expressions</h3>
+        <ul>
+            <li>C# expressions are comprised of operators and operands.</li>
+            <li>Operators specify the action to be performed</li>
+            <li>Operands are either literal values or variables.</li>
+            <li>An operator can work on one operand, and such operands are called unary or monadic.</li>
+            <li>Monadic operators are either prefix (given before the operand) or postfix (given after the operand).
+            </li>
+            <li>An operand can work on two (binary), or in the case of the conditional operator ?: three (ternary)
+                operands.</li>
+            <li>Each operator has a priority or precedence that determines when it is performed during expression
+                evaluation.</li>
+            <li>The precedence can be overwritten by the use of parenthesis; elements enclosed are performed first.</li>
+            <li>Operators also have associability, which gives the order in which they are evaluated if a number of them
+                appear together.</li>
+        </ul>
+    </div>
+</div>
+<div>
+    <h2>Create and Implement Events and Callbacks</h2>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <div>
+        <h3>Event Handlers</h3>
         <ul>
             <li></li>
             <li></li>
             <li></li>
         </ul>
-        <div>
-            <h3>Exception Types</h3>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
-        <div>
-            <h3>The Try-Catch Construction</h3>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
-        <div>
-            <h3>Using the Base Class of an Exception</h3>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
-        <div>
-            <h3>Implement Try-Catch-Finally Blocks</h3>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
-        <div>
-            <h3>Throwing Exceptions</h3>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-            <h4>Inner Exceptions</h4>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
-        <div>
-            <h3>Creating Custom Exceptions</h3>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-            <h4>Conditional Clauses in Catch Blocks</h4>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
-        <div>
-            <h3>Handling Inner Exceptions</h3>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
-        <div>
-            <h3>Handling Aggregate Exceptions</h3>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
-        <div>
-            <h3>Exceptions as Part of Managed Error handling</h3>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
-    </div>
-    <div>
-        <h2>Thought Experiments</h2>
-        <div>
-            <h3>Using Multiple Tasks</h3>
-            <ol>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-            </ol>
-            <h3>Managing Multithreading</h3>
-            <ol>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-            </ol>
-            <h3>Program Flow</h3>
-            <ol>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-            </ol>
-            <h3>Events and Callbacks</h3>
-            <ol>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-            </ol>
-            <h3>Exceptions</h3>
-            <ol>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-                <li class="question-answer">          
-                    <div class="question"></div>
-                    <div class="answer"></div>
-                </li>
-            </ol>
-        </div>
-    </div>
-    <div>
-        <h2>Chapter Summary</h2>
+        <h4>Delegates and Events</h4>
         <ul>
             <li></li>
             <li></li>
             <li></li>
+        </ul>
+        <h4>Action Delegate</h4>
+        <ul>
             <li></li>
             <li></li>
             <li></li>
+        </ul>
+        <h4>Event Subscribers</h4>
+        <ul>
             <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div>
+        <h3>Unsubscribing From a Delegate</h3>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div>
+        <h3>Using Events</h3>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div>
+        <h3>Create Events With Built-In Delegate Types</h3>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <h4>Use EventArgs to Deliver Event Information</h4>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <h4>Exceptions in Event Subscribers</h4>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div>
+        <h3>Create Delegates</h3>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <h4>Delegate vs delegate</h4>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div>
+        <h3>Use Lambda Expressions (Anonymous Methods)</h3>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <h4>Built in Types For Use With Lambda Expressions</h4>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div>
+        <h3>Anonymous Methods</h3>
+        <ul>
             <li></li>
             <li></li>
             <li></li>
         </ul>
     </div>
 </div>
-
+<div>
+    <h2>Implement Exception Handling</h2>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <div>
+        <h3>Exception Types</h3>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div>
+        <h3>The Try-Catch Construction</h3>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div>
+        <h3>Using the Base Class of an Exception</h3>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div>
+        <h3>Implement Try-Catch-Finally Blocks</h3>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div>
+        <h3>Throwing Exceptions</h3>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <h4>Inner Exceptions</h4>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div>
+        <h3>Creating Custom Exceptions</h3>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <h4>Conditional Clauses in Catch Blocks</h4>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div>
+        <h3>Handling Inner Exceptions</h3>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div>
+        <h3>Handling Aggregate Exceptions</h3>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div>
+        <h3>Exceptions as Part of Managed Error handling</h3>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+</div>
+<div>
+    <h2>Thought Experiments</h2>
+    <div>
+        <h3>Using Multiple Tasks</h3>
+        <ol>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+        </ol>
+        <h3>Managing Multithreading</h3>
+        <ol>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+        </ol>
+        <h3>Program Flow</h3>
+        <ol>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+        </ol>
+        <h3>Events and Callbacks</h3>
+        <ol>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+        </ol>
+        <h3>Exceptions</h3>
+        <ol>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+            <li class="question-answer">
+                <div class="question"></div>
+                <div class="answer"></div>
+            </li>
+        </ol>
+    </div>
+</div>
+<div>
+    <h2>Chapter Summary</h2>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+</div>
