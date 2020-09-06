@@ -690,106 +690,151 @@
 <div>
     <h2>Create and Implement Events and Callbacks</h2>
     <ul>
-        <li></li>
-        <li></li>
-        <li></li>
+        <li>A large application will be comprised of a large nuimber of cooperating components.</li>
+        <li>These componenets will pass messages between one another.</li>
+        <li>C# provides events to achieve this.</li>
+    </ul>
+    <p>This section covers how to:</p>
+    <ul>
+        <li>Create event handlers</li>
+        <li>Subscribe to and unsubscribe from events</li>
+        <li>Use built-in delegate types to create events</li>
+        <li>Create delegates</li>
+        <li>Use lambda expressions and anonymous methods</li>
     </ul>
     <div>
         <h3>Event Handlers</h3>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>Before async and await were added to the C# language, events had to be used to manage asynchronous operations.</li>
+            <li>Today, events are more frequently used for inter-process communications.</li>
+            <li>Events are used when you want an object to notify another object that something has happened.</li>
+            <li>An object can be made to public events to which other objects can subscribe.</li>
+            <li>Components of a solution that communicate using events in this way are described as loosely coupled.</li>
+            <li>Components only ned to know the design of the publish and subscribe mechanism.</li>
         </ul>
         <h4>Delegates and Events</h4>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>A delegate is a piece of data that contains a reference to a particular method in a class.</li>
+            <li>When you get your car serviced you give the mechanic your phone number so they can tell you when to pick your car up, think of the phone number as the delegate.</li>
+            <li>An event publisher is given a delegate that describes the method in the subscriber.</li>
+            <li>The publisher can then call that delegate when the given event occurs and the method will run in the subscriber.</li>
         </ul>
         <h4>Action Delegate</h4>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>There are a number of pre-detefind delegate types.</li>
+            <li>The simplest Action delegate represents a reference to a method that does not return a result or accept parameters.</li>
+            <li>An Action can be used to create a binding point for subscribers.</li>
         </ul>
         <h4>Event Subscribers</h4>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>Subscribers bind to a publisher by using the += operator.</li>
+            <li>It is overloaded to apply vetween a delegate and a behaviour to mean "Add this behaviour to the ones for this delegate".</li>
+            <li>They are not guaranteed to be called in order.</li>
+            <li>Delegates added to a published event are called on the same thread as the thread publishing the event.</li>
+            <li>If a delegate blocks this thread, the entire publication mechanism is blocked.</li>
+            <li>The Delegate object in a publisher exposes GetInvokationList, which gets a list of all the subscribers.</li>
         </ul>
     </div>
     <div>
         <h3>Unsubscribing From a Delegate</h3>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>The -= operator can be used to unsubscribe from events.</li>
+            <li>If the same event is added multiple times it'll be called a corresponding amount.</li>
         </ul>
     </div>
     <div>
         <h3>Using Events</h3>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>When the delegate is public it allows subscribers to connect to it.</li>
+            <li>However, this means external objects can trigger the event by directly calling the delegate.</li>
+            <li>External code can overwrite the value of the delegate as well, potentially removing subscribers.</li>
+            <li>C# provides an event construction that allows a delegate to be specified as an event.</li>
+            <li>The event keyword is added before the definition of the delegate, making it a data field rather than a property.</li>
+            <li>If event is assigned a delegate then it removes the need to check if the delegate has a value before calling it or not.</li>
         </ul>
     </div>
     <div>
         <h3>Create Events With Built-In Delegate Types</h3>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>Progams that use events should use the EventHandler class instead of Action.</li>
+            <li>EventHandler is part of .NET designed to allow subscribers to be given data about an event.</li>
+            <li>It is used throughout .NET to manage events.</li>
+            <li>An EventHandler can deliver data, or just signal that an event has taken place.</li>
+            <li>The EventHandler delegate refers to a subscriber method that will accept two arguments.</li>
+            <li>The first is a reference to the object raising an event. The second is an reference to an EventArgs object that provides information about the event.</li>
+            <li>EventArgs.Empty can be used to indicate that the event does not produce any data, just simply a notification that an event has taken place.</li>
+            <li>The signature of methods to be added to this delegate must reflect this.</li>
         </ul>
         <h4>Use EventArgs to Deliver Event Information</h4>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>It is useful if subscribers can be given information about the event.</li>
+            <li>A class can be created which inherits from EventArgs to contain this data.</li>
+            <li>The handler for the event needs to accept the new data class.</li>
+            <li>This can be done by delcaring the EventHandler delegate to deliver arguments of this new data class' type.</li>
+            <li>Subscribers to the event accept the new data class and can use the data in it.</li>
+            <li>If the same data object is passed to multiple subscribers and one modifies the contents of the event data then all subscribers will see this modication.</li>
+            <li>This can be used for subscribers to signal an event is dealt with, but it can also cause unwanted side effects.</li>
         </ul>
         <h4>Exceptions in Event Subscribers</h4>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>If code in one of the event handlers throws an uncaught exception, then the exception handling process ends at that point.</li>
+            <li>Also, no further subscriptions will be notified of the event.</li>
+            <li>This can be resolved by calling each event handler individually and then a single aggregate exception created which conatins all the details of an exceptions that were thrown by event handlers.</li>
+            <li>GetInvocationList is used to get a list of subscribers, then this is iterated through and DynamicInvoke is called for each subscriber. Any exceptions thrown are caught and added to a list of exceptions.</li>
+            <li>The exception thrown by subscribers is delivered by a TypeInvocationException, and it is the inner exception from this that must be saved.</li>
         </ul>
     </div>
     <div>
         <h3>Create Delegates</h3>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>Action and EventHandler types provide pre-defined delegates.</li>
+            <li>A delegate type is declared using the delegate keyword.</li>
+            <li>An instance of a delegate can be created explicitly using the new operator and passing the method in the delegate constructor.</li>
+            <li>The compiler will automatically generate the code to create a delegate isntance when a method is assigned to the delegate variable.</li>
+            <li>Delegates can be used in exactly the same way as any other variable. You can have lists and dictionaries that contain delegates and you can also use them as method parameters.</li>
         </ul>
         <h4>Delegate vs delegate</h4>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>The word delegate (lower-case d) is the keyword used to tell the compiler to create a delegate type.</li>
+            <li>The Delegate class is an abstract one that defines the behaviour of delegate instances.</li>
+            <li>Once the delegate keyword ahs been used to createa delgate type, objects of that delegate type will be realized as Delegate instances.</li>
         </ul>
     </div>
     <div>
         <h3>Use Lambda Expressions (Anonymous Methods)</h3>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>Delegates allow a program to treat behaviours (method in onbjects) as items of data.</li>
+            <li>A delegate is an item of data that serves as a reference to a method in an object. Providing programmers a tremendous amount of flexibility.</li>
+            <li>They require the delegate type to first be declared, then made to refer to a method containing the code to describe the action to be performed.</li>
+            <li>Lambda expressions are a pure way of expressing the "something goes in, something happens, something comes out" part of behaviours.</li>
+            <li>The types of the elements and the result to be returned are inferred from the context in which the lambda expressions is used.</li>
+            <li>The => operator is the lambda operator.</li>
+            <li>The items on the left of the lambda expression are mapped onto method parameters defined by the delegate.</li>
+            <li>The statement on the right of the lambda expression gives the behavior of the expression.</li>
+            <li>A lambda expression can contain multiple statements if enclosed in a block.</li>
+        </ul>
+        <h4>Closures</h4>
+        <ul>
+            <li>The code in lambda expressions cana ccess variables in the code around it.</li>
+            <li>These variables must be avaialable when the lambda expression runs.</li>
+            <li>The compiler will extend the lifetime of variables used in lambda expressions.</li>
+            <li>The extension of variable life is called a closure.</li>
         </ul>
         <h4>Built in Types For Use With Lambda Expressions</h4>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>There are a number of "built-in" delegate types that we can use to provide a context for a lambda expression.</li>
+            <li>The Func types provide a range of delegates for methods that accept values and return results.</li>
+            <li>There are versions of the Func type that accept up to 16 input items.</li>
+            <li>If the lambda expression doesn't return a result, the Action type can be used instead.</li>
+            <li>The Predicate built in delegate type lets you create code that takes a value of a particular type and returns true or false.</li>
         </ul>
     </div>
     <div>
         <h3>Anonymous Methods</h3>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>Delegates provide the attached lambda expressions a way to be accessed.</li>
+            <li>However, a lambda expression can also be used directly in a context where you just want to express a particular behaviour.</li>
+            <li>A lambda expression used in this way can be described as an anonymous method; because it is a piece of functional code that doesn't have a name.</li>
         </ul>
     </div>
 </div>
