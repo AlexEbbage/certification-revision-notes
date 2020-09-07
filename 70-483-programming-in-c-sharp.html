@@ -705,34 +705,42 @@
     <div>
         <h3>Event Handlers</h3>
         <ul>
-            <li>Before async and await were added to the C# language, events had to be used to manage asynchronous operations.</li>
+            <li>Before async and await were added to the C# language, events had to be used to manage asynchronous
+                operations.</li>
             <li>Today, events are more frequently used for inter-process communications.</li>
             <li>Events are used when you want an object to notify another object that something has happened.</li>
             <li>An object can be made to public events to which other objects can subscribe.</li>
-            <li>Components of a solution that communicate using events in this way are described as loosely coupled.</li>
+            <li>Components of a solution that communicate using events in this way are described as loosely coupled.
+            </li>
             <li>Components only ned to know the design of the publish and subscribe mechanism.</li>
         </ul>
         <h4>Delegates and Events</h4>
         <ul>
             <li>A delegate is a piece of data that contains a reference to a particular method in a class.</li>
-            <li>When you get your car serviced you give the mechanic your phone number so they can tell you when to pick your car up, think of the phone number as the delegate.</li>
+            <li>When you get your car serviced you give the mechanic your phone number so they can tell you when to pick
+                your car up, think of the phone number as the delegate.</li>
             <li>An event publisher is given a delegate that describes the method in the subscriber.</li>
-            <li>The publisher can then call that delegate when the given event occurs and the method will run in the subscriber.</li>
+            <li>The publisher can then call that delegate when the given event occurs and the method will run in the
+                subscriber.</li>
         </ul>
         <h4>Action Delegate</h4>
         <ul>
             <li>There are a number of pre-detefind delegate types.</li>
-            <li>The simplest Action delegate represents a reference to a method that does not return a result or accept parameters.</li>
+            <li>The simplest Action delegate represents a reference to a method that does not return a result or accept
+                parameters.</li>
             <li>An Action can be used to create a binding point for subscribers.</li>
         </ul>
         <h4>Event Subscribers</h4>
         <ul>
             <li>Subscribers bind to a publisher by using the += operator.</li>
-            <li>It is overloaded to apply vetween a delegate and a behaviour to mean "Add this behaviour to the ones for this delegate".</li>
+            <li>It is overloaded to apply vetween a delegate and a behaviour to mean "Add this behaviour to the ones for
+                this delegate".</li>
             <li>They are not guaranteed to be called in order.</li>
-            <li>Delegates added to a published event are called on the same thread as the thread publishing the event.</li>
+            <li>Delegates added to a published event are called on the same thread as the thread publishing the event.
+            </li>
             <li>If a delegate blocks this thread, the entire publication mechanism is blocked.</li>
-            <li>The Delegate object in a publisher exposes GetInvokationList, which gets a list of all the subscribers.</li>
+            <li>The Delegate object in a publisher exposes GetInvokationList, which gets a list of all the subscribers.
+            </li>
         </ul>
     </div>
     <div>
@@ -749,8 +757,10 @@
             <li>However, this means external objects can trigger the event by directly calling the delegate.</li>
             <li>External code can overwrite the value of the delegate as well, potentially removing subscribers.</li>
             <li>C# provides an event construction that allows a delegate to be specified as an event.</li>
-            <li>The event keyword is added before the definition of the delegate, making it a data field rather than a property.</li>
-            <li>If event is assigned a delegate then it removes the need to check if the delegate has a value before calling it or not.</li>
+            <li>The event keyword is added before the definition of the delegate, making it a data field rather than a
+                property.</li>
+            <li>If event is assigned a delegate then it removes the need to check if the delegate has a value before
+                calling it or not.</li>
         </ul>
     </div>
     <div>
@@ -761,8 +771,10 @@
             <li>It is used throughout .NET to manage events.</li>
             <li>An EventHandler can deliver data, or just signal that an event has taken place.</li>
             <li>The EventHandler delegate refers to a subscriber method that will accept two arguments.</li>
-            <li>The first is a reference to the object raising an event. The second is an reference to an EventArgs object that provides information about the event.</li>
-            <li>EventArgs.Empty can be used to indicate that the event does not produce any data, just simply a notification that an event has taken place.</li>
+            <li>The first is a reference to the object raising an event. The second is an reference to an EventArgs
+                object that provides information about the event.</li>
+            <li>EventArgs.Empty can be used to indicate that the event does not produce any data, just simply a
+                notification that an event has taken place.</li>
             <li>The signature of methods to be added to this delegate must reflect this.</li>
         </ul>
         <h4>Use EventArgs to Deliver Event Information</h4>
@@ -770,18 +782,25 @@
             <li>It is useful if subscribers can be given information about the event.</li>
             <li>A class can be created which inherits from EventArgs to contain this data.</li>
             <li>The handler for the event needs to accept the new data class.</li>
-            <li>This can be done by delcaring the EventHandler delegate to deliver arguments of this new data class' type.</li>
+            <li>This can be done by delcaring the EventHandler delegate to deliver arguments of this new data class'
+                type.</li>
             <li>Subscribers to the event accept the new data class and can use the data in it.</li>
-            <li>If the same data object is passed to multiple subscribers and one modifies the contents of the event data then all subscribers will see this modication.</li>
-            <li>This can be used for subscribers to signal an event is dealt with, but it can also cause unwanted side effects.</li>
+            <li>If the same data object is passed to multiple subscribers and one modifies the contents of the event
+                data then all subscribers will see this modication.</li>
+            <li>This can be used for subscribers to signal an event is dealt with, but it can also cause unwanted side
+                effects.</li>
         </ul>
         <h4>Exceptions in Event Subscribers</h4>
         <ul>
-            <li>If code in one of the event handlers throws an uncaught exception, then the exception handling process ends at that point.</li>
+            <li>If code in one of the event handlers throws an uncaught exception, then the exception handling process
+                ends at that point.</li>
             <li>Also, no further subscriptions will be notified of the event.</li>
-            <li>This can be resolved by calling each event handler individually and then a single aggregate exception created which conatins all the details of an exceptions that were thrown by event handlers.</li>
-            <li>GetInvocationList is used to get a list of subscribers, then this is iterated through and DynamicInvoke is called for each subscriber. Any exceptions thrown are caught and added to a list of exceptions.</li>
-            <li>The exception thrown by subscribers is delivered by a TypeInvocationException, and it is the inner exception from this that must be saved.</li>
+            <li>This can be resolved by calling each event handler individually and then a single aggregate exception
+                created which conatins all the details of an exceptions that were thrown by event handlers.</li>
+            <li>GetInvocationList is used to get a list of subscribers, then this is iterated through and DynamicInvoke
+                is called for each subscriber. Any exceptions thrown are caught and added to a list of exceptions.</li>
+            <li>The exception thrown by subscribers is delivered by a TypeInvocationException, and it is the inner
+                exception from this that must be saved.</li>
         </ul>
     </div>
     <div>
@@ -789,27 +808,37 @@
         <ul>
             <li>Action and EventHandler types provide pre-defined delegates.</li>
             <li>A delegate type is declared using the delegate keyword.</li>
-            <li>An instance of a delegate can be created explicitly using the new operator and passing the method in the delegate constructor.</li>
-            <li>The compiler will automatically generate the code to create a delegate isntance when a method is assigned to the delegate variable.</li>
-            <li>Delegates can be used in exactly the same way as any other variable. You can have lists and dictionaries that contain delegates and you can also use them as method parameters.</li>
+            <li>An instance of a delegate can be created explicitly using the new operator and passing the method in the
+                delegate constructor.</li>
+            <li>The compiler will automatically generate the code to create a delegate isntance when a method is
+                assigned to the delegate variable.</li>
+            <li>Delegates can be used in exactly the same way as any other variable. You can have lists and dictionaries
+                that contain delegates and you can also use them as method parameters.</li>
         </ul>
         <h4>Delegate vs delegate</h4>
         <ul>
-            <li>The word delegate (lower-case d) is the keyword used to tell the compiler to create a delegate type.</li>
+            <li>The word delegate (lower-case d) is the keyword used to tell the compiler to create a delegate type.
+            </li>
             <li>The Delegate class is an abstract one that defines the behaviour of delegate instances.</li>
-            <li>Once the delegate keyword ahs been used to createa delgate type, objects of that delegate type will be realized as Delegate instances.</li>
+            <li>Once the delegate keyword ahs been used to createa delgate type, objects of that delegate type will be
+                realized as Delegate instances.</li>
         </ul>
     </div>
     <div>
         <h3>Use Lambda Expressions (Anonymous Methods)</h3>
         <ul>
             <li>Delegates allow a program to treat behaviours (method in onbjects) as items of data.</li>
-            <li>A delegate is an item of data that serves as a reference to a method in an object. Providing programmers a tremendous amount of flexibility.</li>
-            <li>They require the delegate type to first be declared, then made to refer to a method containing the code to describe the action to be performed.</li>
-            <li>Lambda expressions are a pure way of expressing the "something goes in, something happens, something comes out" part of behaviours.</li>
-            <li>The types of the elements and the result to be returned are inferred from the context in which the lambda expressions is used.</li>
+            <li>A delegate is an item of data that serves as a reference to a method in an object. Providing programmers
+                a tremendous amount of flexibility.</li>
+            <li>They require the delegate type to first be declared, then made to refer to a method containing the code
+                to describe the action to be performed.</li>
+            <li>Lambda expressions are a pure way of expressing the "something goes in, something happens, something
+                comes out" part of behaviours.</li>
+            <li>The types of the elements and the result to be returned are inferred from the context in which the
+                lambda expressions is used.</li>
             <li>The => operator is the lambda operator.</li>
-            <li>The items on the left of the lambda expression are mapped onto method parameters defined by the delegate.</li>
+            <li>The items on the left of the lambda expression are mapped onto method parameters defined by the
+                delegate.</li>
             <li>The statement on the right of the lambda expression gives the behavior of the expression.</li>
             <li>A lambda expression can contain multiple statements if enclosed in a block.</li>
         </ul>
@@ -822,111 +851,191 @@
         </ul>
         <h4>Built in Types For Use With Lambda Expressions</h4>
         <ul>
-            <li>There are a number of "built-in" delegate types that we can use to provide a context for a lambda expression.</li>
+            <li>There are a number of "built-in" delegate types that we can use to provide a context for a lambda
+                expression.</li>
             <li>The Func types provide a range of delegates for methods that accept values and return results.</li>
             <li>There are versions of the Func type that accept up to 16 input items.</li>
             <li>If the lambda expression doesn't return a result, the Action type can be used instead.</li>
-            <li>The Predicate built in delegate type lets you create code that takes a value of a particular type and returns true or false.</li>
+            <li>The Predicate built in delegate type lets you create code that takes a value of a particular type and
+                returns true or false.</li>
         </ul>
     </div>
     <div>
         <h3>Anonymous Methods</h3>
         <ul>
             <li>Delegates provide the attached lambda expressions a way to be accessed.</li>
-            <li>However, a lambda expression can also be used directly in a context where you just want to express a particular behaviour.</li>
-            <li>A lambda expression used in this way can be described as an anonymous method; because it is a piece of functional code that doesn't have a name.</li>
+            <li>However, a lambda expression can also be used directly in a context where you just want to express a
+                particular behaviour.</li>
+            <li>A lambda expression used in this way can be described as an anonymous method; because it is a piece of
+                functional code that doesn't have a name.</li>
         </ul>
     </div>
 </div>
 <div>
     <h2>Implement Exception Handling</h2>
     <ul>
-        <li></li>
-        <li></li>
-        <li></li>
+        <li>A program should use exceptions to manage errors if it is not meaningful for the program to continue
+            execution at the point the error occurs.</li>
+        <li>User error is to be expected and dealt with in the normal running of a solution.</li>
+        <li>A network connection failure or a full storage device should be handled with exceptions.</li>
+    </ul>
+    <p>This section covers how to:</p>
+    <ul>
+        <li>Handle exception types, inclduing SQL exceptions, networks exceptions, communication exceptions, and network
+            timeout exceptions.</li>
+        <li>Use catch statements.</li>
+        <li>Use base class of an exception.</li>
+        <li>Implement try-catch-finally blocks.</li>
+        <li>Throw and rethrow exceptions.</li>
+        <li>Create custom exceptions.</li>
+        <li>Handle inner exceptions.</li>
+        <li>Handle aggregate exceptions.</li>
     </ul>
     <div>
         <h3>Exception Types</h3>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>A program can indicate an error condition by throwing an exception object that may be caught by an
+                exception handler.</li>
+            <li>The purpose of the exception handler is to mitigate the effect of the exception.</li>
+            <li>Handling an exception may involve such actions as alerting the user, creating a log entry, releasign
+                resources, and perhaps even shutting down the application in a well-mangaged way.</li>
+            <li>An uncaught exception will be caught by the .NET environment and will cause the thread or task to
+                terminate.</li>
+            <li>They can cause the failure silently with no message to the user.</li>
+            <li>An uncaught exception thrown in the foreground thread of an application will cause the application to
+                terminate.</li>
+            <li>Exceptions can be nested.</li>
+            <li>When an exception is thrown, the .NET compiler searches up the stack to find the "closest" exception
+                handler to deal with the exception.</li>
+            <li>This is comparatively time-consuming, so exceptions should not be used for normal errors, only invoked
+                in exceptional circumstances.</li>
+            <li>The parent type of all exception objects is the Exception class.</li>
+            <li>There are many exception types that describe particular error conditions.
+                <ul>
+                    <li>IOException: Thrown during input/output operations.</li>
+                    <li>SqlException: Thrown in response to an invalid SQL query. It contains a list of SqlError items
+                        that describe the error.</li>
+                    <li>CommunicationsException: Thrown during Windows Communcation Framework (WCF) operations.</li>
+                    <li>TimeOutExceptions: Thrown when a network operation takes too long to complete.</li>
+                </ul>
+            </li>
         </ul>
     </div>
     <div>
         <h3>The Try-Catch Construction</h3>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>The Try block contains the protected code.</li>
+            <li>The Catch block comes after and handles the exception type specified as a parameter.</li>
+            <li>StackTrace gives the position in the program at which the error occurred.</li>
+            <li>HelpLink can be set to give information about the exception.</li>
+            <li>TargetSite gives the name of the method that causes the exception.</li>
+            <li>Source gives the name of the application that caused the error, or the name of the assembly if the
+                application name was not set.</li>
         </ul>
     </div>
     <div>
         <h3>Using the Base Class of an Exception</h3>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>Multiple catch blocks can be used, each specifying a different sub of Exception or the base type.</li>
+            <li>The order is important. If the first catch element caught the Exception type the compiler would produce
+                the error "A previous catch caluse already catches all exceptions of this or of a super type
+                ('Exception')."</li>
+            <li>The most abstract exception type has to be last in the sequence.</li>
+            <li>Not all arithmetic errors will throw an exception immediately; If the same division is performed using a
+                floating point or double precision type, the result will be evaluated as "infinity".</li>
         </ul>
     </div>
     <div>
         <h3>Implement Try-Catch-Finally Blocks</h3>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>The finally element execute irrespective of whatever happens in the try construction.</li>
+            <li>This includes when code in the construction returns to a calling method or code in the exception
+                handlers cause other exceptions to be thrown.</li>
+            <li>It is a good place to release any resources that may be used in the try construction.</li>
+            <li>The only situation in which a finally block will not be executed are:
+                <ul>
+                    <li>If the preceding code enters an infintie loop.</li>
+                    <li>If the programmer uses the Environment.FailFast method in the code protected by the try
+                        construction to explicilty request that any finally elements are ignored.</li>
+                </ul>
+            </li>
         </ul>
     </div>
     <div>
-        <h3>Throwing Exceptions</h3>
+        <h3>Throwing and Rethrowing Exceptions</h3>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>The throw statement can be used to create and throw its own exceptions.</li>
+            <li>The Exception object constructor accepts a string that is used to deliver a descriptive message to the
+                exception handler.</li>
+            <li>One fundamental principle of exception design is that catching an exception shold not lead to errors
+                being hidden from other parts of an application.</li>
+            <li>Sometimes an exception will need to be "passed up" to an enclosing exception handler. This could be
+                because the low-level handler doesn't recognise the exception or the high-level handler needs to be
+                alerted as well.</li>
+            <li>An exception can be rethrown by using the throw keyword with no parameter.</li>
+            <li>It is bad practice to rethrow the exception with the exception passed as a parameter because it will
+                replace the original stack trace information with the current position.</li>
+            <li>This will make it harder to find the source of the exception because the stack trace will point to the
+                error handler, rather tahn at the point where it was originally generated.</li>
         </ul>
         <h4>Inner Exceptions</h4>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>Another way to manage propagation of error conditions in an application is to pass the original
+                exception object as an inner exception for a higher-level exception handler to deal with.</li>
+            <li>The Exception class contains an InnerException property that can be set when the exception is
+                constructed.</li>
         </ul>
     </div>
     <div>
         <h3>Creating Custom Exceptions</h3>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>When designing an application, take into consideration how it will respond to any error conditions.</li>
+            <li>A custom exception should inherit from Exception and its name should end in with "Exception".</li>
         </ul>
         <h4>Conditional Clauses in Catch Blocks</h4>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>An alternative to rethrowing exceptions is to create a handler that only catches exceptions that contain
+                particular data values.</li>
+            <li>This is achieved by using the when keyword followed by a conditional clause that performs a test on the
+                exception object.</li>
+            <li>This mechanism is more efficient than re-throwing an exception because .NET runtime doesn't have to
+                rebuild the exception object prior to re-throwing it.</li>
         </ul>
     </div>
     <div>
         <h3>Handling Inner Exceptions</h3>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>The InnerException property of an Exception can be set when it's constructed.</li>
+            <li>This can be used to throw a new exception with a custom message and an inner exception with details of
+                the error.</li>
+            <li>inner exceptions must be planned, because handlers must be expecting the inner exception to refer to
+                meaningful information about the error that has occurred.</li>
         </ul>
     </div>
     <div>
         <h3>Handling Aggregate Exceptions</h3>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>Aggregate exceptions are lists of inner exeptions.</li>
+            <li>They occur when more tha one thing can fail as an operation is performed, or when the results of a
+                series of actions need to be brought together.</li>
+            <li>Aggregate exceptions can be used to handle exceptions thrown by parallel LINQ enquiries and when
+                aggrefating exceptions raised during event handlers.</li>
         </ul>
     </div>
     <div>
         <h3>Exceptions as Part of Managed Error handling</h3>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>Ensure code deals with any exceptions that may be thrown by methods.</li>
+            <li>Propagating the exception onward if necessary to ensure that exception events are not hidden from
+                different parts of the application.</li>
+            <li>Methods should also throw exceptions in situations where it is not meaningful to continue with an
+                action.</li>
+            <li>If a method throws an exception the caller must deal with that exception if the program is to continue
+                running.</li>
+            <li>If a method returns an error code when something goes wrong, this error code could be ignored by the
+                caller.</li>
+            <li>It is important to plan error handling during the design of an application, as it's hard to add to an
+                application once it has been created.</li>
         </ul>
     </div>
 </div>
@@ -934,218 +1043,392 @@
     <h2>Thought Experiments</h2>
     <div>
         <h3>Using Multiple Tasks</h3>
+        <p>At the design stage of an application you will have to decide whether/how to use tasks and threads.</p>
+        <p>Here are some questions to consider:</p>
         <ol>
             <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
+                <div class="question">Given the difficulties in synchronization and maangement, is it worth the effort
+                    to implement applications using multiple tasks?</div>
+                <div class="answer">
+                    <ul>
+                        <li>Breaking an application into separate tasks is good for more than just performance advantages.</li>
+                        <li>Tasks provide a very useful level of abstaction.</li>
+                        <li>Once communication between tasks has ben designed, they can be worked on independently.</li>
+                        <li>Partitioning an application into tasks can be seen as an extension of component-based design.</li>
+                    </ul>
+                </div>
             </li>
             <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
+                <div class="question">Is it still worth the effort to use multiple-tasks if you only have one processor
+                    in your computer?</div>
+                <div class="answer">
+                    <ul>
+                        <li>If the time taken to process a task is determined by the speed of the CPU, the program is CPU bound.</li>
+                        <li>If a system has one processor, a multi-threaded implementation whould not improve the rate of processing.</li>
+                        <li>A program that is contunously interacting with a file system is IO bound, as it's dependent by the performance of the file system.</li>
+                        <li>A multi-threaded implementation could perform processing at the times when one task is waiting for an IO operation to complete.</li>
+                    </ul>
+                </div>
             </li>
             <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
+                <div class="question">What kind of applications benefit the most from the use of multi-tasking
+                    applications?</div>
+                <div class="answer">
+                    <ul>
+                        <li>A CPU bound application will benefit most if the host system has more than one CPU.</li>
+                        <li>An application with a mix of CPU bound and IO bound tasks benefits most as there will always be something for the processor to do.</li>
+                    </ul>
+                </div>
             </li>
             <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
+                <div class="question">Are there situations when you really should not use multi-tasking?</div>
+                <div class="answer">
+                    <ul>
+                        <li>The asynchronous nature of multi-threaded applications makes it bery hard to guardantee that a given operation will be completed within a specified time.</li>
+                        <li>Threads can be given priority levels, but these are not hard and fast.</li>
+                        <li>Applications with critical timing requirements should not be implemented using multiple threads.</li>
+                    </ul>
+                </div>
             </li>
             <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
+                <div class="question">I need a background process that is going to compress a large number of data
+                    files. Should I used a task or a thread?</div>
+                <div class="answer">
+                    <ul>
+                        <li>Tasks are easier to create and are good for background processes.</li>
+                        <li>Threads can be used for both background and foreground processes.</li>
+                        <li>In this case tasks are better because they're easier to create and never need to operate in the foreground.</li>
+                    </ul>
+                </div>
             </li>
             <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
+                <div class="question">What is the difference between the WaitAll and WaitAny method when waiting for a
+                    large number of tasks to complete?</div>
+                <div class="answer">
+                    <ul>
+                        <li>WaitAll will return when all tasks that are running have completed.</li>
+                        <li>WaitAny will return when the first of the running tasks completes.</li>
+                    </ul>
+                </div>
             </li>
             <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
+                <div class="question">What is the difference between a continuation task and a child task?</div>
+                <div class="answer">
+                    <ul>
+                        <li>A continuation task is a task which starts while an existing task completes.</li>
+                        <li>A child task is created by a parent task and executes independetly of the parent.</li>
+                    </ul>
+                </div>
             </li>
             <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
+                <div class="question">What is the difference between the WaitAll and WhenAll methods?</div>
+                <div class="answer">
+                    <ul>
+                        <li>WaitAll accepts a list of Task references as an argument and returns when all the tasks have been completed.</li>
+                        <li>WaitAll does not return a result.</li>
+                        <li>WhenAll accepts a list of Task refernces as an argument and returns a Task that delivers the results returned by those tasks.</li>
+                        <li>WhenAll can be awaited, which allows it to be used in asynchronous code.</li>
+                    </ul>
+                </div>
             </li>
             <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
+                <div class="question">What happens when a method call is awaited?</div>
+                <div class="answer">
+                    <ul>
+                        <li>Methods that can be awaited return a reference to a Task.</li>
+                        <li>When an await in an asychrnous method is performed, the asynchronous method returns immediately.</li>
+                        <li>When the task returned by the awaited method completes the remained of the asynchronous method will complete.</li>
+                        <li>A good use of this is in user interfaces; The buttons behaviour must return quickly so the program doesn't appear unresponsive. By using await, the button click handler can complete and return, while the action intiated by the button click runs in parallel.</li>
+                    </ul>
+                </div>
             </li>
             <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
+                <div class="question">What is special about a concurrent collection?</div>
+                <div class="answer">
+                    <ul>
+                        <li>A concurrent collection is one which has behaviours that can be used by mulitple processes at the same time.</li>
+                        <li>Some concurrent collections, like ConcurrentDictionary, have additonal behaviours that allow processes to only perform updated to data stored in the collection when it's valid to do so.</li>
+                    </ul>
+                </div>
             </li>
         </ol>
         <h3>Managing Multithreading</h3>
+        <p>Multithreaded applications will need to give special consideration to the way that data is processed and the
+            ordering of operations. They will also have to contain provision for process management.</p>
+            <p>Here are some questions to consider:</p>
         <ol>
             <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
+                <div class="question">Will program errors caused by a poor multithreading implementation always manifest
+                    themselves as faults in an application?</div>
+                <div class="answer">
+                    <ul>
+                        <li>There is no guarantee that the conditons that might cause a race condition to cause a problem will arise.</li>
+                        <li>Natural system delays may mean that events occur in an order where race conditions do not cause a problem.</li>
+                        <li>If problems occur it is wise to first check if any changes have been made to the underlying system.</li>
+                    </ul>
+                </div>
             </li>
             <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
+                <div class="question">Does the fact that the processor is suddenly at 100% loading indicate that two
+                    processes are stuck in a deadly embrace?</div>
+                <div class="answer">
+                    <ul>
+                        <li>The simplest form of deadlock occurs when two tasks are waiting for locks to be released by each other.</li>
+                        <li>Complex deadlocks can be spread over a large number of tasks.</li>
+                        <li>When a deadlock occurs nothing is happening at all, so the application is taking no processor time at all.</li>
+                    </ul>
+                </div>
             </li>
             <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
+                <div class="question">Could you make an object thread safe by enclosing the body code of all the methods
+                    in lock statement to make all the method actions actomic?</div>
+                <div class="answer">
+                    <ul>
+                        <li>Making all method calls in an object atomic is very heavy handed and dangerous approach to acheiving thread safety.</li>
+                        <li>It may make an application vulnerable to deadlocks and could remove any performance advantage that would be gained from multiple processors.</li>
+                        <li>It does not protect against issues caused by the use of reference parameters to a method.</li>
+                    </ul>
+                </div>
             </li>
             <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
+                <div class="question">If you're not sure about potential race conditons, is it best to add lock
+                    statements around critical sections of your code "just in case"?</div>
+                <div class="answer">
+                    <ul>
+                        <li>Adding lock statements around crtiical pieces of code without thinking about what the code actually does is very dangerous.</li>
+                        <li>It may lead to perfomance bottlenecks and deadlocks.</li>
+                        <li>It is very difficult to add thread safety to a program once it is written.</li>
+                        <li>The only sure-fire way to write thread safe code is to design it that way from the start.</li>
+                    </ul>
+                </div>
             </li>
             <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
+                <div class="question">Should a task always generate an exception if it is cancelled?</div>
+                <div class="answer">
+                    <ul>
+                        <li>A task can be cancelled "silently", in which case it will just end.</li>
+                        <li>It can be made to generate an exception when cancelled.</li>
+                        <li>To some, cancelling a task is considered an exceptional action and would therefore expect there to be some way of propagating this event through the system so it can be registered in some way.</li>
+                    </ul>
+                </div>
             </li>
             <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
-            </li>
-            <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
-            </li>
-            <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
-            </li>
-            <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
-            </li>
-            <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
+                <div class="question">Could you make an application that automatically cancelled deadlocked processes?
+                </div>
+                <div class="answer">
+                    <ul>
+                        <li>A Monitor construction can be used to manage entry into atomic actions where it is possible for a task to retain control when it fails to get a lock and enters an atomic action.</li>
+                        <li>A time-out can be established by providing a timeout value to TryEnter which tries to enter an atomic action.</li>
+                        <li>Therefore, it is possible for a program to recognize that a given lock has been unavailable for over a specified amount of time.</li>
+                        <li>A cancellation token can be used to try and stop a task that mihght have obtained the synchronization object.</li>
+                        <li>This only works correctly if the task that is causing the deadlock is checking its cancellation token while it is waiting for its lock.</li>
+                        <li>TL:DR; Yes it's possible, it just entails a lot of extra work. The best way to avoid deadlocks is to make sure they aren't present in the design of the system.</li>
+                    </ul>
+                </div>
             </li>
         </ol>
         <h3>Program Flow</h3>
+        <p>The C# language provides constructions that the programmer can use to manage the flow of program execution.
+            Statements can be repeated a given number of times, until a specific state has been reached, or over a
+            collection of items. Statements can bee xceuted conditionally using the if construction, or selected on the
+            basic of a particular control variable in the case of a switch.</p>
+            <p>Here are some questions to consider:</p>
         <ol>
             <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
+                <div class="question">Is it necessary to have both the while and the do-while looping constuction?</div>
+                <div class="answer">
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
             </li>
             <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
+                <div class="question">Is a break statement the only way of exiting a loop before it completes?</div>
+                <div class="answer">
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
             </li>
             <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
+                <div class="question">Can you identify a situation where you would use a for loop to iterate through a
+                    collection rather than a foreach loop?</div>
+                <div class="answer">
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
             </li>
             <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
+                <div class="question">The & (and) logical operator and the | (or) logical operator have "short circuit"
+                    versions && (conditional-and) and || (conditional-or), which only evaluate elements until it can be
+                    determined whether or not a given expression is true or false. Why does the ^ (exclusive-or) not
+                    have a short circuit version?</div>
+                <div class="answer">
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
             </li>
             <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
+                <div class="question">Is it true that each C# operator has a behaviour that is the same for every
+                    context in which it is used?</div>
+                <div class="answer">
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
             </li>
             <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
-            </li>
-            <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
-            </li>
-            <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
-            </li>
-            <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
-            </li>
-            <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
+                <div class="question">Can you always be certain of the precise sequence of operations when an expression
+                    is evaluated?</div>
+                <div class="answer">
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
             </li>
         </ol>
         <h3>Events and Callbacks</h3>
+        <p>Programmers can use delegates to create applications from "loosely coupled" objects that communicate by
+            message events. An object can subscribe to events published by another object which exposes a delegate.</p>
+        <p>A lambda expression can be used to create "anonymous functions" that exist as pure behaviours. Delegates can
+            be made to refer to anonyoumous functions.</p>
+            <p>Here are some questions to consider:</p>
         <ol>
             <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
+                <div class="question">How does a delegate actually work?</div>
+                <div class="answer">
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
             </li>
             <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
+                <div class="question">What happens if a delegate is assigned to a delegate?</div>
+                <div class="answer">
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
             </li>
             <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
+                <div class="question">What happens if a delegate is assigned to itself?</div>
+                <div class="answer">
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
             </li>
             <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
+                <div class="question">Is there an upper limit for the number of subscribers that a publisher delegate
+                    can have?</div>
+                <div class="answer">
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
             </li>
             <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
+                <div class="question">What does the => (lambda) operator actually do?</div>
+                <div class="answer">
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
             </li>
             <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
-            </li>
-            <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
-            </li>
-            <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
-            </li>
-            <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
-            </li>
-            <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
+                <div class="question">Can code in a lambda expression access data from the enclosing code?</div>
+                <div class="answer">
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
             </li>
         </ol>
         <h3>Exceptions</h3>
+        <p>Exceptions are an important part of application development. At the very least an application will have to
+            handle exceptions that may be produced by .NET methods that it uses. For a large application you may have to
+            design custom exception types and create an error handling strategy that manages how exceptions are
+            propagted and managed. It is important to put exceptions in the correct perspective; any error that you
+            would expect the system to deal with in the normal course of events should not be handled by the use of an
+            exception, they should be reserved for situations where it is not meaningful for the application to
+            continue.</p>
+            <p>Here are some questions to consider:</p>
         <ol>
             <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
+                <div class="question">Is a method receiving a date of "31st of February" something that should cause an exception.</div>
+                <div class="answer">
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
             </li>
             <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
+                <div class="question">Should I make sure that all exceptions are always caught by my program?</div>
+                <div class="answer">
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
             </li>
             <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
+                <div class="question">Can you return to the code after an exception has been caught?</div>
+                <div class="answer">
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
             </li>
             <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
+                <div class="question">Why do we need the finally clause? Can't code to be run after the code in a try clause just be put straight after the end of the catch?</div>
+                <div class="answer">
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
             </li>
             <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
-            </li>
-            <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
-            </li>
-            <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
-            </li>
-            <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
-            </li>
-            <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
-            </li>
-            <li class="question-answer">
-                <div class="question"></div>
-                <div class="answer"></div>
+                <div class="question">Should my application always use custom exceptions?</div>
+                <div class="answer">
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
             </li>
         </ol>
     </div>
