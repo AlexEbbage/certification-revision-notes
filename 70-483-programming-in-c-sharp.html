@@ -1238,9 +1238,8 @@
                 <div class="question">Is it necessary to have both the while and the do-while looping constuction?</div>
                 <div class="answer">
                     <ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
+                        <li>The while construction will not execute any code if the control condition is false.</li>
+                        <li>The do-while consutrction tests the control condition at the completion of the loop, so it always executed once.</li>
                     </ul>
                 </div>
             </li>
@@ -1248,9 +1247,9 @@
                 <div class="question">Is a break statement the only way of exiting a loop before it completes?</div>
                 <div class="answer">
                     <ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
+                        <li>A break statement will exist the loop at that point.</li>
+                        <li>A return statement will exist the method in which the loop is declared.</li>
+                        <li>An exception being thrown will exit the loop in which it occurs.</li>
                     </ul>
                 </div>
             </li>
@@ -1259,9 +1258,10 @@
                     collection rather than a foreach loop?</div>
                 <div class="answer">
                     <ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
+                        <li>A foreach construction provides a convenient way to express a need to enumerate each of the items in a collection.</li>
+                        <li>Each enumerated item is only available on a read-only basis.</li>
+                        <li>A for loop is needed if you want to change the value of an enumerated item.</li>
+                        <li>The properties of enumerated items in a collection of reference types can be changed in a foreach loop.</li>
                     </ul>
                 </div>
             </li>
@@ -1272,9 +1272,8 @@
                     have a short circuit version?</div>
                 <div class="answer">
                     <ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
+                        <li>There is no short circuit version of exclusive-or because it is not possible to determine whether an exclusive-or is true by examining a single operand.</li>
+                        <li>An exclusive-or returns true if the two operands are different, and that determination cannot be made looking an just one operand.</li>
                     </ul>
                 </div>
             </li>
@@ -1283,9 +1282,9 @@
                     context in which it is used?</div>
                 <div class="answer">
                     <ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
+                        <li>No, C# operators have different behaviors depending on the context in which they are used.</li>
+                        <li>Integer and floating-point types are held in differnt ways in the memory of the computer.</li>
+                        <li>When arithmetic operators are used between these types the compiler will select the correct operator to be used depending on the type of the operands in the expression.</li>
                     </ul>
                 </div>
             </li>
@@ -1294,9 +1293,8 @@
                     is evaluated?</div>
                 <div class="answer">
                     <ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
+                        <li>The C# compiler guaratees that expressions will be evaluated according to the rules of precedence and associability for the operators in an exception.</li>
+                        <li>However, the precise sequence in which the operations are performed is not something that a programmer can make assumptions about.</li>
                     </ul>
                 </div>
             </li>
@@ -1312,9 +1310,11 @@
                 <div class="question">How does a delegate actually work?</div>
                 <div class="answer">
                     <ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
+                        <li>A delegate is a type that can refer to a method in an object with a particular signature.</li>
+                        <li>A delegate can also contain a list of method references.</li>
+                        <li>A delegate is called in exactly the same way as a method it can refer to.</li>
+                        <li>If the delegate contains a list of method references, each method is called in no particular order.</li>
+                        <li>The base type of all delegate objects is the Delegate class.</li>
                     </ul>
                 </div>
             </li>
@@ -1322,9 +1322,8 @@
                 <div class="question">What happens if a delegate is assigned to a delegate?</div>
                 <div class="answer">
                     <ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
+                        <li>Delegates can be assigned to other delegates, as long as they have the same signature.</li>
+                        <li>Delegates can also be added to the subscribers of a multi-cast delegate.</li>
                     </ul>
                 </div>
             </li>
@@ -1332,9 +1331,8 @@
                 <div class="question">What happens if a delegate is assigned to itself?</div>
                 <div class="answer">
                     <ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
+                        <li>A delegate can be assigned to itself, but this is not a sensible thing to do.</li>
+                        <li>If the delegate is ever called the program will enter an infinite loop.</li>
                     </ul>
                 </div>
             </li>
@@ -1343,9 +1341,7 @@
                     can have?</div>
                 <div class="answer">
                     <ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
+                        <li>There is no upper limit, over and above the capacity of the data structure in the Delegate class which holds references to subscribers.</li>
                     </ul>
                 </div>
             </li>
@@ -1353,9 +1349,7 @@
                 <div class="question">What does the => (lambda) operator actually do?</div>
                 <div class="answer">
                     <ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
+                        <li>The lambda operator separates the items that go into the expression from the statement or statements block that implements the behaviour of the lambda expression.</li>
                     </ul>
                 </div>
             </li>
@@ -1363,9 +1357,9 @@
                 <div class="question">Can code in a lambda expression access data from the enclosing code?</div>
                 <div class="answer">
                     <ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
+                        <li>Code in a lambda expression can access variables declared in code enclosing the lambda expression.</li>
+                        <li>Code in a lambda expression is not executed when the lambda expression is declared, a reference to the lambda expression my be followed at a later time.</li>
+                        <li>The C# compuler will generate code that maintains variables used by the code in the lambda expression even if they would normally be out of scope at the time the code in the lambda expression is performed.</li>
                     </ul>
                 </div>
             </li>
@@ -1384,9 +1378,11 @@
                 <div class="question">Is a method receiving a date of "31st of February" something that should cause an exception.</div>
                 <div class="answer">
                     <ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
+                        <li>It depends on the context of the action.</li>
+                        <li>If the date is being entered by a user it is reasonable to display an error message and request that the date be re-entered.</li>
+                        <li>If the date is being supplied by a method that is expected to create a transaction with this date, it is reasonable for that method to throw an exception if given an invalid date, as it wouldn't be meaningful for the method to generate anything.</li>
+                        <li>Throwing an exception, rather than returning an error code or a null value, is a way of ensuring that the program will fail in a properly noticeable way and maximizes the chances of the mistake being detected.</li>
+                        <li>From a design perspective, the need for exceptions in this situation would be completely removed if the method creating the trasaction was passed a DateTime structure. This can only contain a valid date.</li>
                     </ul>
                 </div>
             </li>
@@ -1394,9 +1390,9 @@
                 <div class="question">Should I make sure that all exceptions are always caught by my program?</div>
                 <div class="answer">
                     <ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
+                        <li>The only thing worse than a program that fails, is one that fails silently.</li>
+                        <li>You should catch all the exceptions that you know how to deal with.</li>
+                        <li>Let the remaining ones pass through so they are either caught by layers above or propagate as errors which can be caught and dealt with.</li>
                     </ul>
                 </div>
             </li>
@@ -1404,9 +1400,8 @@
                 <div class="question">Can you return to the code after an exception has been caught?</div>
                 <div class="answer">
                     <ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
+                        <li>There is no way to return to the statements after an exception has been thrown.</li>
+                        <li>If a program wants to re-try code that may throw exceptions, this code must be placed in a loop.</li>
                     </ul>
                 </div>
             </li>
@@ -1414,9 +1409,9 @@
                 <div class="question">Why do we need the finally clause? Can't code to be run after the code in a try clause just be put straight after the end of the catch?</div>
                 <div class="answer">
                     <ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
+                        <li>The finally clause is needed because code in the catch clause may return from a method or throw other exceptions.</li>
+                        <li>In which case the program will not reach the statements following the catch.</li>
+                        <li>The finally clause is guaranteed to be executed in all circumstances.</li>
                     </ul>
                 </div>
             </li>
@@ -1424,9 +1419,10 @@
                 <div class="question">Should my application always use custom exceptions?</div>
                 <div class="answer">
                     <ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
+                        <li>The standard Exception type provides a great deal of flexibility.</li>
+                        <li>It contains a Dictionary which can be filled with name-value pairs that describe an error.</li>
+                        <li>Custom exception types can be useful if none of the existing exception types are suitable for the exception context.</li>
+                        <li>Different catch clauses can be allocated to different exception types, they also make exceptions easier to manage.</li>
                     </ul>
                 </div>
             </li>
