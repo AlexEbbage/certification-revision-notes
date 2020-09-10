@@ -216,10 +216,14 @@
             <h4>Static Variables</h4>
             <ul>
                 <li>A static varialb eis a member of a type, but it is not created for each instance of a type.</li>
-                <li>A variable in a class is made static by using the static keyword in the declaration of that variable.</li>
-                <li>Code outside the class must refer to static variables via the class name, rather than the name of any particular instance of that class.</li>
-                <li>A program can use astic variable from a type without needing to have created any instances of that type.</li>
-                <li>Types can also contain static methods, which can be called without the need for an instance of that object.</li>
+                <li>A variable in a class is made static by using the static keyword in the declaration of that
+                    variable.</li>
+                <li>Code outside the class must refer to static variables via the class name, rather than the name of
+                    any particular instance of that class.</li>
+                <li>A program can use astic variable from a type without needing to have created any instances of that
+                    type.</li>
+                <li>Types can also contain static methods, which can be called without the need for an instance of that
+                    object.</li>
                 <li>Static variables are very useful for validation values for a type.</li>
                 <li>They can be made private to a class so that their values can be managed by that class.</li>
             </ul>
@@ -229,8 +233,10 @@
                 <li>It has a signature and a body.</li>
                 <li>The signature defines the type and number of parameters that the method will accept.</li>
                 <li>The body is a block of code that is performed when the method is called.</li>
-                <li>The method method has a return type other than void, all code paths through the body of the code must end with a return statement that returns a value of the type of the method.</li>
-                <li>The name of a method is best expressed in a "verb-noun" manner, with an action followed by the thing that the action is acting on.</li>
+                <li>The method method has a return type other than void, all code paths through the body of the code
+                    must end with a return statement that returns a value of the type of the method.</li>
+                <li>The name of a method is best expressed in a "verb-noun" manner, with an action followed by the thing
+                    that the action is acting on.</li>
                 <li>When talking about the signature and body we talk in terms of parameters used in the method.</li>
                 <li>In the case of a method call we will talk in terms of the arguments supplied to the call.</li>
             </ul>
@@ -239,75 +245,234 @@
                 <li>A class can be thought of as a template required to create and instance of a class.</li>
                 <li>Instances of a class are created when the new keyword is used. When used, 3 things occur:
                     <ol>
-                        <li>The program code that implements the class is loaded into memory, if it is not already present.</li>
-                        <li>If this is the first time that the class has been referenced, any static members of the class are initialized and the static constructor is called.</li>
+                        <li>The program code that implements the class is loaded into memory, if it is not already
+                            present.</li>
+                        <li>If this is the first time that the class has been referenced, any static members of the
+                            class are initialized and the static constructor is called.</li>
                         <li>The constructor of the class is called.</li>
                     </ol>
                 </li>
                 <li>A class can contain members that are methods, data variables, or properties.</li>
-                <li>A class method allows a class to provide behaviours that can be used by code running in other classes.</li>
+                <li>A class method allows a class to provide behaviours that can be used by code running in other
+                    classes.</li>
                 <li>Data variables allow a class to maintain state and manage the storage of information.</li>
                 <li>Properties provide a means for managing access to data within a class.</li>
             </ul>
             <h4>Extenison Methods</h4>
             <ul>
-                <li>Extension methods provide a way in which behaviours can be added to a class without needing to extend the class itself.</li>
-                <li>The first parameter to the method specifies the type that the extension method should be added to, by using the this keyword followed by the name of the type.</li>
-                <li>Once created, it can be used from the namespace in which the class containing the method is declared.</li>
-                <li>When called the compiler searches the included namespaces for a matching method for that type, and then generates a call of that method.</li>
-                <li>Note that extensnion methods are never part of the object they are attached to, since they can't access private members of the method class.</li>
+                <li>Extension methods provide a way in which behaviours can be added to a class without needing to
+                    extend the class itself.</li>
+                <li>The first parameter to the method specifies the type that the extension method should be added to,
+                    by using the this keyword followed by the name of the type.</li>
+                <li>Once created, it can be used from the namespace in which the class containing the method is
+                    declared.</li>
+                <li>When called the compiler searches the included namespaces for a matching method for that type, and
+                    then generates a call of that method.</li>
+                <li>Note that extensnion methods are never part of the object they are attached to, since they can't
+                    access private members of the method class.</li>
                 <li>They can never be used to replace an existing method in a class.</li>
-                <li>They allow you to add behaviours to existing classes and use them as if they were part of that class.</li>
+                <li>They allow you to add behaviours to existing classes and use them as if they were part of that
+                    class.</li>
             </ul>
             <h4>Optional and Named Parameters</h4>
             <ul>
-                <li>If you want to make method calls without worrying about the order of the arguments, you can name each one when you call the method.</li>
-                <li>This makes it easy for another programmer reading your code to see the meaning of each argument value.</li>
-                <li>Using this format also removes the possibility of any confusion of the ordering of the values in the method call.</li>
+                <li>If you want to make method calls without worrying about the order of the arguments, you can name
+                    each one when you call the method.</li>
+                <li>This makes it easy for another programmer reading your code to see the meaning of each argument
+                    value.</li>
+                <li>Using this format also removes the possibility of any confusion of the ordering of the values in the
+                    method call.</li>
                 <li>You should use named paramters whenever you call a method that has more than one parameter.</li>
                 <li>A paramter is made optional by giving it a default value in the defintion of the method.</li>
                 <li>Optional parameters must be provided after all of the required ones.</li>
             </ul>
             <h4>Index Properties</h4>
             <ul>
-                <li>A program can access a particular array element by using an index value that identifies the element.</li>
+                <li>A program can access a particular array element by using an index value that identifies the element.
+                </li>
                 <li>A class can use the same indexing mechanism to provide indexed property values.</li>
                 <li>This is how the Dictionary collection is used to index on a particular type of key value.</li>
             </ul>
             <h4>Create Overload and Overridden Methods</h4>
             <ul>
-                <li>Overloading is providing a method with the same name, but a different signature in a given type.</li>
-                <li>It is useful when you want to provide several ways of performing a particular behaviour based of differing circumstances.</li>
-                <li>The DateTime strcture has a large number of overloaded constructors, because there are man different ways a programmer might want to initalize a DateTime value.</li>
+                <li>Overloading is providing a method with the same name, but a different signature in a given type.
+                </li>
+                <li>It is useful when you want to provide several ways of performing a particular behaviour based of
+                    differing circumstances.</li>
+                <li>The DateTime strcture has a large number of overloaded constructors, because there are man different
+                    ways a programmer might want to initalize a DateTime value.</li>
                 <li>Overriding takes place when class hierarchies are used.</li>
                 <li>In a class hierarchy a child class is derived from a parent or base class.</li>
-                <li>A method in a base class is overridden by a method in a child when the child class contains a method with exactly the same signature as the parent class.</li>
+                <li>A method in a base class is overridden by a method in a child when the child class contains a method
+                    with exactly the same signature as the parent class.</li>
                 <li>Only methods that have been marked as virtual in the parent class can be overridden.</li>
-                <li>The underlying principle of a class hierarchy is that classes at the top of the hierarchy are more abstract, and classes toward the bottom are more specific.</li>
-                <li>The classes higher in the hierarchy hold all the behaviours that are common. While classes lower down might need a more specific behavior and have to override the parent method.</li>
-                <li>The whole behavior doesn't need to be rewritten. It can be extended by calling the method in the parent class by using the base keyword.</li>
+                <li>The underlying principle of a class hierarchy is that classes at the top of the hierarchy are more
+                    abstract, and classes toward the bottom are more specific.</li>
+                <li>The classes higher in the hierarchy hold all the behaviours that are common. While classes lower
+                    down might need a more specific behavior and have to override the parent method.</li>
+                <li>The whole behavior doesn't need to be rewritten. It can be extended by calling the method in the
+                    parent class by using the base keyword.</li>
             </ul>
         </div>
     </div>
     <div>
         <h2 id="skill-2-2">Skill 2.2: Consuming Types</h2>
-        <ul>
-            <li>NOTES</li>
-            <li>NOTES</li>
-            <li>NOTES</li>
-        </ul>
         <p>This section covers how to:</p>
         <ul>
-            <li>TOPIC</li>
-            <li>TOPIC</li>
-            <li>TOPIC</li>
+            <li>Box or unbox to convert between value types</li>
+            <li>Cast types</li>
+            <li>Convert types</li>
+            <li>Handle dynamic types</li>
+            <li>Ensure interoperability with unmanaged code that accesses COM APIs</li>
         </ul>
         <div>
-            <h3>HEADING</h3>
+            <h3>Boxing and Unboxing</h3>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>From a computational point of view, value types such as int and float have the advantage that the
+                    processor can manipulate value types directly.</li>
+                <li>Adding two int values tofther can be acheived by fetching the values into the processor, performing
+                    the addition operation, and then storing the result.</li>
+                <li>It can be useful to treat value types as refrence types. C# runtime system provides a mechanism
+                    called boxing that will perform this conversion whenr required.</li>
+                <li>The process of converting from a reference type into a value type is called unboxing.</li>
+                <li>A .NET program processes data by moving values onto a stack (evaluation stack), performing actions
+                    on them, and then storing the results.</li>
+                <li>The box instruction (value to reference) and unbox instruction (reference to value) are always given
+                    a destination (box) or source (unbox) type to use.</li>
+                <li>Each built-in C# value type has a matching C# type called its itnerface type to which it is
+                    converted when boxing is performed.</li>
+                <li>Fortunately for programmers, the unboxnig and boxing process happens automatically when variables
+                    are converted between types.</li>
+                <li>Unfortunately, these processes slow the program down.</li>
+                <li>The need to box and unbox values in a solution is a symptom of poor design, you should be clear in
+                    your design which data items are value types and which references, and work with them correctly.
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h3>Cast Types</h3>
+            <ul>
+                <li>Narrowing is when a value is transferred into a type which offers a narrower range of values.</li>
+                <li>The integer type does not handle the fractional part of a value, and so a float value will have its
+                    fractional part discarded when the assignment takes place.</li>
+                <li>The above conversion would not compile unless explicit conversion is used.</li>
+                <li>This is achieved by the use of a cast, which identifies the desired type of value being assigned.
+                </li>
+                <li>The type is given, enclosed in brackets, before the value to be converted.</li>
+                <li>Widening is when a value is transferred into a type which offers a wider ranger of value. This
+                    doesn't required a cast, because there is no prospect of data loss.</li>
+                <li>Casting can't be used to convert between different types, like an integer to a string.</li>
+                <li>Casting is also used when converting references to objects that may be part of class hierarchies or
+                    expose interfaces.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Convert Types</h3>
+            <ul>
+                <li>You can write your own type covnersion operators for your data classes so that you can perform
+                    implicit and explicit conversions between types.</li>
+                <li>An implicit conversion operator is called automatically.</li>
+                <li>An explicit conversion operator requires a cast. The conversion is explicit because it is a
+                    narrowing operation that will result in a loss of data.</li>
+            </ul>
+            <h4>Convert Types with System.Convert</h4>
+            <ul>
+                <li>The System.Convert class provides a set of static methods that can be used to perform type
+                    conversion between .NET types.</li>
+                <li>A string can be converted to an integer using:
+                    <code>int myAge = Convert.ToInt32("21");</code>
+                </li>
+                <li>The convert method will throw an exception if the string provided cannot be converted into an
+                    integer.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Handling Dynamic Types</h3>
+            <ul>
+                <li>C# is a strongly type language, meaning that when the program is compiled the compiler ensures that
+                    all actions that are performed are valid in the contect of the types that have been defined in the
+                    program.</li>
+                <li>If a class does not contain a method with a particular name, the C# compiler will refuse to generate
+                    a call to that method.</li>
+                <li>Strong typing works well as a way of making sure C# programs are valid at the time they are
+                    executed.</li>
+                <li>Strong typing can create issues when a C# program is required to interact with a system with origins
+                    not in C#.</li>
+                <li>These situations arise when using Common Object Model (COM) interop, the Document Object Model
+                    (DOM), with objects generated by C# reflection, or when interworking with dynamic languages such as
+                    JavaScript.</li>
+                <li>In these situations, you need to force the compiler to interact with objects for which the strong
+                    typing information that is generated from compiled C# is not available.</li>
+                <li>The dynamic keyword is used to identify items for which the C# compiler should suspend static type
+                    checking.</li>
+                <li>The compiler will then generate code that works with the items as described, without doing static
+                    checking.</li>
+                <li>This doesn't mean programs using dynamic objects will always work; if the description is incorrect
+                    the program will fail at runtime.</li>
+                <li>The dynamic keyword makes it possible to interact with objects that have behaviours, but not the C#
+                    type informationthat the C# compiler would normally use to ensure that any interaction is valid.
+                </li>
+                <li>A variable declared as dynamic is allocated a type that is inferred from the context in which it is
+                    used. Similar to variables in Python and JavaScript.</li>
+                <li>Just because you can do this doesn't mean you should. The flexibilty was added to make it easier to
+                    interact with other languages and libraries written using COM.</li>
+            </ul>
+            <h4>Use ExpandoObject</h4>
+            <ul>
+                <li>The ExpandoObject class allows a program to dynamically add properties to an object.
+                    <code>
+                        dynamic person = new ExpandoObject();
+
+                        person.Name = "Alex Ebbage";
+                        person.Age = 24;
+
+                        Console.WriteLine($"Name: {person.Name}, Age: {person.Age}");
+                    </code>
+                </li>
+                <li>A program can add ExpandoObject properties to an ExpandoObject to create nested data structures.
+                </li>
+                <li>They can also be queried by LINQ and can expose the IDictionary interface to allow its contents to
+                    be queried and items to be removed.</li>
+                <li>It's especially useful when creating data structures from markup languages, like when reading a JSON
+                    or XML document.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Interoperability with Unmanaged Code that Accesses COM APIs</h3>
+            <ul>
+                <li>The COM is a mechanism that allows software components to interact.</li>
+                <li>The model describes how to express an interface to which other objects can connect.</li>
+                <li>COM is interesting to programmers because a great many resources you would like to use are exposed
+                    via COM interfaces.</li>
+                <li>The code inside a COM object runs as unmanaged code, having direct acces to the underlying system.
+                </li>
+                <li>While possible to run .NET applications in an unmanaged mode, .NET applications usually run inside a
+                    managed environment, limiting the level of access that the applications have to the underlying
+                    system.</li>
+                <li>When a .NET application wants to interact with a COM object it has to perform the following:
+                    <ol>
+                        <li>Convert any parameters for the COM object into an appropriate format.</li>
+                        <li>Switch to unmanaged eecution for the COM behaviour.</li>
+                        <li>Invoke the COM behaviour.</li>
+                        <li>Switch back to manged execution upon completion of the COM behaviour.</li>
+                        <li>Convert any results of the COm request into the correct types of .NET objects.</li>
+                    </ol>
+                </li>
+                <li>This is performed by the Primary Interop Assembly (PIA) component that is supplied along with the
+                    COM object.</li>
+                <li>The results returned by the PIA can be managed as dynamic objects, so tha thetype of the values can
+                    be inferred rather than having to be specified directly.</li>
+                <li>The use of dynamic types makes interaction with the Office application very easy.</li>
+                <li>There is no need to cast the various elements that the program is interacting with, as they are
+                    exposed by the interop as dynamic types, so conversion is performed automatically based on the
+                    ienferred type of an assignment destination.</li>
+            </ul>
+            <h4>Embedding Type Information from Assemblies</h4>
+            <ul>
+                <li>You can create applications that interact with different versions of Microsoft Office by embedding
+                    the Primary Interop Assembly in the application.</li>
+                <li>This is achieved by setting the Embed Interop Types option of the assembly reference to True.</li>
+                <li>This removes the need for any interop assemblies on the machine running the application.</li>
             </ul>
         </div>
     </div>
