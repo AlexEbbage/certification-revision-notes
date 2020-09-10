@@ -13,23 +13,279 @@
     </ul>
     <div>
         <h2 id="skill-2-1">Skill 2.1: Creating Types</h2>
-        <ul>
-            <li>NOTES</li>
-            <li>NOTES</li>
-            <li>NOTES</li>
-        </ul>
         <p>This section covers how to:</p>
         <ul>
-            <li>TOPIC</li>
-            <li>TOPIC</li>
-            <li>TOPIC</li>
+            <li>Create value types, including structs and enum</li>
+            <li>Create reference types, generic types, constructors, static variables, method, classes and extension
+                methods</li>
+            <li>Create optional and named paramters</li>
+            <li>Create indexed properties</li>
+            <li>Create overloaded and overridden methods</li>
         </ul>
         <div>
-            <h3>HEADING</h3>
+            <h3>Value and Reference Types</h3>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>Consider you have 2 variables, x and y, and you make the statement <code>y.Data = 99; x = y; x.Data
+                        = 100;</code>...</li>
+                <li>If the variables x and y are value types, the value of y is copied into the variable x. The Data
+                    property of y is not affected by the final assignment to x.</li>
+                <li>If the variables x and y are referemce types, the variable x is made to refer to the same object as
+                    that referred to by variable y. The final assignment will make the Data property of a single object
+                    set to 100.</li>
+                <li>Structure variables are managed by value and class variables are managed by reference.</li>
+            </ul>
+            <h4>Value and Referene Types in .NET</h3>
+                <ul>
+                    <li>A good example of a value type is the DateTime structure provided by the .NET library.</li>
+                    <li>You could represent date values in the form of a collection of individual values, but assigning
+                        one date to another would be time-consuming as the program would have to transfer each value.
+                    </li>
+                    <li>Having a DateTime type means you can move a date value between variables with a single
+                        assignment. During a DateTime assignment all the values that represent the date are copied into
+                        the destination variable.</li>
+                    <li>A good example of a reference type is the Bitmap class from the System.Drawing library in .NET.
+                    </li>
+                    <li>The Bitmap class is used to create objects that hold the pixels which make up an image which
+                        could be millions.</li>
+                    <li>If a Bitmap is held as a value type, when one is assigned to another, all the pixels in the
+                        source Bitmap must be copied from the source image into the destination.</li>
+                    <li>As they are managed by reference, an assignment simply makes the destination reference refer to
+                        the same object as the source reference.</li>
+                </ul>
+                <h4>Type Design</h3>
+                    <ul>
+                        <li>Using the design of a space shooter game as an example...</li>
+                        <li>The location of the alien on the screen should be a value type, as you'd want the position
+                            as a single value. You don't want to share coordinates between aliens.</li>
+                        <li>A sound effect would be a reference type, as it'd store a large array of integer data which
+                            represent a given sound. You may want serveral aliens to share the same sound.</li>
+                        <li>In C#, value types are enumerated types and references. Reference types are classes.</li>
+                    </ul>
+                    <h4>Immutablity in Types</h3>
+                        <ul>
+                            <li>An immutable type is one whose instances cannot be changed.</li>
+                            <li>The DateTime structure is an immutable type. Once an isntance is created you cannot
+                                change any elements of that instance.</li>
+                            <li>The only way to edit them is to create a new DateTime value that contains the updated
+                                values.</li>
+                            <li>Changing the values of an immutable type is less efficient as it requires the creation
+                                of a new object each time.</li>
+                            <li>However, it removes the possiblity of elements in a variable changing once created.</li>
+                            <li>They are advantagous when writing concurrent programs as they can never be corrupted
+                                because they can never be changed.</li>
+                            <li>The string type in C# is also immutable.</li>
+                        </ul>
+        </div>
+        <div>
+            <h3>Creating Value Types</h3>
+            <h4>Structures</h4>
+            <ul>
+                <li>Structures can contain methods, data values, properties and can have constructors.</li>
+                <li>The constructor for a structure must initalize all the data members. They cannot be initalized in
+                    the structure.</li>
+                <li>A structure cannot have a parameterless constructor. However, a structure can be created by calling
+                    a parameterless constructor which sets all elements to have default values.</li>
+                <li>A structure cannot be created by extending a parent structure object.</li>
+                <li>Structure isntances are generally created on the program stack unless they are used in closures.
+                </li>
+                <li>An array of structure instances will be created as a block of contiguous memory, which holds all the
+                    required items.</li>
+                <li>A structure definition can contain overrides, e.g. ToString(). A structure cannot use a class
+                    hierarchy, because it is posible to override methods from the parent type of a struct.</li>
+            </ul>
+            <h4>Enumerated Types</h4>
+            <ul>
+                <li>Enumerated types are used in situations where the programemr wants to specify a range of values a
+                    given type can have.</li>
+                <li>For example, they might want to represent the states of an AI: sleeping, attacking or destroyed. An
+                    integer could be used for this but if 1-3 are used for these states and 4 is given, it will have no
+                    meaning.</li>
+                <li>Unless specified otherwise, an enumerated type is based on the int type and values start from 0.
+                </li>
+                <li>You would do this if you want to set particular values to be used in JSON and XML files when
+                    enumerated variables are stored.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Creating Reference Types</h3>
+            <ul>
+                <li>A class is declared in a similar manner to a structure, but the way in which they are manipulated is
+                    significantly different.</li>
+                <li>When a variable of a class type is declared, the variable is now a refernce to that object.</li>
+            </ul>
+            <h4>Memory Allocation</h4>
+            <ul>
+                <li>Memory used to store variables of value type is allocated on the stack.</li>
+                <li>The stack is an area of memory that is allocated and removed as programs enter and leave blocks.
+                </li>
+                <li>Any value type variables created during the execution of a block are stored on a local stack
+                    frame and then the entire frame is discarded when the block completes.</li>
+                <li>This is an extremely efficient way to manage memory.</li>
+                <li>Memory used to store variables of reference type is allocated on the heap.</li>
+                <li>The heap is managed for an entire application.</li>
+                <li>The heap is required because, as references may eb passed between method calls as paramters, it
+                    is not the ase that objects managed by refence cane be discarded when a method exits.</li>
+                <li>Objects can only be removed from the heap when the garbage collection process determines that
+                    there are no references to them.</li>>
+            </ul>
+            <h4>Generic Types</h4>
+            <ul>
+                <li>Generic types are used extensively in C# collections, such as with the List and Dictionary
+                    classes.</li>
+                <li>They allow you to create a List of any type or a Dictionary of any type, indexed on any
+                    type.</li>
+                <li>Without generic types you either have to reduce type safety in your programs by using
+                    collections that manage only objects, or you have to waste time creating collections for
+                    each type.</li>
+                <li>An example of a generic stack is shown below:
+                    <code>
+                        class MyStack&lt;T&gt;
+                        {
+                        <span class="i1">&nbsp;</span>int stackTop = 0;
+                        <span class="i1">&nbsp;</span>T[] items = new T[100];
+
+                        <span class="i1">&nbsp;</span>public void Push(T item)
+                        <span class="i1">&nbsp;</span>{
+                        <span class="i2">&nbsp;</span>if (stackTop == items.Length)
+                        <span class="i3">&nbsp;</span>throw new Exception("Stack full!");
+                        <span class="i2">&nbsp;</span>items[stackTop] = item;
+                        <span class="i2">&nbsp;</span>stackTop++;
+                        <span class="i1">&nbsp;</span>}
+
+                        <span class="i1">&nbsp;</span>public T Pop()
+                        <span class="i1">&nbsp;</span>{
+                        <span class="i2">&nbsp;</span>if (stackTop == 0)
+                        <span class="i3">&nbsp;</span>throw new Exception("Stack empty!");
+                        <span class="i2">&nbsp;</span>stackTop--;
+                        <span class="i2">&nbsp;</span>return items[stackTop];
+                        <span class="i1">&nbsp;</span> }
+
+                        <span class="i1">&nbsp;</span>static void Main(string[] args)
+                        <span class="i1">&nbsp;</span>{
+                        <span class="i2">&nbsp;</span>MyStack&lt;string&gt; stringStack = new
+                        <span class="i2">&nbsp;</span>MyStack&lt;string&gt;();
+                        <span class="i2">&nbsp;</span>stringStack.Push("Apple");
+                        <span class="i2">&nbsp;</span>Console.WriteLine(stringStack.Pop());
+                        <span class="i2">&nbsp;</span>Console.ReadKey();
+                        <span class="i1">&nbsp;</span>}
+                        }
+                    </code>
+                </li>
+            </ul>
+            <h4>Generic Contstraints</h4>
+            <ul>
+                <li>There are several constraints which can be applied to the class declaration to restrict types which
+                    can be represented by T:
+                    <ul>
+                        <li><b>where T : class</b> The type T must be a reference type.</li>
+                        <li><b>where T : struct</b> The type T must be a value type.</li>
+                        <li><b>where T : new()</b> The type T must have a public, parameterless, constructor. Specify
+                            this constraint last if you are specifying a list of constraints.</li>
+                        <li><b>where T : &lt;base class&gt;</b> The type T must be of type base class or derive from
+                            base class.</li>
+                        <li><b>where T : &lt;interface name&gt;</b> The type T must be or implement the specifed
+                            interface. You can specify multiple interfaces.</li>
+                        <li><b>where T : &lt;unmanaged&gt;</b> The type T must not be a reference type or contain any
+                            members which are reference types.</li>
+                    </ul>
+                </li>
+            </ul>
+            <h4>Constructors</h4>
+            <ul>
+                <li>A constructor allows a programmer to control the process by which objects are craeted.</li>
+                <li>Constructors can be used by both reference types (classes) and value types (stuctures).</li>
+                <li>A constructor has the same name as the object it is part of but does not have a return type.</li>
+                <li>They can perform validation on their parameters to ensure that any objects created contain valid
+                    information.</li>
+                <li>If invalid, a constructor must throw an exception to prevent the creation of an object.</li>
+                <li>If an object only has a private constructor, it must be instantiated using a public factory method
+                    that is declared in the same class.</li>
+                <li>Constructors can be overloaded, so an object can contain multiple versions of a consntructor with
+                    different signatures.</li>
+                <li>A program can avoid code repition by making one constructor call another constructor by the use of
+                    the keyword this.</li>
+            </ul>
+            <h4>Static Constructors</h4>
+            <ul>
+                <li>A static consturctor method is called once before the creation of the very first instance of the
+                    class.</li>
+                <li>It is a good place to load resources and initialize values that will be ysed by instances of the
+                    class.</li>
+                <li>They can include values of static members of the class.</li>
+            </ul>
+            <h4>Static Variables</h4>
+            <ul>
+                <li>A static varialb eis a member of a type, but it is not created for each instance of a type.</li>
+                <li>A variable in a class is made static by using the static keyword in the declaration of that variable.</li>
+                <li>Code outside the class must refer to static variables via the class name, rather than the name of any particular instance of that class.</li>
+                <li>A program can use astic variable from a type without needing to have created any instances of that type.</li>
+                <li>Types can also contain static methods, which can be called without the need for an instance of that object.</li>
+                <li>Static variables are very useful for validation values for a type.</li>
+                <li>They can be made private to a class so that their values can be managed by that class.</li>
+            </ul>
+            <h4>Methods</h4>
+            <ul>
+                <li>A method is a member of a class.</li>
+                <li>It has a signature and a body.</li>
+                <li>The signature defines the type and number of parameters that the method will accept.</li>
+                <li>The body is a block of code that is performed when the method is called.</li>
+                <li>The method method has a return type other than void, all code paths through the body of the code must end with a return statement that returns a value of the type of the method.</li>
+                <li>The name of a method is best expressed in a "verb-noun" manner, with an action followed by the thing that the action is acting on.</li>
+                <li>When talking about the signature and body we talk in terms of parameters used in the method.</li>
+                <li>In the case of a method call we will talk in terms of the arguments supplied to the call.</li>
+            </ul>
+            <h4>Classes</h4>
+            <ul>
+                <li>A class can be thought of as a template required to create and instance of a class.</li>
+                <li>Instances of a class are created when the new keyword is used. When used, 3 things occur:
+                    <ol>
+                        <li>The program code that implements the class is loaded into memory, if it is not already present.</li>
+                        <li>If this is the first time that the class has been referenced, any static members of the class are initialized and the static constructor is called.</li>
+                        <li>The constructor of the class is called.</li>
+                    </ol>
+                </li>
+                <li>A class can contain members that are methods, data variables, or properties.</li>
+                <li>A class method allows a class to provide behaviours that can be used by code running in other classes.</li>
+                <li>Data variables allow a class to maintain state and manage the storage of information.</li>
+                <li>Properties provide a means for managing access to data within a class.</li>
+            </ul>
+            <h4>Extenison Methods</h4>
+            <ul>
+                <li>Extension methods provide a way in which behaviours can be added to a class without needing to extend the class itself.</li>
+                <li>The first parameter to the method specifies the type that the extension method should be added to, by using the this keyword followed by the name of the type.</li>
+                <li>Once created, it can be used from the namespace in which the class containing the method is declared.</li>
+                <li>When called the compiler searches the included namespaces for a matching method for that type, and then generates a call of that method.</li>
+                <li>Note that extensnion methods are never part of the object they are attached to, since they can't access private members of the method class.</li>
+                <li>They can never be used to replace an existing method in a class.</li>
+                <li>They allow you to add behaviours to existing classes and use them as if they were part of that class.</li>
+            </ul>
+            <h4>Optional and Named Parameters</h4>
+            <ul>
+                <li>If you want to make method calls without worrying about the order of the arguments, you can name each one when you call the method.</li>
+                <li>This makes it easy for another programmer reading your code to see the meaning of each argument value.</li>
+                <li>Using this format also removes the possibility of any confusion of the ordering of the values in the method call.</li>
+                <li>You should use named paramters whenever you call a method that has more than one parameter.</li>
+                <li>A paramter is made optional by giving it a default value in the defintion of the method.</li>
+                <li>Optional parameters must be provided after all of the required ones.</li>
+            </ul>
+            <h4>Index Properties</h4>
+            <ul>
+                <li>A program can access a particular array element by using an index value that identifies the element.</li>
+                <li>A class can use the same indexing mechanism to provide indexed property values.</li>
+                <li>This is how the Dictionary collection is used to index on a particular type of key value.</li>
+            </ul>
+            <h4>Create Overload and Overridden Methods</h4>
+            <ul>
+                <li>Overloading is providing a method with the same name, but a different signature in a given type.</li>
+                <li>It is useful when you want to provide several ways of performing a particular behaviour based of differing circumstances.</li>
+                <li>The DateTime strcture has a large number of overloaded constructors, because there are man different ways a programmer might want to initalize a DateTime value.</li>
+                <li>Overriding takes place when class hierarchies are used.</li>
+                <li>In a class hierarchy a child class is derived from a parent or base class.</li>
+                <li>A method in a base class is overridden by a method in a child when the child class contains a method with exactly the same signature as the parent class.</li>
+                <li>Only methods that have been marked as virtual in the parent class can be overridden.</li>
+                <li>The underlying principle of a class hierarchy is that classes at the top of the hierarchy are more abstract, and classes toward the bottom are more specific.</li>
+                <li>The classes higher in the hierarchy hold all the behaviours that are common. While classes lower down might need a more specific behavior and have to override the parent method.</li>
+                <li>The whole behavior doesn't need to be rewritten. It can be extended by calling the method in the parent class by using the base keyword.</li>
             </ul>
         </div>
     </div>
