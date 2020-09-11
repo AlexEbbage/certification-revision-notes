@@ -478,23 +478,88 @@
     </div>
     <div>
         <h2 id="skill-2-3">Skill 2.3: Enforcing Encapsulation</h2>
-        <ul>
-            <li>NOTES</li>
-            <li>NOTES</li>
-            <li>NOTES</li>
-        </ul>
         <p>This section covers how to:</p>
         <ul>
-            <li>TOPIC</li>
-            <li>TOPIC</li>
-            <li>TOPIC</li>
+            <li>Enforce encapsulation by using properties</li>
+            <li>Enforce encapsulation by using accessors, including public, private, protected, and internal</li>
+            <li>Enforce encapsulation by using explicit interface implementation</li>
         </ul>
         <div>
-            <h3>HEADING</h3>
+            <h3>Access Modifiers</h3>
+            <h4>Public and Private Access</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>C# allows objects to encapsulate data and methods via marking them with access modifiers.</li>
+                <li>The public access modifier can be accessed by code that is outside that type.</li>
+                <li>A private member of a type can only be accessed by code running inside the type.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Enforce Encapsulation by Using Properties</h3>
+            <ul>
+                <li>A propety in an object provides a way that a programmer can encapsulate data.</li>
+                <li>You can get more control over the values assigned to properties by adding validation to the set block of the property.</li>
+                <li>If you throw an exception when invalid you ensure that the user is always made aware of any error conditions.</li>
+                <li>You can make the set behaviour ignore invalid values, or you could set a default value when an invalid one is provided.</li>
+                <li>Read-only properties can be created by only providing a get behaviour.</li>
+                <li>You can also make write-only properties in a similar manner, though this ability is less frequently used.</li>
+                <li>Different access modifiers can also be applied to the get and set behaviours.</li>
+                <li>The backing value of a property is a private data member of the same type as the property, with a name starting with an "_". </li>
+                <li>Auto-implemented properties have their backing values automatically created by the C# compiler.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Enforce Encapsulation by Using Accessors</h3>
+            <ul>
+                <li>As a general rule, data held within a type should be private and the methods to access the data inside should be public.</li>
+                <li>Properties provide a way to manage access to individual values in a class.</li>
+                <li>Making a data member of a class private will stop direct access to that data member.</li>
+                <li>From a design perspective, making a class member private and only providing public methods that allow access to that member is a good first step to creating secure code.</li>
+                <li>However, you may also have to make sure that you provide a secure workflow that manages access to the data.</li>
+            </ul>
+            <h4>Default Access Modifiers</h4>
+            <ul>
+                <li>If you don't specify an access modifer for a member of a type, it'll default to private.</li>
+                <li>To make a member visible to the outside it must be done explicitly.</li>
+                <li>You don't have to add the private modifier to private members, but it is strongly advised you do.</li>
+            </ul>
+            <h4>Protected Access</h4>
+            <ul>
+                <li>The protected access modifer makes a class member useable in any classes that extend the parent (base) class in which the member is declared.</li>
+                <li>It isn't recommended you use the protected access modifier to control acess to highly important data members of a class.</li>
+                <li>Doing so makes it easy for malicious programemrs to gain access to the protected member by extending the parent class.</li>
+                <li>A good use is to limit access to helper methods that have no meaningful use outside of the class hierarchy.</li>
+            </ul>
+            <h4>Internal Access</h4>
+            <ul>
+                <li>The internal access modifier will make a meber of a type accessible within the assembly in which it is declared.</li>
+                <li>An assembly can be regarded as the output of a C# project in Visual Studio.</li>
+                <li>It can be iether an executable program or a library of classes.</li>
+                <li>Internal access is most useful when you have a large number of cooperating classes that are being used to provide a particular library component.</li>
+                <li>These classes may want to share memebers which should not be visible to programs that use the library.</li>
+            </ul>
+            <h4>Readonly Access</h4>
+            <ul>
+                <li>The readonly access modifier will make a member of a type read only.</li>
+                <li>The value member can only be set at declaration or within the constructor of the class.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Enforce Encapsulation by Using Explicity Interface Implementation</h3>
+            <ul>
+                <li>When a class implements an interfface it contains methods with signatures that match the ones specified in the interface.</li>
+                <li>You can use an explicit interface implementation to make methods implementing an interface only visible when the object is accessed via an interface reference.</li>
+                <li>You might want an IPrintable interface that specifies methods used to print any object. This is a good idea because now a printer can be asked to print any item that is referred to by a reference of IPrintable type.</li>
+                <li>In other words, any object that implemetns the method in IPrintable can be printed.</li>
+                <li>Methods in the IPrintable interface only have meaning when being used by something trying to print an object. It's not sensible to call the printing methods in any other context than via the IPrintable reference.</li>
+                <li>This can be achieved by making the implementation of the print methods explicit, thus adding the interface name to the delcaration of the method body.</li>
+                <li>When you use an interface in a program you should ensure that all the implementations of any interface methods are explicit. This reduces the chances of the interface methods being used in an incorrect contect.</li>
+            </ul>
+            <h4>Resolving Duplicate Method Signatures by Using Explicit Implementation</h4>
+            <ul>
+                <li>When a class implements an interface it must contain an implementation of all methods that are defined in the interface.</li>
+                <li>Sometimes a class may implement multiple interfaces, in which case it must contain all the methods defined in all the interfaces.</li>
+                <li>Issues can occur if 2 interfaces contain a method with the same name.</li>
+                <li>This can be resolved by specifying the interface name to the declaration of the method body.</li>
             </ul>
         </div>
     </div>
