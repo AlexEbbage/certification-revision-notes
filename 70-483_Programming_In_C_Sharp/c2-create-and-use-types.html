@@ -874,23 +874,251 @@
     </div>
     <div>
         <h2 id="skill-2-5">Skill 2.5: Find, Execute and Create Types At Runtime</h2>
-        <ul>
-            <li>NOTES</li>
-            <li>NOTES</li>
-            <li>NOTES</li>
-        </ul>
         <p>This section covers how to:</p>
         <ul>
-            <li>TOPIC</li>
-            <li>TOPIC</li>
-            <li>TOPIC</li>
+            <li>Create and apply attributes</li>
+            <li>Read attributes</li>
+            <li>Generate code at runtime by using CodeDom and Lambda expressions</li>
+            <li>Use types from the System.Reflection namespace, including Assembly, PropertyInfo, MethodInfo and Type
+            </li>
         </ul>
         <div>
-            <h3>HEADING</h3>
+            <h3>Create and Apply Attributes</h3>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>When describing a piece of data you can talk in terms of the attributes of that data.</li>
+                <li>Metadata is "data about data". In the case of music; the data is the music itself, and the metadata
+                    is the name of the artist.</li>
+                <li>C# allows you to add metadata to an application in the form of attributes that are attached to
+                    classes and class members.</li>
+                <li>An attribute is an instance of a class that extends the Attrbiute class.</li>
+            </ul>
+            <h4>The Serializable Attribute</h4>
+            <ul>
+                <li>The Serializable attribute doesn't hold any data.</li>
+                <li>It indicates that the class attached to it may be opened and read by a serializer.</li>
+                <li>A serializer takes the entire contents of a class and sends it into a stream.</li>
+                <li>There are securiting implications in seriaizing a class, so C# requires that a class explicitly
+                    "opts in" for the serialization process.</li>
+                <li>The NonSerializaed attribute is applied to members which you don't want saved when the object is
+                    serialized.</li>
+            </ul>
+            <h4>Conditional Compilation Using Attributes</h4>
+            <ul>
+                <li>The Conditional attribute is used to activate and de-activate the contents of methods.</li>
+                <li>This attribute is declared in the System.Diagnostics namepsace.</li>
+                <li>The conditional attribute controls whether or not the body of a given method is obeyed whe the
+                    method is called.</li>
+                <li>It does not control whether or not the method itself is passed to the compiler.</li>
+                <li>The conditional attribute does not perform the same function as the conditional compilation in
+                    langauges such as C and C++, it doesn't prevent code from being passed to the compiler, rather it
+                    controls whether code is executed when it runs.</li>
+            </ul>
+            <h4>Testing for Attributes</h4>
+            <ul>
+                <li>A program can check that a given class has a particular attrbiute class attached to it by using the
+                    IsDefined method, which is a static member of the Attrbiute class.</li>
+                <li>The IsDefined method accepts two parameters; the first is the type of the class being tested and the
+                    second is the type of the attribute class that the test is looking for.</li>
+                <li>Note that although the attribute is called Serializable, when it is used in the source doe the name
+                    of the class that implements the attribute has the word "Attribute" appended to it.</li>
+                <li>This convention should be followed when creating your own attributes.</li>
+            </ul>
+            <h4>Creating Attribute Classes</h4>
+            <ul>
+                <li>You can create your own attributes to help manage elements of your application.</li>
+                <li>These classes can serve as markers in the same way as the Serializable attribute specifies that a
+                    class can be serialized.</li>
+                <li>You can also store data in attribute instances to give information about the items the attributes
+                    are attached to.</li>
+                <li>Data values stored in an attribute instance are set from the class metadata when the attribute is
+                    loaded.</li>
+                <li>These values can be changed as the program runs but will be lost when it ends.</li>
+            </ul>
+            <h4>Controlling the Use of Attributes</h4>
+            <ul>
+                <li>You can add an attribute to any item in a program, including memeber variables, methods, properties,
+                    or type of object.</li>
+                <li>When you create an attribute class, the proper practice is to add attribute usage information to the
+                    declaration of the attribute class.</li>
+                <li>This allows the compiler to make sure that the attribute is only used in meaningful situations.</li>
+                <li>The AttributeUsage attribute can be added to the declaration of an attribute class to control this.
+                </li>
+                <li>If you apply an AttributeUsage.Class attribute to an item other than a class, the compiler will
+                    generate errors. This means the compiler is performing reflection on the code as it compiles.</li>
+                <li>You can set values of the AttributeUsage class to do a variety of things:
+                    <ul>
+                        <li>Control whether children of a class can be given the attribute.</li>
+                        <li>Specify which elements of your program can have the attribute assigned to them.</li>
+                        <li>Identify specifc types to be given the attribute.</li>
+                        <li>Specify whether the given attribute can be applied multiple times to the same item.</li>
+                    </ul>
+                </li>
+                <li>You can use the | operator to set multiple targets for a given attribute.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Read Attributes</h3>
+            <ul>
+                <li>The Attribute also provides a method called GetCustomAttribute which gets an attribute from a
+                    particular type.</li>
+                <li>It has the same parameters as IsDefined and returns a reference to the attribute. It returns null if
+                    it is not defined.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Using Reflection</h3>
+            <ul>
+                <li>Searching for and reading attribute values is an example of a program performing refleciton.</li>
+                <li>It can be thought of as a program reflecting on its own contents.</li>
+                <li>It is sometimes called introspection.</li>
+                <li>Testing systems can use reflection to search for objects that need testing and identify the testing
+                    that is required by attributes that have been set on these objects.</li>
+                <li>Reflection allows an application to automaticalyl identify "plug-in" components, so that the
+                    application can be made up of discrete elements that are connected together when the program runs.
+                </li>
+                <li>If faults are found in one component, or new components need to be added, this can be performed
+                    without changes to the rest of the system.</li>
+                <li>You can regard elements discovered and loaded by the use of reflection as the natural endpoint of
+                    the process of reating code as components that implement interfaces and communicate by means of
+                    events which they publish and subscribe to.</li>
+            </ul>
+            <h4>Using Type Information from and Object</h4>
+            <ul>
+                <li>You can start considering reflection by looking at the GetType method.</li>
+                <li>All objects in a C# program expose this method, whichi will return a reference to the type that
+                    defines the object.</li>
+                <li>The Type of an object contains all the fields of an object, along with all the metadata describing
+                    it.</li>
+                <li>You can use methods and objects in the System.Reflection namespace to work with Type objects.</li>
+            </ul>
+            <h4>Calling a Method on an Object by Using Reflection</h4>
+            <ul>
+                <li>You can use infromaton provided by a type to create a call to a method in that type.</li>
+                <li>It does this by finding the MethodInfo for this method and then caling the Invoke method on this
+                    reference.</li>
+                <li>The Invoke method is supplied with a reference to object that is the target of the method invocation
+                    and an arary of object references which will be used as the arguments to that method call.</li>
+                <li>It is much slower than just calling the method of an object normally but illustrates the flexibility
+                    provided by reflection.</li>
+                <li>A program can now obtain a reference to an object, find out what behaviours that object exposes, and
+                    then make use of the behaviours that it needs.</li>
+            </ul>
+            <h4>Finding Components in Assemblies</h4>
+            <ul>
+                <li>To implement plguins you need to be able to search the classes in an assembly and find components
+                    that implement particular interfcaes.</li>
+                <li>This behaviour is the basis of the Managed Extensibility Framework (MEF).</li>
+                <li>The Assembly type provides a method that will get the currently executing assembly.</li>
+                <li>It is then possible to iterate through all the types in this assembly looking for ones of specific
+                    types.</li>
+                <li>It is possible to load an assembly from a file by using the Assembly.Load method.</li>
+                <li>This an application could search a particular folder for assembly files, load them and then search
+                    for classes that can be used in the application on launch.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Generate Code at Runtime by Using CodeDOM and Lambda Expressions</h3>
+            <ul>
+                <li>An entire application can be represented by objects such as Assembly and Type.</li>
+                <li>You can also programmatically add your own elements to these objects so that your applications can
+                    create code at runtime.</li>
+                <li>You can use this technology to automate the production of code.</li>
+                <li>It is used in situations where you have to create objects that will have to interact with services
+                    providing a particular data scheme or when you're automatically generating code in a design tool.
+                </li>
+                <li>There are two techniques for generating code at runtime: Code Document Object Model (CodeDOM) and
+                    Lambda expressions.</li>
+            </ul>
+            <h4>CodeDOM</h4>
+            <ul>
+                <li>A document object model is a way of representing the structure of a particular type of document.
+                </li>
+                <li>The obkect contains collections of other objects that represent the contents of the document.</li>
+                <li>There are document object models for XML, JSON and HTML documents.</li>
+                <li>The CodeDOM object represents the structure of a class.</li>
+                <li>A CodeDOM object can be parsed to create a source file or an executable assembly.</li>
+                <li>The constructions used in a CodeDOM object represent the logical structure of the code to be
+                    implemented and are independent of the syntax of the high-level language that is used to create the
+                    document.</li>
+                <li>In other words, you can create either Visual Basic .NET or C# source files from a given CodeDOM
+                    object and you can create CodeDOM objects using either language.</li>
+                <li>A CodeCompileUnit instance is created first to servce as a container for CodeNamespace objects that
+                    can be added to it.</li>
+                <li>A CodeNameSpace can contain a number of CodeTypeDeclarations and a class is a kind of
+                    CodeTypeDeclaration.</li>
+                <li>There are a range of types that can be created and added to a document to allow you to
+                    programmatically create enumerated type expressions, method calls, properties and all the elements
+                    of a complete program.</li>
+            </ul>
+            <h4>Lambda Expression Trees</h4>
+            <ul>
+                <li>A lambda expression is a way of expressing a data processing action (a value goes in and a result
+                    comes out).</li>
+                <li>You can express a single action in a program by the use of a single lambda expression.</li>
+                <li>More complex actions can be expressed in expression trees.</li>
+                <li>Expression trees are widely used in C#, particularly in the context of LINQ. The code that generates
+                    the result of a LINQ query will be created as an expression tree.</li>
+                <li>A lambda expression tree has a lambda expression at its base.</li>
+                <li>There are a number of built-in types for use with delegates, but the FUNC delegates allow us to
+                    define a delegate that accepts a number of inputs and returns a single result.</li>
+                <li>The System.Linq.Expressions namespace contains a range of other thypes tha can be used to represent
+                    other code elements in lambda expressions, including conditional operation, loops and collections.
+                </li>
+            </ul>
+            <h4>Modfying an Expression Tree</h4>
+            <ul>
+                <li>An expression tree is immutable, so it cannot be changed once created.</li>
+                <li>To modify an expression tree you must make a copy of the tree which contains the modified
+                    behaviours.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Using Types from the System.Reflection Namespace</h3>
+            <h4>Assembly</h4>
+            <ul>
+                <li>An assembly is the output produced when a /NET project is compiled.</li>
+                <li>The assembly type represents the contents of an assembly, which can be the currently executing
+                    assembly or one that is loaded from a file.</li>
+                <li>The Assembly class provides a way that programs can use reflection on the contents of the assembly
+                    that it represents.</li>
+                <li>It provides methods and properties to establish and manage:
+                    <ul>
+                        <li>The version of the assembly.</li>
+                        <li>Any dependencies that the assembly has on other files.</li>
+                        <li>The definition of any types that are declared in the assembly.</li>
+                    </ul>
+                </li>
+            </ul>
+            <h4>PropertyInfo</h4>
+            <ul>
+                <li>A C# property provides a quick way of providing get and set behaviours for a data variable in a
+                    type.</li>
+                <li>The PropertyInfo class provides details of a property, including the MethodInfo information for the
+                    get and set behaviours.</li>
+            </ul>
+            <h4>MethodInfo</h4>
+            <ul>
+                <li>The MethodInfo class holds data about a method in a type.</li>
+                <li>This includes:
+                    <ul>
+                        <li>The signature of the method.</li>
+                        <li>The return type of the method.</li>
+                        <li>Details of method parameters.</li>
+                        <li>The byte code that forms the body of the method.</li>
+                    </ul>
+                </li>
+                <li>The Invoke method can also be used to invoke a metod from its method information.</li>
+            </ul>
+            <h4>Type</h4>
+            <ul>
+                <li>The Type type is mostly used in programs that use reflection.</li>
+                <li>A type instance describes the contents of a C# type, including an individual collection for all the
+                    methods, variables, properties, etc.</li>
+                <li>It also contains a collection of attribute class instances associated with this type and details of
+                    the Base typpe from which the type is derived.</li>
+                <li>The GetType method can be called on any instance to obtain a reference to the type for that object.
+                </li>
+                <li>The typeof method can be used on any type to obtain the type object that describes that type.</li>
             </ul>
         </div>
     </div>
