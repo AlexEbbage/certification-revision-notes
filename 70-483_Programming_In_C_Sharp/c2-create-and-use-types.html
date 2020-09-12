@@ -497,45 +497,61 @@
             <h3>Enforce Encapsulation by Using Properties</h3>
             <ul>
                 <li>A propety in an object provides a way that a programmer can encapsulate data.</li>
-                <li>You can get more control over the values assigned to properties by adding validation to the set block of the property.</li>
-                <li>If you throw an exception when invalid you ensure that the user is always made aware of any error conditions.</li>
-                <li>You can make the set behaviour ignore invalid values, or you could set a default value when an invalid one is provided.</li>
+                <li>You can get more control over the values assigned to properties by adding validation to the set
+                    block of the property.</li>
+                <li>If you throw an exception when invalid you ensure that the user is always made aware of any error
+                    conditions.</li>
+                <li>You can make the set behaviour ignore invalid values, or you could set a default value when an
+                    invalid one is provided.</li>
                 <li>Read-only properties can be created by only providing a get behaviour.</li>
-                <li>You can also make write-only properties in a similar manner, though this ability is less frequently used.</li>
+                <li>You can also make write-only properties in a similar manner, though this ability is less frequently
+                    used.</li>
                 <li>Different access modifiers can also be applied to the get and set behaviours.</li>
-                <li>The backing value of a property is a private data member of the same type as the property, with a name starting with an "_". </li>
+                <li>The backing value of a property is a private data member of the same type as the property, with a
+                    name starting with an "_". </li>
                 <li>Auto-implemented properties have their backing values automatically created by the C# compiler.</li>
             </ul>
         </div>
         <div>
             <h3>Enforce Encapsulation by Using Accessors</h3>
             <ul>
-                <li>As a general rule, data held within a type should be private and the methods to access the data inside should be public.</li>
+                <li>As a general rule, data held within a type should be private and the methods to access the data
+                    inside should be public.</li>
                 <li>Properties provide a way to manage access to individual values in a class.</li>
                 <li>Making a data member of a class private will stop direct access to that data member.</li>
-                <li>From a design perspective, making a class member private and only providing public methods that allow access to that member is a good first step to creating secure code.</li>
-                <li>However, you may also have to make sure that you provide a secure workflow that manages access to the data.</li>
+                <li>From a design perspective, making a class member private and only providing public methods that
+                    allow access to that member is a good first step to creating secure code.</li>
+                <li>However, you may also have to make sure that you provide a secure workflow that manages access to
+                    the data.</li>
             </ul>
             <h4>Default Access Modifiers</h4>
             <ul>
                 <li>If you don't specify an access modifer for a member of a type, it'll default to private.</li>
                 <li>To make a member visible to the outside it must be done explicitly.</li>
-                <li>You don't have to add the private modifier to private members, but it is strongly advised you do.</li>
+                <li>You don't have to add the private modifier to private members, but it is strongly advised you do.
+                </li>
             </ul>
             <h4>Protected Access</h4>
             <ul>
-                <li>The protected access modifer makes a class member useable in any classes that extend the parent (base) class in which the member is declared.</li>
-                <li>It isn't recommended you use the protected access modifier to control acess to highly important data members of a class.</li>
-                <li>Doing so makes it easy for malicious programemrs to gain access to the protected member by extending the parent class.</li>
-                <li>A good use is to limit access to helper methods that have no meaningful use outside of the class hierarchy.</li>
+                <li>The protected access modifer makes a class member useable in any classes that extend the parent
+                    (base) class in which the member is declared.</li>
+                <li>It isn't recommended you use the protected access modifier to control acess to highly important data
+                    members of a class.</li>
+                <li>Doing so makes it easy for malicious programemrs to gain access to the protected member by extending
+                    the parent class.</li>
+                <li>A good use is to limit access to helper methods that have no meaningful use outside of the class
+                    hierarchy.</li>
             </ul>
             <h4>Internal Access</h4>
             <ul>
-                <li>The internal access modifier will make a meber of a type accessible within the assembly in which it is declared.</li>
+                <li>The internal access modifier will make a meber of a type accessible within the assembly in which it
+                    is declared.</li>
                 <li>An assembly can be regarded as the output of a C# project in Visual Studio.</li>
                 <li>It can be iether an executable program or a library of classes.</li>
-                <li>Internal access is most useful when you have a large number of cooperating classes that are being used to provide a particular library component.</li>
-                <li>These classes may want to share memebers which should not be visible to programs that use the library.</li>
+                <li>Internal access is most useful when you have a large number of cooperating classes that are being
+                    used to provide a particular library component.</li>
+                <li>These classes may want to share memebers which should not be visible to programs that use the
+                    library.</li>
             </ul>
             <h4>Readonly Access</h4>
             <ul>
@@ -546,18 +562,29 @@
         <div>
             <h3>Enforce Encapsulation by Using Explicity Interface Implementation</h3>
             <ul>
-                <li>When a class implements an interfface it contains methods with signatures that match the ones specified in the interface.</li>
-                <li>You can use an explicit interface implementation to make methods implementing an interface only visible when the object is accessed via an interface reference.</li>
-                <li>You might want an IPrintable interface that specifies methods used to print any object. This is a good idea because now a printer can be asked to print any item that is referred to by a reference of IPrintable type.</li>
+                <li>When a class implements an interfface it contains methods with signatures that match the ones
+                    specified in the interface.</li>
+                <li>You can use an explicit interface implementation to make methods implementing an interface only
+                    visible when the object is accessed via an interface reference.</li>
+                <li>You might want an IPrintable interface that specifies methods used to print any object. This is a
+                    good idea because now a printer can be asked to print any item that is referred to by a reference of
+                    IPrintable type.</li>
                 <li>In other words, any object that implemetns the method in IPrintable can be printed.</li>
-                <li>Methods in the IPrintable interface only have meaning when being used by something trying to print an object. It's not sensible to call the printing methods in any other context than via the IPrintable reference.</li>
-                <li>This can be achieved by making the implementation of the print methods explicit, thus adding the interface name to the delcaration of the method body.</li>
-                <li>When you use an interface in a program you should ensure that all the implementations of any interface methods are explicit. This reduces the chances of the interface methods being used in an incorrect contect.</li>
+                <li>Methods in the IPrintable interface only have meaning when being used by something trying to print
+                    an object. It's not sensible to call the printing methods in any other context than via the
+                    IPrintable reference.</li>
+                <li>This can be achieved by making the implementation of the print methods explicit, thus adding the
+                    interface name to the delcaration of the method body.</li>
+                <li>When you use an interface in a program you should ensure that all the implementations of any
+                    interface methods are explicit. This reduces the chances of the interface methods being used in an
+                    incorrect contect.</li>
             </ul>
             <h4>Resolving Duplicate Method Signatures by Using Explicit Implementation</h4>
             <ul>
-                <li>When a class implements an interface it must contain an implementation of all methods that are defined in the interface.</li>
-                <li>Sometimes a class may implement multiple interfaces, in which case it must contain all the methods defined in all the interfaces.</li>
+                <li>When a class implements an interface it must contain an implementation of all methods that are
+                    defined in the interface.</li>
+                <li>Sometimes a class may implement multiple interfaces, in which case it must contain all the methods
+                    defined in all the interfaces.</li>
                 <li>Issues can occur if 2 interfaces contain a method with the same name.</li>
                 <li>This can be resolved by specifying the interface name to the declaration of the method body.</li>
             </ul>
@@ -565,23 +592,283 @@
     </div>
     <div>
         <h2 id="skill-2-4">Skill 2.4: Create and Implement a Class Hierarchy</h2>
-        <ul>
-            <li>NOTES</li>
-            <li>NOTES</li>
-            <li>NOTES</li>
-        </ul>
         <p>This section covers how to:</p>
         <ul>
-            <li>TOPIC</li>
-            <li>TOPIC</li>
-            <li>TOPIC</li>
+            <li>Design and implement an interface</li>
+            <li>Inherit from a base class</li>
+            <li>Create and implement classes based on the IComparable, IEnumerable, IDisposable, and IUnknown interfaces
+            </li>
         </ul>
         <div>
-            <h3>HEADING</h3>
+            <h3>Design and Implement an Interface</h3>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>You can think of the elements of a power specification as an "interface" that defines how an
+                    electrical device in a house can be connected to a power supply.</li>
+                <li>These components are possible because standard interfaces have been created to describe exactly how
+                    they fit together.</li>
+                <li>Components are required because without them they can't be replaced because systems would be
+                    hard-wired together.</li>
+            </ul>
+            <h4>Software Componenets and Interfaces</h4>
+            <ul>
+                <li>An interface in C# specifies how a software component could be used by another software component.
+                </li>
+                <li>Instead of starting to build an application by designing classes, you should think about describing
+                    their interfaces.</li>
+                <li>How a component functions can be encapsulated inside the component.</li>
+                <li>A C# interface contains a set of method signatures. </li>
+                <li>If a class contains an implementation of all of the methods described in the interface it can be
+                    defined as "implementing" that interface.</li>
+                <li>Interfaces allow a program to regard objects in terms of their abilities, rather than what type an
+                    object actually is.</li>
+                <li>If you hired a painter to paint your house in real life, you'd hire them based on their ability to
+                    paint rather than who they are.</li>
+                <li>As an example of where interfaces are useful, consider a printing service that will print objects in
+                    an application. The IPrintable interface will contain the definition of the methods that can be used
+                    to print a document on paper.</li>
+                <li>The methods of the interface do not ask a document to print itself, rather they ask the docment to
+                    provide the text strings that the printer will put onto paper.</li>
+                <li>A print object can be created that will accept and print objects implementing the IPrintable
+                    interface.</li>
+                <li>This interface decouples the printer from the object being printed. If you create a new object that
+                    needs to be printed, it can be done without modifying the printer class.</li>
+                <li>Conversely, you can add new types of print and be sure that the new print type can be used to print
+                    any object that implements IPrintable.</li>
+            </ul>
+            <h4>Design an Interface</h4>
+            <ul>
+                <li>An interface is placed in a source file just like a class, and is compiled in the same way.</li>
+                <li>It sets out a number of methods that relate to a particular task or role.</li>
+                <li>The naming convention is to start the interface name with an I.</li>
+                <li>When you tell the compiler that a class implements an interface, it means the class contains
+                    implementations of all the methods described in the interface.</li>
+                <li>It is good practice to explicitly implement each method for the interface so the methods are only
+                    exposed when the object is referred to by a reference of the interface's type.</li>
+            </ul>
+            <h4>References to Interfaces</h4>
+            <ul>
+                <li>With interfaces you are moving away from conisdering classes in terms of what they are, and starting
+                    to think about them in terms of what they can do.</li>
+                <li>In the case of bank, you want to deal with objects in terms of IAccount (the set of account
+                    abilities) rather than BankAccount (a particular account class).</li>
+                <li>In C# terms this means that you need to create reference variables that refer to objects in terms of
+                    interfaces they implement, rather than the particular type that they are.</li>
+                <li>There will never be an instance of the IAccount interface, this is simply a way that you can refer
+                    to something which has that ability.</li>
+                <li>This is like in real life where there is no such physical thing as a "writer", merely a large number
+                    of people who can be referred to as having that particular ability or role.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Inherit from a Base Class</h3>
+            <ul>
+                <li>One fundamental principle of software development is to ensure that you create every piece of code
+                    in an application precisely once.</li>
+                <li>This is because if you have a bug in a piece of code, and that code has been abstracted into a
+                    method, you only have to fix the code once.</li>
+                <li>A class hierarchy is a great way to reuse code so that you only have to create a behaviour in one
+                    place and can reuse it where it makes sense to.</li>
+                <li>A class hierarchy is used when an application must manipulate items that are part of a particular
+                    group.</li>
+                <li>If you have classes BankAccount and SavingsAccount which both implement IAccount, yet their
+                    functionality is very similar, you'll have to rewrite a lot of the same code.</li>
+                <li>Inheritance can be used to tell the compiler that SavingsAccount is based on BankAccount.</li>
+                <li>Inheritance allows SavingsAccount to do everything the parent or base class, BankAccount, can do.
+                </li>
+            </ul>
+            <h4>The Is and As Operators</h4>
+            <ul>
+                <li>The is and as operators are used when working with class hierarchies and interfaces.</li>
+                <li>The is operator determines if the type of a given object is in a particular class hierarchy or
+                    implements a specifed inteface.</li>
+                <li>You apply the is operator between a reference variable and a type or interface. The operator will
+                    return true if the reference can be made to refer to objects of that type.</li>
+                <li>The as operator takes a reference and a type and returns a reference of the given type, or null if
+                    the reference cannot be made to refer to the object.</li>
+                <li>The difference between the as operator and a cast, is that if a cast cannot be performed a program
+                    will throw an exception. If the as operator fails it returns a null reference and the program
+                    continues.</li>
+            </ul>
+            <h4>Overriding Methods</h4>
+            <ul>
+                <li>Overriding replaces a method in a base class with a version that provides the behaviour appropriate
+                    to the child class.</li>
+                <li>The override keyword means "use this version of the method in preference to the one in the base
+                    class".</li>
+                <li>Declaring a method as virtual tell the C# compiler a method can be overridden by classes which are
+                    children of the parent class. This needs to be done as the compiler calls overridden methods in a
+                    slightly different way to "normal" ones.</li>
+                <li>Explicit implementations of interface methods cannot be overridden. You have to sacrifice a bit of
+                    encapsulation in order to use class hierarchies in this manner.</li>
+                <li>If child classes need access to a private member of a parent class, the access modifier needs to be
+                    changed to protected.</li>
+            </ul>
+            <h4>Using the Base Method</h4>
+            <ul>
+                <li>The base keyword in the context of an overridden method means "a reference to the thing which has
+                    been overriden".</li>
+                <li>By doing this, it saves you from having to duplicate code and it can allow you to keep members of
+                    the base class private.</li>
+                <li>If a bug occurs in the behaviour of a top-level class, only the top-level class needs to be fixed
+                    for the behaviour to work in all the child classes which call back to it.</li>
+            </ul>
+            <h4>Replacing Methods in Base Classes</h4>
+            <ul>
+                <li>If the new keyword is used instead of the override one when creating a method in a child class, it
+                    simply creates a new version of the method.</li>
+                <li>The replacement method is not able to use base to call the method that has been overridden, as it is
+                    replaced.</li>
+            </ul>
+            <h4>Stopping Overriding</h4>
+            <ul>
+                <li>Overriding/replacing is not always desirable.</li>
+                <li>A malicious programmer can writer their own version of a method in a child class and override or
+                    rplace the one in the parent.</li>
+                <li>The sealed keyword means "You can't override this method any more". Child classes are prevented from
+                    replacing a method in a parent.</li>
+            </ul>
+            <h4>Constructors and Class Hierarchies</h4>
+            <ul>
+                <li>A constructor is a method which gets control during the process of object creation and is used to
+                    set the initial values of the object.</li>
+                <li>Adding a constructor to a base class in a class hierarchy can break all the child classes. This is
+                    because creating a child class instance involves creating an instance of the base class.</li>
+                <li>If it does, a call must be made from the constructor of the child classes to the constructor of the
+                    base class.</li>
+            </ul>
+            <h4>Abstract Methods and Classes</h4>
+            <ul>
+                <li>Methods can be made abstract to force child classes to provide an implementation for them.</li>
+                <li>A virtual "default" method can be provided by a parent class, then the programmers of the child
+                    classes can be relied on to override them with more specific behaviours.</li>
+                <li>If a method is flagged as abstract then no method body is provided in the class.</li>
+                <li>A class that contains an abstract method means that it is abstract itself and must be marked as
+                    such.</li>
+                <li>You can't create an isntance of an abstract class, they can essentially be thought of as templates.
+                </li>
+                <li>If you want to make an instance of a classed based on an abstract parent, you must provide
+                    implementations of all the abstract methods given in the parent.</li>
+            </ul>
+            <h4>Abstract Classes and Interfaces</h4>
+            <ul>
+                <li>Abstract classes look similar to interfaces.</li>
+                <li>However, abstract classes can contain fully implemented methods alongside the abstract ones.</li>
+                <li>This is useful because it means you don't have to repeatedly implement the same methods in each of
+                    the components that implement a particular interface.</li>
+                <li>A class can only inherit from one parent, so it can only pick up the behaviours of one class.</li>
+                <li>Some languages support multiple inheritance, where a class can inherit from multiple parents.</li>
+            </ul>
+            <h4>References in Class Hierarchies</h4>
+            <ul>
+                <li>A reference to a base class in a class hierarchy can refer to an instance of any of the classes that
+                    inherits from that base class.</li>
+                <li>A variable declared as a reference object cannot be made to refer to a class higher in the class
+                    hierarchy because a child class may have added behaviours to the parent class.</li>
+                <li>Some prefer to manage references to objects in terms of the interfaces than the type of the
+                    particular object. It is more flexible as you're not restricted to a particular type of object.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Create and Implement Classes Based on the IComparable, IEnumerable, IDisposable, and IUnknown Interfaces
+            </h3>
+            <ul>
+                <li>.NET framework provides services that make use of particular behaviours that may be provided by a
+                    given object.</li>
+                <li>Each of these behaviours is described by an interface.</li>
+            </ul>
+            <h4>IComparable</h4>
+            <ul>
+                <li>IComparable is used to determine the order of objects when they are sorted.</li>
+                <li>It contains a single method, CompareTo, which compares one object to another.</li>
+                <li>A result of 0 indicates a match. Less than 0 indicates it should be placed before the object it's
+                    being compared to. Greater than 0 indicates it should be placed after the object it's being compared
+                    to.</li>
+            </ul>
+            <h4>Typed IComparable</h4>
+            <ul>
+                <li>The IComparable interface uses a CompareTo method that accepts an object reference as a paramter.
+                </li>
+                <li>This reference should refer to an object of the same type as the object that is doing the comparing.
+                </li>
+                <li>If the program attempts to compare and object with something that isn't a comparable type an error
+                    will be produced at runtime.</li>
+                <li>There is another version of the IComparable interface that accepts a type. This can be used to
+                    create a CompareTo that only accepts parameters of a specified type.</li>
+                <li>It might be necessary to make your interface extend IComparable to ensure that any objects that
+                    implement your interface also implement IComparable.</li>
+                <li>So, it is possible to create interface hierarchies, though it is not something you'll do very often.
+                </li>
+            </ul>
+            <h4>IEnumerable</h4>
+            <ul>
+                <li>Programs spend a lot of time consuming lists and other collections of items. This is called
+                    iterarting or enumerating.</li>
+                <li>Any C# object can implement IEnumerable interface that allows other programs to get an enumerator
+                    from that object. The enumerator object can then be used to enumerate the object.</li>
+                <li>GetEnumerator() can be called to get an enumertor, which exposes MoveNext(), which returns true if
+                    it can move onto another item in the enumeration.</li>
+                <li>The enumerator also exposes a proeprty called Current, which is a reference to the currently
+                    selected item in the enumerator.</li>
+                <li>A foreach construction can be used to automatically get the enumerator from an object and to work
+                    through it.</li>
+            </ul>
+            <h4>Making an Object Enumerable</h4>
+            <ul>
+                <li>The IEnumberable interface allows you to create objects that can be enumerated within your programs,
+                    like the foreach loop construction.</li>
+                <li>To implement it an object needs to implement the IEnumberable and IEnumerator&lt;T&gt; interfaces.
+                </li>
+                <li>IEnumberable means an object can be enumeratred.</li>
+                <li>IEnumerator&lt;T&gt; means an object contains a call of GetEnumerator to get an enumerator from it.
+                </li>
+            </ul>
+            <h4>Using Yield</h4>
+            <ul>
+                <li>To make the creation of enumerators simpler C# includes the yield keyword.</li>
+                <li>The yield keyword is followed by the return keyword and precedes the value to be returned for the
+                    current iteration.</li>
+                <li>The C# compiler generates all the Current and MoveNext behaviours that make the iteration work, and
+                    also records the state of the iterator method so that the iterator method resumes at the statement
+                    following the yield statement when the next iteration is requested.</li>
+                <li>The yield keyword does 2 things:
+                    <ul>
+                        <li>It specifies the value to be returned for a given iteration.</li>
+                        <li>It returns control to the iterating method.</li>
+                    </ul>
+                </li>W
+            </ul>
+            <h4>IDisposable</h4>
+            <ul>
+                <li>C# provides memory management for applications, but it can't control how programs use other
+                    resources such as file hadnles, database connections and lock objects.</li>
+                <li>While an object can get control when it is removed by the garbage collector it is hard for a
+                    developer to know precisely when this happens. It amy not even happens until the program ends.</li>
+                <li>The IDisposable interface provides a way that an object can indicate that it contains an explict
+                    Dispose method that can be used to tidy up an object when an application has finished using it.</li>
+                <li>A disposed object may exist in memory, but any attempts to use it will result in the
+                    ObjectDisposedExpection being thrown.</li>
+                <li>The action of the Dispose method depends entirely on the needs of the application.</li>
+                <li>The dispose methodis not called automatically when an object is deleted from memory.</li>
+                <li>There are two ways to make sure that Dipose is called correctly:
+                    <ul>
+                        <li>You can call the method yourself in your application.</li>
+                        <li>You can make suse of the C# using construction.</li>
+                    </ul>
+                </li>
+                <li>The using construction creates an instance of the object that implements IDisposable, is followed by
+                    a block of code that uses the object, and then Dispose() is called at the end of the block.</li>
+            </ul>
+            <h4>IUnknown</h4>
+            <ul>
+                <li>Dynamic types are used to interact with services provided via the Component Object Model (COM).</li>
+                <li>Interop services return results which are dynamically typed, and the program can use these results
+                    by assinging them to correctly typed variables.</li>
+                <li>Interop services are implemented as C# libraries that marshal te data between the managed code world
+                    of C# and the unmanaged world of COM objects.</li>
+                <li>The IUnknown interface is a means by which one object describes the interfaces that it makes
+                    avaialable for use by others.</li>
+                <li>It provides a means by which .NET applications can interoperate with COM object at this level.</li>
+                <li>You can use it when connection C# applications to COM objects.</li>
             </ul>
         </div>
     </div>
