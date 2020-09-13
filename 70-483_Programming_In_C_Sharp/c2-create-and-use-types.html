@@ -1124,23 +1124,203 @@
     </div>
     <div>
         <h2 id="skill-2-6">Skill 2.6: Managing the Object Lifecycle</h2>
-        <ul>
-            <li>NOTES</li>
-            <li>NOTES</li>
-            <li>NOTES</li>
-        </ul>
         <p>This section covers how to:</p>
         <ul>
-            <li>TOPIC</li>
-            <li>TOPIC</li>
-            <li>TOPIC</li>
+            <li>Manage unmanaged resources</li>
+            <li>Implement IDisposable, including interaction with finalization</li>
+            <li>Manage IDisposable by using the Using statement</li>
+            <li>Manage finalization and garbage collection</li>
         </ul>
         <div>
-            <h3>HEADING</h3>
+            <h3>Garbage Collection in .NET</h3>
+            <h4>Creating Garbage</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>When a reference to an object is assigned a new instance of that object, it first instance is no
+                    longer needed.</li>
+                <li>When a reference variable goes out of scope, the instance of the object is no longer accessible
+                    because the reference no longer exists.</li>
+                <li>These objects with no reference still occupy memory, and a process has a particular amount allocated
+                    to it.</li>
+                <li>Garbage collection occurs when the amount of memory available for new objects falls below a
+                    threshold.</li>
+                <li>The rate at which garbage is collected will change, depending on the loading on the host computer.
+                </li>
+            </ul>
+            <h4>Value Types and Garbage Collection</h4>
+            <ul>
+                <li>The heap is the area of memory where an applicaton stores objects that are referred to by reference.
+                </li>
+                <li>The contents of value types are stored on the stack, which automatically grows and contracts as
+                    programs run.</li>
+                <li>Upon entry to a new block the .NET runtime will allocate space on the stack for values that are
+                    declared local to that block.</li>
+                <li>When a program leaves the bock the .NET rutime will auto,atically contract the stack space, which
+                    removes the memory allocated for those variables.</li>
+            </ul>
+            <h4>The Garbage Collector</h4>
+            <ul>
+                <li>When an application runs low on memory the garbage collector will search the heap for any objects
+                    taht are no longer required and remove them.</li>
+                <li>The .NET rutime contains an index of all objects that have been created since the program staretd.
+                </li>
+                <li>The garbage collector decides which of them are still in use, removes them from memory if they're
+                    not.</li>
+                <li>The remaining objects are compacted so that the area of free memory is a single large area, rather
+                    than a number of smaller, free areas.</li>
+                <li>The first phase of garbage collection is marking all of the objects that are in use by the program,
+                    where it starts by clearing a flag on each object in the heap.</li>
+                <li>It searches through all the variables in use by the program and follows all the references to the
+                    objects they refer to, setting the flag on that object.</li>
+                <li>After this "mark" phase, the garbage collector moves to the "compact" phase, where it works through
+                    memory removing all the bojects that have not had their flag set.</li>
+                <li>The final phase is the "compaction" of the heap. The objects still in use must be moved down memory
+                    so that the available space is one larger block, rather than lots of spaces where unused objects
+                    were removed.</li>
+                <li>All managed threads are suspended while the garbage collector is running, which means an application
+                    will stop responding to inputs while the garbage collection is performed.</li>
+                <li>It is possible to invoke the garbage collector manually if there are points in your application when
+                    you know a large number of objects have been released.</li>
+                <li>The garbage collector attempts to determine which objects are long lived and short lived
+                    (ephemeral). It does this by adding a generation counter to each object on the heap, starting at 0.
+                    If an object survives a garbage collection the counter is advanced. Generation 2 is the highest
+                    generation.</li>
+                <li>The garbage collector will colect different generations, depending on circumstances. A "level 2"
+                    collections will involve all objects, while a "level 0" collection will target newly created
+                    objects.</li>
+                <li>The garbage collector can run in "workstation" or "server" modes, depending on the role of the host
+                    system.</li>
+                <li>There is an option to run garbage collection cuncurrently on a separate thread. However, this
+                    increases the amount of memory used by the garbage collector adn the loading on the host processor.
+                </li>
+            </ul>
+            <h4>Reducing the Need for Garbage Collection</h4>
+            <ul>
+                <li>Modern applications run in systems with large amounts of available memory.</li>
+                <li>The garbage collection process has been optimized over the various generations of .NET and is now
+                    highly efficient and responsive.</li>
+                <li>It is strongly advised not to worry about it until you have a problem. There is no need worrying
+                    about the memory usage of your application when your system will almost certainly have enough memory
+                    and processor performance.</li>
+                <li>There are profiling tools available in Visual Studio that alow you to watch resource allocation and
+                    to identify objects affected by garbage collection.</li>
+                <li>If you find the garbage collection process is becoming intrusive you can force a garbage collection
+                    by calling the Collect method on the garbage collector.</li>
+                <li>The enforced garbage collection can be performed at points in your applications where you know large
+                    objects have just been released.</li>
+                <li>Again, it is advised you let the garbage collector look after itself, it is very good at what it
+                    does.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Manage Unmanaged Resources</h3>
+            <ul>
+                <li>The .NET frameowrk will take care of the creation and destruction of our objects, but we need to
+                    manage the resources our objects use.</li>
+                <li>For example, if an application create a file handle and stores it in an object, when that object is
+                    destroyed the file handle will be lost. If the file connected to the handle is not closed properly
+                    before the object is destroyed, the file the handle is connected to will not be usable.</li>
+                <li>Finalization and disposable allow are us to get control at the point an object is being destroyed
+                    and to tidy up any resources that the object may be using.</li>
+            </ul>
+            <h4>Object Finalization Using a Finalizer Method</h4>
+            <ul>
+                <li>The finalization of an object is triggered by the garbage collection process.</li>
+                <li>An object can contain a finalizer method that is invoked by the garbage collector in advance of that
+                    object being removed from memory.</li>
+                <li>This method gets control and can release any resources that are being used by that object.</li>
+                <li>The finalizer method is given as a type elss method with the name of the class pre-ceded by a tilde
+                    (~) character.</li>
+            </ul>
+            <h4>Problems with Finalization</h4>
+            <ul>
+                <li>When the garbage collector is about to remove an object, it checks to see if the object contains a
+                    finalizer method.</li>
+                <li>If there is a finalizer method present, the garbage collector adds the object to a queue of objects
+                    waiting to be finalized.</li>
+                <li>Once all these objects have been identified, the garbage collector starts a thread to execute all
+                    the finalizer methods and waits for the thread to complete.</li>
+                <li>Once the finalization methods are complete the garbage collector performs another garbage collection
+                    to remove the finalized objects.</li>
+                <li>Objects waiting to be finalized will remain in memory until all of the finalzier methods have
+                    completed and the garbage collector has made another garbage collection pass to remove them.</li>
+                <li>A slow-running finalizer can seriously impair the garbage collection process.</li>
+                <li>Another problem with finalization is that there are no guarantees as to when the finalizer method
+                    will run or that'll it ever be called. if the program never runs short on memory it may never
+                    initiate garbage collection.</li>
+                <li>C++ programmers are used to writing destructors to release memory when an object is deleted but it
+                    doesn't mean you should add finalizers to C# classes.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Implement IDisposable, Including Interaction with Finalization</h3>
+            <ul>
+                <li>An object can implement the IDisposable interface, which means it must provide a Dispose method that
+                    can be called within the application to request that the object to release any resources that is has
+                    allocated.</li>
+                <li>Dispose does not cause the object to be deleted from memory, nor does it mark the object for
+                    deletion by the garbage collector. Only objects that have no references to them are deleted.</li>
+                <li>Once Dispose has been called on an object, that object can no longer be used in an application.</li>
+                <li>Objects that implement IDisposable can be used in conjuncation with the using statement, which will
+                    provide an automatic call of the Dispose method when execution leaves the block that follows the
+                    using statement.</li>
+                <li>The Dispose method is called by the application when an object is required to release all the
+                    resources that it is using.</li>
+                <li>This is a significant improvement on a finalizer, in that your application can control exactly when
+                    this happens.</li>
+            </ul>
+            <h4>Using IDisposable and Finalization on the Same Object</h4>
+            <ul>
+                <li>If you create an object that contains both a finalzier and a Dipose method, care needs to be taken
+                    that they don't release the same resources more than once, as this may cause a failure.</li>
+                <li>The SupressFinalize method canbe used to identify an object, which will not be finalized when the
+                    object is deleted.</li>
+                <li>This should be used by the Dispose method in a class to prevent instances being disposed more than
+                    once.</li>
+                <li>A dispose pattern can be used to allow an object to manage its disposal. This imakes use of a helper
+                    method, Dispose(bool disposing), which accepts a flag which indicates whether the method is being
+                    called from a call of Dispose or from a finalizer.</li>
+                <li>If the helper method is being called from a call of Dispose it will free off managed resources as
+                    well as unmanaged ones when it runs.</li>
+                <li>The pattern also uses a class flag variable, disposed, which is set when dipose has been called and
+                    prevents multiple attempts to dispose items.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Manage IDispsoable by Using the Using Statement</h3>
+            <ul>
+                <li>The using statement ensures that Dispose is called on an object in the event of exceptions being
+                    thrown.</li>
+                <li>If you don't use the using statement to manage calls of Dispose in your objects, make sure that your
+                    application calls Dispose appropritately.</li>
+                <li>The dispose pattern above results in a dispal behaviour that is tolerant of multiples calls of
+                    Dispose.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Manage Finalization and Garbage Collection</h3>
+            <h4>Invoking a Garbage Collection</h4>
+            <ul>
+                <li>A garbage collection can be forced to take place by calling the Collect method.</li>
+                <li>After the collection has been performed, a program can then be made to wait until all the finalizer
+                    methods have completed:
+                    <code>
+                        GC.Collect();
+                        GC.WaitForPendingFinalizers();
+                    </code>
+                </li>
+                <li>Overloads of the Collect method allow you to specify which geneartion of objects to garbage collect
+                    and set other garbage collection option.</li>
+            </ul>
+            <h4>Managing Finalization</h4>
+            <ul>
+                <li>The garbage collector can be ordered to ignore the finalizer on an object.</li>
+                <li>The code below prevents finalization from being called on the object referred to by p:
+                    <code>
+                        GC.SupressFinalize(p);
+                    </code>
+                </li>
+                <li>Finalization can later be re-enabled using the ReRegisterForFinalize method with the object as a
+                    parameter.</li>
             </ul>
         </div>
     </div>
