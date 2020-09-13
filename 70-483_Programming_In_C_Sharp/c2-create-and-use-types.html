@@ -1326,23 +1326,146 @@
     </div>
     <div>
         <h2 id="skill-2-7">Skill 2.7: Manipulating Strings</h2>
-        <ul>
-            <li>NOTES</li>
-            <li>NOTES</li>
-            <li>NOTES</li>
-        </ul>
         <p>This section covers how to:</p>
         <ul>
-            <li>TOPIC</li>
-            <li>TOPIC</li>
-            <li>TOPIC</li>
+            <li>Manipulate strings by using the StringBuilder, StringWriter, and StringReader classes</li>
+            <li>Search strings</li>
+            <li>Enumerate string methods</li>
+            <li>Format strings</li>
+            <li>Use string interpolation</li>
         </ul>
         <div>
-            <h3>HEADING</h3>
+            <h3>The String Type</h3>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>The C# type string is mapped onto the .NET type String.</li>
+                <li>It can hold a very large amount of text. The theoretical limit is around 2GB, but the practical limit will be lower than that.</li>
+            </ul>
+            <h4>Immutable Strings</h4>
+            <ul>
+                <li>Strings in C# are managed by reference, but their values are immutable.</li>
+                <li>All string editing functions return a new string with the edited contents, but the edited string is never changed.</li>
+                <li>This ensures that strings are thread safe.</li>
+                <li>The downside of this approach is that if you perform a lot of string editing you will end up creating a lot of string objects.</li>
+            </ul>
+            <h4>String Interning</h4>
+            <ul>
+                <li>When a program is compiled the compiler uses a process called string interning to improve the efficiency of string storage.</li>
+                <li>If 2 strings are assigned the text "hello", the compiler will save program memory by making both strings refer to the same string object with the content "hello".</li>
+                <li>It makes string comparison quicker. If two string references are equal it mean that they both contain the same string, there is no need to compare the text in the two strings.</li>
+                <li>If a string reference is different, it doesn't mean that the strings are definitenly not different. The program must simply compare each of the characters in the strings to determine if they are the same.</li>
+                <li>String interning doesn't happen when a program is running because every time a new string is created the program has to search through the list of interned strings to see if that string was already present.</li>
+                <li>You can force a given string to be interned at run time by using the Intern method prvoided by the string type.</li>
+                <li>It is advised you should only do this if you discover a need to speed up the program. Under normal circumstances the performance of string storage is extemely good.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Manipulate Strings by Using the StringBuilder, StringWriter, and StringReader Classes</h3>
+            <h4>StringBuilder</h4>
+            <ul>
+                <li>StringBuilder is very useful for writing programs that build up strings.</li>
+                <li>It can improve the speed of a program while at the same time making less work for the garbage collector.</li>
+                <li>The StringBuilder type provides methods that let a program treat a string as a mutable object.</li>
+                <li>It is implemented via a character array.</li>
+                <li>It provides methods that can be used to append and remove strings from the StringBuilder, and a property, Capacity, which can be used to set the maximum number of characters that can be placed in a StringBuilder instance.</li>
+                <li>If you want to assemble strings out of other string you can also use format strings and string interpolation instead of string addition.</li>
+            </ul>
+            <h4>StringWriter</h4>
+            <ul>
+                <li>The StringWriter class is based on the StringBuilder class. It implements the TextWRiter interface, so programs can send their output into a string.</li>
+            </ul>
+            <h4>StringReader</h4>
+            <ul>
+                <li>Instances of the StringReader class implement the TextReader interface.</li>
+                <li>It is a convenient way of getting string input into a program that would like to read its input from a stream.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Search Strings</h3>
+            <h4>Contains</h4>
+            <ul>
+                <li>The Contains method can be used to test if a string contains another string.</li>
+                <li>It returns true if the source string contains the search strig.</li>
+            </ul>
+            <h4>StartsWith and EndsWith</h4>
+            <ul>
+                <li>The StarsWith and EndWith methods are used to test if a string starts or ends with a particular string.</li>
+                <li>They return true if the source string starts or ends with the search string.</li>
+                <li>A whitespace character will prevent a match from occurring, so trimming methods can be used to strip whitespace from the ends of a string.</li>
+                <li>The TrimStart method creates a new string with whiespace removed from the start.</li>
+                <li>The TrimEnd method does the same but with whitespace remove from the end of the string.</li>
+                <li>The Trim method performs whitespace stripping on both ends of the input string.</li>
+            </ul>
+            <h4>IndexOf and SubString</h4>
+            <ul>
+                <li>The IndexOf methods returns an integer which gives the positon of the first occurrence of a character or string in a string.</li>
+                <li>The LastIndexof method will give the postion of the last occurrence of a string.</li>
+                <li>There are overloads for these methods that let you specify the start position for the search.</li>
+                <li>These values can be used as position values with the SubString method to extract a particular substring from a string.</li>
+                <li>A negative value is returned if the search string cannot be found in the target string.</li>
+            </ul>
+            <h4>Replace</h4>
+            <ul>
+                <li>The Replace method can be used to perform string editing, replacing an element of a source string.</li>
+            </ul>
+            <h4>Split</h4>
+            <ul>
+                <li>The Split method can be used to split a string into a number of substrings.</li>
+                <li>It returns an array of strings.</li>
+                <li>It is given one or more separator strings than will be used to split the string.</li>
+            </ul>
+            <h4>String Comparison and Cultures</h4>
+            <ul>
+                <li>Strings i C# are made up of Unicode characters encoded into 16bit values using the UTF-16 encoding format.</li>
+                <li>The Unicode standard provides a range of characters that can lead to culture specific behaviours when strings are being compared.</li>
+                <li>The character pair "ae" can be represented by a single character in a lot of American and European languages. This means that, from a language point of view, there are situations where the words "encyclopaedia" and "encyclopædia" are regarded as equal.</li>
+                <li>You can request a string comparison process takes the situation into accout by adding an additional paramter to string comparison operations.</li>
+                <li>You can use a StringComparison value to request a range of useful behaviours.</li>
+                <li>You can request that strings be compared according to the culture of the currently executing thread, the ordinal values of the character code of the characters, or to an ordering scheme based on the English language, but not customized for a particular culture.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Enumerate String Methods</h3>
+            <ul>
+                <li>You can regard a string as an array of characters.</li>
+                <li>A program can iterate through the characters in a string as it would any other collection.</li>
+                <li>A string provides a Length proeprty that can be used to determine the number of characters in a string.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Format Strings</h3>
+            <ul>
+                <li>Format strings can be used to request that output be formatted in a particular way when it is printed.</li>
+                <li>The WriteLine method is given placeholders which start and end with braces.</li>
+                <li>Within the placeholders the formatting information is placed.</li>
+                <li>The formatting information for an integer strng conversion can comprise of the character 'D' to mean a decimal and 'X' to mean hexadecimal.</li>
+                <li>The formatting information for a floating-point number can comprise of the character 'N', followed by the number of decimal places to be printed.</li>
+                <li>A program can give formatting commands to many .NET types.</li>
+                <li>The DateTime structure provides a wide range of formatting commands.</li>
+                <li>You can add behaviours to classes that you can create to allow them to be given formatting commands in the same way.</li>
+                <li>Any type that implements the IFormattable interface will contain a ToString method than can be used to request formatted conversion of values into a string.</li>
+            </ul>
+            <h4>The Format Provider in ToString</h4>
+            <ul>
+                <li>The second paramter of the ToString method is an object that implements the IFormatter interface.</li>
+                <li>This parameter can be used by the ToString method to determine any culture specific behaviours that may be required in the string conversion process.</li>
+                <li>For example you might add date of recording and price information to a music track, in which case the display of the date and price information could be customized for different regions.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Use String Interpolation</h3>
+            <ul>
+                <li>Format strings that incorporate placeholders in them have each placeholder enclosed in braces.</li>
+                <li>A placeholder relates to a particular value which is identified by its position in the arguments that follow the format string.</li>
+                <li>String interpolation allows you to put the values to be converted directly into the string text.</li>
+                <li>An interpolated string is identified by a leading dollar ($) sign at the start of the string literal.</li>
+                <li>When compiled an interpolated string will be converted into a format string, extract the values from the string, and build a call of WriteLine that looks exactly like the first call of WRiteLine.</li>
+                <li>If you use ildasm to look at the code produced by the compiler you'll see the code for a format string and an interpolated string are identical.</li>
+            </ul>
+            <h4>Using a FormattedString with String Interpolation</h4>
+            <ul>
+                <li>The act of assigning a string interpolate literal in a program products a result of type FormattedString.</li>
+                <li>This provides a ToString method that accepts a FormatProvider.</li>
+                <li>This is useful because it allows you to use interpoalted strings with culture providers.</li>
             </ul>
         </div>
     </div>
