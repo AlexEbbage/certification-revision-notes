@@ -11,23 +11,230 @@
     </ul>
     <div>
         <h2 id="skill-3-1">Skill 3.1: Validate Application Input</h2>
-        <ul>
-            <li>NOTES</li>
-            <li>NOTES</li>
-            <li>NOTES</li>
-        </ul>
         <p>This section covers how to:</p>
         <ul>
-            <li>TOPIC</li>
-            <li>TOPIC</li>
-            <li>TOPIC</li>
+            <li>Validate JSON data</li>
+            <li>Choose the appropriate data collection type</li>
+            <li>Manage data integrity</li>
+            <li>Evaluate a regular expression to validate the input format</li>
+            <li>Use built-in functions to validate data type and content</li>
         </ul>
         <div>
-            <h3>HEADING</h3>
+            <h3>Using JSON</h3>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>JSON (JavaScript Object Notation) is a very popular means by which applications can exchange data.</li>
+                <li>It is easy for both people and computers to understand.</li>
+                <li>The JSON standard is defined at <a href="https://www.json.org">https://www.json.org</a>.</li>
+            </ul>
+            <h4>The JSON Document</h4>
+            <ul>
+                <li>A JSON document contains a number of name/value pairs that represent the data in an application.</li>
+                <li>A JSON document can also contain arrays of JSON objects.</li>
+                <li>JSON documents map very well onto objects in an object-oriented language, although JSON itself is not tied to any one programming language.</li>
+                <li>JSON is therefore very useful if you want to share data between programs written in different languages.</li>
+                <li>A JSON document is enclosed in braces and contains a series of name and value pairs.</li>
+                <li>The type of data is not stored as part of the document.</li>
+                <li>JSON documents can contain lists of items. Any value in JSON can be expressed as a comma separated list of name and value pairs, enclosed in square brackets.</li>
+                <li>The design of JSON is very lightweight, but can be used to represent highly structured data; particularly when you consider that a list can contain values that represent another list.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>JSON and C#</h3>
+            <ul>
+                <li>The most popular way of converting C# classes to and from C# objects was not a library built into .NET, but a ibrary of routines created by James Newton-King.</li>
+                <li>The Newtonsoft.Json library can be obtained via NuGet package manager.</li>
+                <li>You can use the classes in it to create JSON descriptions of object contents and retrieve them.</li>
+                <li>The SerializeObject and DeserializeObject emthods exposed by the JsonConvert object can be used to create and parse string of JSON.</li>
+                <li>There are a few things to be aware of from a security and class design point of view:
+                    <ul>
+                        <li>In order to save and load private properties in a class you need to mark these items with the [JsonProperty] attribute.</li>
+                        <li>If you want to serialize a class using JSON you don't have to add the [Serializable] attribute to the class.</li>
+                        <li>When loading a class back using JSON you need to provide the type into which the result is to be stored. No type information is stored in the file that stores the JSON data.</li>
+                        <li>The JSON deserializer determines the type of each property in the dstination object and then performs type conversion automatically, a good example of reflection.</li>
+                        <li>There is nothing to prevent changes to the context of the text in a JSON document.</li>
+                        <li>If you wish to detect modification of a document transferred by JSOn you can add a checksum or hash property to the type that is validated by the recipient of the data.</li>
+                    </ul>
+                </li>
+            </ul>
+            <h4>JSON and XML</h4>
+            <ul>
+                <li>XML (eXtensible Markup Langauge) is another way of expressing the content of an object in a portable and human readable form.</li>
+                <li>This is a more heavyeight standard, in that an XML docuent contains more metadata than a JSON doucment.</li>
+                <li>XML documents are versiond, and also contain encoding details.</li>
+                <li>Each element of the document also contains a name.</li>
+                <li>There are a few things that need to be aware of when considering JSON and XML:
+                    <ul>
+                        <li>XML Serialization can only save and load the public data elements in a type. If you want to save the private elements in a class you should use the Data Contract serializer.</li>
+                        <li>For XML serialization to work the class being serialized must contain a parameterless constructor.</li>
+                        <li>The XML deserialization process returns a reference to an object.</li>
+                        <li>XML documents can have a schema attached to them. A schema formally sets out the items that a document must contain to be valid. Schemas can be used to automatically validate the structure of incoming documents.</li>
+                        <li>Elements in an XML document can also be given attributes to provide more information about them.</li>
+                        <li>An XML document is no less vulnerable to tampering than a JSON document. However, the attribute mechanism can be used to add vailidation information to data fields.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h3>Validate JSON Data</h3>
+            <ul>
+                <li>You can perform simple text-based checks on a JSON file to get some level of confidene about the validity of tis content.</li>
+                <li>A program can check that the text starts and ends with a matching pair of brace characters, contains the same number of open square brackets as close brackets, and an even number of double quote characters.</li>
+                <li>The exceptions thrown by the JSON parser can also give good information about the content.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Choose the Appropriate Data Collection Type</h3>
+            <ul>
+                <li>During the implementation of an application you will need to decide how collections of the data are to be organized. There are a large number of options available.</li>
+            </ul>
+            <h4>Use Typed Collection Classes</h4>
+            <ul>
+                <li>From a security point of view, it is advisable to use the typed versions of the C# collection classes.</li>
+                <li>The System.Collections namespace provides untype collection classes such as ArraList.</li>
+                <li>These are regarded as untyped because the data in them is managed in terms of reference to an object.</li>
+                <li>Since object is the base type of all C# types; this means that such collections can hold any type of object, in any arrangement.</li>
+                <li>The List class in the Systems.Collections.Generic namespace uses generic typing, which allows the programmer to specify that a given list can only contain specific object references.</li>
+            </ul>
+            <h4>Consider Threading</h4>
+            <ul>
+                <li>The standard C# collection classes are not "thread safe".</li>
+                <li>If several processes attempt to interact with a non-thread safe object, it can lead to data being lost of duplicated in ways that can be very hard to debug, because the nature of the error and when it occurs may be dependent on system loading and timing conditions that are hard to replicate.</li>
+            </ul>
+            <h4>Use the Correct Kind of Collection</h4>
+            <ul>
+                <li>If you're processing a stream of incoming messages and then discarding them you should consider using a Queue class if you want first-in, first-out (FIFO) behaviour and a stack if you want last-in, first-out (LIFO) behaviour.</li>
+                <li>If you plan to use an index to access elements and you know in advance how many elements there are, you can use a simple array. This is useful for lookup tables.</li>
+                <li>If the number of items being stored is not known in advance you can use a List&lt;T&gt; type, which allows your program indexed access to given elements.</li>
+                <li>If you need to perform frequent insertions and deletions of data items, and also needs to work through a large list of items, you can use the LinkedList&lt;T&gt; type. This will be more efficient that using an index to access elements in a sequence.</li>
+                <li>If you want to store your data sorted in a particular order you can add a CompareTo behaviour to your data objects, make them implement the IComparable interface and then us the Sort method in the List type to perform the sorting.</li>
+                <li>If you want to index your information on a key value the Dictionary&lt;TKey,TValue&gt; collection class will do.</li>
+                <li>If you are storing only strings you can use the StringCollection and StringList classes.</li>
+            </ul>
+            <h4>Plan to Work with LINQ on Your Collections</h4>
+            <ul>
+                <li>Any object that implements the IEnumberable or the IQueryable&lt;T&gt; interface can be acted on by a LINQ query.</li>
+                <li>LINQ queries are compiled into expression trees and execute very quickly.</li>
+                <li>It is easy to create LINQ queryes and process their results, and the queries can produce sorted results.</li>
+                <li>IQueryable&lt;T&gt; is more effiecnt that IEnumerable, because it performs data filtering on the source database, rather than loading all data and then filtering it to produce the result.</li>
+                <li>It is advised you use LINQ for any searching and sorting operations, rather than trying to craete custom data high performance storage elements.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Use the Entity Framework to Design Your Data Storage</h3>
+            <ul>
+                <li>The Entity Framework is part of ADO.NET (Active Data Objects) that you can use to create data storage for your applications.</li>
+                <li>Objects in your application can be mapped onto tables in a database that is automatically created.</li>
+                <li>The objects are created as C# classes and the Entity Framework tools migrate these into a database design.</li>
+                <li>The object and database design can be updated by performing successive migrations as the application evolves over time.</li>
+                <li>This is a great way to create and deploy a line of business and web applications.</li>
+                <li>Once you've built the model class, add a controller for that model using the Entiy Framework option. This will build the code for the class design needed to create a database from.</li>
+                <li>Install EntityFrameworkCore.Tools using the command: 
+                    <code>Install-Package Microsoft.EntityFrameworkCore.Tools</code></li>
+                <li>Once the tools are loaded, create the database by performing the first migration using the command: 
+                    <code>Add-Migration Initial</code></li>
+                <li>Now the database is created, perform an updated to create the tables that will store the class data in the application. Use the command:
+                    <code>Update-Database</code>
+                </li>
+                <li>This will result in an application that exposes data as a web page. Any data created will now be persistant.</li>
+            </ul>
+            <h4>Model View Controller and ASP Web Pages</h4>
+            <ul>
+                <li>The Model View Controller (MVC) pattern makes it simpler to create complex applications by separating out the activities required to build an application with a rich user interface.</li>
+                <li>The model contains the data and any busines logic for the application. It also contains the state of the application.</li>
+                <li>In ASP, a given item in the model is exposed as an instance of a context, which provides methods that can be used to interact with data.</li>
+                <li>The controller responds to events that are generated by the view an selects which view to render. It also initiates any changes to the model in response to a user action.</li>
+                <li>The view displays what the user sees on the screen. In this case it is implemented by a web page for each view.</li>
+                <li>A given ASP controller class can be associated with a number of views.</li>
+                <li>The HTML that describes the web page also contains embedded C# code (using an ASP.NET feature called the Razor view engine) that can be used to aid with the presentation of the data.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Manage Data Integrity</h3>
+            <ul>
+                <li>Ensuring that your data integrity falls directly out of the need to consider security at all points in the creation of your application.</li>
+                <li>You need to actively consider how changes are made to your data and how these might fail or be subverted and cause the data to be corrupted.</li>
+                <li>Data that is managed by an object should be private to that object, and the object should provide the bare minimum number of public interactions with the data.</li>
+                <li>Beyond this, you should consider how object interactions can be designed to ensure that the datain the objects has integrity.</li>
+            </ul>
+            <h4>Integrity in Method Calls</h4>
+            <ul>
+                <li>Parameters to method calls should be range checked to ensure that their behaviour cannot be subverted to corrupt data.</li>
+                <li>When passing parameters into a method call, be aware of the way that passing a method reference to an object as a parameter raises the possibility that the method may make changes to the object.</li>
+                <li>An action of a method that changes data outside the method is called a "side effect" of that method.</li>
+                <li>If you want to be sure that a method can't change the contents of an object that it is given a reference to, you will have to copy the object and pass the method a reference to the copy. You don't need to do this if the paramter being supplied is a value type.</li>
+                <li>A copy constructor can be used to achieve this. It is a constructor which takes an object of the same type as a parameter, and then the values are copied over to the new instance.</li>
+                <li>The use of copies of objects is also a good idea when creating multi-threaded applications. It removes the possibility of other threads making changes to an object reference.</li>
+                <li>When creating copies of objects, you have to be aware of the implictions of copying objects that contain references to other objects.</li>
+                <li>If the object contained a reference you'd have to decide whether or not to copy the nested reference object as well. This is called a "deep copy", the name given to a copy process that also copies all the objects referred to by an object being copied.</li>
+                <li>You need to decide if you should make a "shallow copy" and risk methods not behaving as expected, or put the extra effort to make a secure but computationally expensive "deep copy".</li>
+            </ul>
+            <h4>Risk and Impact</h4>
+            <ul>
+                <li>You need to consider how much risk you can tolerate at every point in your design.</li>
+                <li>You also need to consider the impact of any failure of the security you have implemented to protect your objects.</li>
+                <li>The potential for financial loss if someone, maliciously or inadvertently, changes the Price property of a MusicTrack, which means that this would have impact on the business.</li>
+                <li>This would be high risk as people might stand to benefit from a price change. So extra effort into protecting the Price property must be made.</li>
+                <li>Decisions like this should be made at the start of the development process.</li>
+            </ul>
+            <h4>Atomic Actions</h4>
+            <ul>
+                <li>An action on a data item should be atomic. The word atomic in this context means "indivisible".</li>
+                <li>If a value failed to be set when an object instance was being created you will end up with incomplete data.</li>
+                <li>You should have a single "atomic" action to add a new object instance which either succeeds or fails. There should be no posibilty of the action half-completing and leaving the object in an invalid state.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Evaluate a Regular Expression to Validate the Input Format</h3>
+            <ul>
+                <li>String validation of data coming into your program can be hard work.</li>
+                <li>The C# string type provides methods that can be used to search a string for particular substrings.</li>
+                <li>However, it would be hard to use just these methods to do things like validate dates, times, email addresses and telephone numbers.</li>
+                <li>Fortunately, C# contains an implementation of regular expressions that can be used to perform data validation.</li>
+                <li>A regular expression is a means of expressing a string fo characters that need to be matched in a target string.</li>
+            </ul>
+            <h4>String Editing Using Regular Expressions</h4>
+            <ul>
+                <li>A regular expression can be as simple as just a single character match.</li>
+                <li>The Regex object from the System.Text.RegularExpressions namespace provides a method called Replace that can be used to replace regular expressions in a source string.</li>
+                <li>The Replace method is supplied with paramters that specify an input string, a regular expression to match, and a replacement string.</li>
+                <li>Regular expressions can be used to match very complex input strings. There are a series of control characters that will allow the expression to match ranges of characters in complex combinations.</li>
+            </ul>
+            <h4>Data Validation Using Regular Expressions</h4>
+            <ul>
+                <li>The @ prefix before a regular expression string means that the string should be processed by the compiler as a verbatim string.</li>
+                <li>This means that the compielr will make no attempt to process any escape sequences in the string.</li>
+                <li>This is a good idea because regular expressions frequently contain characters that may be regarded by the compiler as escape characters.</li>
+                <li>The ^ (circumflex) character means "the start of a line".</li>
+                <li>The | (vertical bar) characters means "or". It is used between alternative match values. It allows you to create a validation string to match upper and lower-case letters, along with a space.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Use Built-in Functions to Validate Data Types and Content</h3>
+            <ul>
+                <li>Defensive programming is a design appraoch which views an application as a castle that must be protected by a moat and a drawbridge and has guards that say "Halt. Who goes there?" to anyone trying to get insides. Everything coming towards the program is viewed as malicious.</li>
+                <li>Input processing should be designed in such a way as to make sure that invalid values are detected and rejected.</li>
+                <li>Regular expressions are a great way to ensure that data has a valid form but tehre are also some built-in functions that are provided by C# to help with data validation.</li>
+            </ul>
+            <h4>Reading Values</h4>
+            <ul>
+                <li>The simplest form of conversion is taht of a string of digits into a numeric value.</li>
+                <li>The C# numeric types provide a Parse method that will convert a string to a number. It will not allow ivnalid strings to be converted into numbers, but rejectes invalid values by throwing an exception, which seems a little extreme.</li>
+                <li>It is best to reserve exceptons for events which are more unexpected.</li>
+                <li>All numeric types provide a TryParse method which will attempt to parse a string and return False if the parse fails. The first parameter is the string to be parsed, and the second is the variable that will receive the value.</li>
+                <li>The C# library also contains a Convert class that can be used to convert between various types. It can even convert strings into Boolean types.</li>
+                <li>The Convert method will throw an exception if the conversion fails, but not if the input value is null.</li>
+                <li>There are some things to consider when considering the three different ways of converting values:
+                    <ul>
+                        <li>int.Parse will throw an exception if supplied with a null argument or a string that does not contain text that represents a valud value.</li>
+                        <li>int.TryParse will return false if supplied with a null argument or a string that does not contain text that represents a valud value.</li>
+                        <li>Convert.ToInt32 will throw an exception if the supplied string argument does not contain text that represents a valid value. It will not, however, throw an exception if the supplied argument is null. Returning 0 if the supplied argument is null.</li>
+                    </ul>
+                </li>
+            </ul>
+            <h4>Validation in ASP.NET</h4>
+            <ul>
+                <li>Attributes can be added to the model class to restrict the values of properties.</li>
+                <li>Attributes can be used to provide correct validation behaviours.</li>
             </ul>
         </div>
     </div>
