@@ -22,54 +22,75 @@
         <div>
             <h3>Using JSON</h3>
             <ul>
-                <li>JSON (JavaScript Object Notation) is a very popular means by which applications can exchange data.</li>
+                <li>JSON (JavaScript Object Notation) is a very popular means by which applications can exchange data.
+                </li>
                 <li>It is easy for both people and computers to understand.</li>
                 <li>The JSON standard is defined at <a href="https://www.json.org">https://www.json.org</a>.</li>
             </ul>
             <h4>The JSON Document</h4>
             <ul>
-                <li>A JSON document contains a number of name/value pairs that represent the data in an application.</li>
+                <li>A JSON document contains a number of name/value pairs that represent the data in an application.
+                </li>
                 <li>A JSON document can also contain arrays of JSON objects.</li>
-                <li>JSON documents map very well onto objects in an object-oriented language, although JSON itself is not tied to any one programming language.</li>
-                <li>JSON is therefore very useful if you want to share data between programs written in different languages.</li>
+                <li>JSON documents map very well onto objects in an object-oriented language, although JSON itself is
+                    not tied to any one programming language.</li>
+                <li>JSON is therefore very useful if you want to share data between programs written in different
+                    languages.</li>
                 <li>A JSON document is enclosed in braces and contains a series of name and value pairs.</li>
                 <li>The type of data is not stored as part of the document.</li>
-                <li>JSON documents can contain lists of items. Any value in JSON can be expressed as a comma separated list of name and value pairs, enclosed in square brackets.</li>
-                <li>The design of JSON is very lightweight, but can be used to represent highly structured data; particularly when you consider that a list can contain values that represent another list.</li>
+                <li>JSON documents can contain lists of items. Any value in JSON can be expressed as a comma separated
+                    list of name and value pairs, enclosed in square brackets.</li>
+                <li>The design of JSON is very lightweight, but can be used to represent highly structured data;
+                    particularly when you consider that a list can contain values that represent another list.</li>
             </ul>
         </div>
         <div>
             <h3>JSON and C#</h3>
             <ul>
-                <li>The most popular way of converting C# classes to and from C# objects was not a library built into .NET, but a ibrary of routines created by James Newton-King.</li>
+                <li>The most popular way of converting C# classes to and from C# objects was not a library built into
+                    .NET, but a ibrary of routines created by James Newton-King.</li>
                 <li>The Newtonsoft.Json library can be obtained via NuGet package manager.</li>
                 <li>You can use the classes in it to create JSON descriptions of object contents and retrieve them.</li>
-                <li>The SerializeObject and DeserializeObject emthods exposed by the JsonConvert object can be used to create and parse string of JSON.</li>
+                <li>The SerializeObject and DeserializeObject emthods exposed by the JsonConvert object can be used to
+                    create and parse string of JSON.</li>
                 <li>There are a few things to be aware of from a security and class design point of view:
                     <ul>
-                        <li>In order to save and load private properties in a class you need to mark these items with the [JsonProperty] attribute.</li>
-                        <li>If you want to serialize a class using JSON you don't have to add the [Serializable] attribute to the class.</li>
-                        <li>When loading a class back using JSON you need to provide the type into which the result is to be stored. No type information is stored in the file that stores the JSON data.</li>
-                        <li>The JSON deserializer determines the type of each property in the dstination object and then performs type conversion automatically, a good example of reflection.</li>
+                        <li>In order to save and load private properties in a class you need to mark these items with
+                            the [JsonProperty] attribute.</li>
+                        <li>If you want to serialize a class using JSON you don't have to add the [Serializable]
+                            attribute to the class.</li>
+                        <li>When loading a class back using JSON you need to provide the type into which the result is
+                            to be stored. No type information is stored in the file that stores the JSON data.</li>
+                        <li>The JSON deserializer determines the type of each property in the dstination object and then
+                            performs type conversion automatically, a good example of reflection.</li>
                         <li>There is nothing to prevent changes to the context of the text in a JSON document.</li>
-                        <li>If you wish to detect modification of a document transferred by JSOn you can add a checksum or hash property to the type that is validated by the recipient of the data.</li>
+                        <li>If you wish to detect modification of a document transferred by JSOn you can add a checksum
+                            or hash property to the type that is validated by the recipient of the data.</li>
                     </ul>
                 </li>
             </ul>
             <h4>JSON and XML</h4>
             <ul>
-                <li>XML (eXtensible Markup Langauge) is another way of expressing the content of an object in a portable and human readable form.</li>
-                <li>This is a more heavyeight standard, in that an XML docuent contains more metadata than a JSON doucment.</li>
+                <li>XML (eXtensible Markup Langauge) is another way of expressing the content of an object in a portable
+                    and human readable form.</li>
+                <li>This is a more heavyeight standard, in that an XML docuent contains more metadata than a JSON
+                    doucment.</li>
                 <li>XML documents are versiond, and also contain encoding details.</li>
                 <li>Each element of the document also contains a name.</li>
                 <li>There are a few things that need to be aware of when considering JSON and XML:
                     <ul>
-                        <li>XML Serialization can only save and load the public data elements in a type. If you want to save the private elements in a class you should use the Data Contract serializer.</li>
-                        <li>For XML serialization to work the class being serialized must contain a parameterless constructor.</li>
+                        <li>XML Serialization can only save and load the public data elements in a type. If you want to
+                            save the private elements in a class you should use the Data Contract serializer.</li>
+                        <li>For XML serialization to work the class being serialized must contain a parameterless
+                            constructor.</li>
                         <li>The XML deserialization process returns a reference to an object.</li>
-                        <li>XML documents can have a schema attached to them. A schema formally sets out the items that a document must contain to be valid. Schemas can be used to automatically validate the structure of incoming documents.</li>
-                        <li>Elements in an XML document can also be given attributes to provide more information about them.</li>
-                        <li>An XML document is no less vulnerable to tampering than a JSON document. However, the attribute mechanism can be used to add vailidation information to data fields.</li>
+                        <li>XML documents can have a schema attached to them. A schema formally sets out the items that
+                            a document must contain to be valid. Schemas can be used to automatically validate the
+                            structure of incoming documents.</li>
+                        <li>Elements in an XML document can also be given attributes to provide more information about
+                            them.</li>
+                        <li>An XML document is no less vulnerable to tampering than a JSON document. However, the
+                            attribute mechanism can be used to add vailidation information to data fields.</li>
                     </ul>
                 </li>
             </ul>
@@ -77,157 +98,240 @@
         <div>
             <h3>Validate JSON Data</h3>
             <ul>
-                <li>You can perform simple text-based checks on a JSON file to get some level of confidene about the validity of tis content.</li>
-                <li>A program can check that the text starts and ends with a matching pair of brace characters, contains the same number of open square brackets as close brackets, and an even number of double quote characters.</li>
+                <li>You can perform simple text-based checks on a JSON file to get some level of confidene about the
+                    validity of tis content.</li>
+                <li>A program can check that the text starts and ends with a matching pair of brace characters, contains
+                    the same number of open square brackets as close brackets, and an even number of double quote
+                    characters.</li>
                 <li>The exceptions thrown by the JSON parser can also give good information about the content.</li>
             </ul>
         </div>
         <div>
             <h3>Choose the Appropriate Data Collection Type</h3>
             <ul>
-                <li>During the implementation of an application you will need to decide how collections of the data are to be organized. There are a large number of options available.</li>
+                <li>During the implementation of an application you will need to decide how collections of the data are
+                    to be organized. There are a large number of options available.</li>
             </ul>
             <h4>Use Typed Collection Classes</h4>
             <ul>
-                <li>From a security point of view, it is advisable to use the typed versions of the C# collection classes.</li>
+                <li>From a security point of view, it is advisable to use the typed versions of the C# collection
+                    classes.</li>
                 <li>The System.Collections namespace provides untype collection classes such as ArraList.</li>
-                <li>These are regarded as untyped because the data in them is managed in terms of reference to an object.</li>
-                <li>Since object is the base type of all C# types; this means that such collections can hold any type of object, in any arrangement.</li>
-                <li>The List class in the Systems.Collections.Generic namespace uses generic typing, which allows the programmer to specify that a given list can only contain specific object references.</li>
+                <li>These are regarded as untyped because the data in them is managed in terms of reference to an
+                    object.</li>
+                <li>Since object is the base type of all C# types; this means that such collections can hold any type of
+                    object, in any arrangement.</li>
+                <li>The List class in the Systems.Collections.Generic namespace uses generic typing, which allows the
+                    programmer to specify that a given list can only contain specific object references.</li>
             </ul>
             <h4>Consider Threading</h4>
             <ul>
                 <li>The standard C# collection classes are not "thread safe".</li>
-                <li>If several processes attempt to interact with a non-thread safe object, it can lead to data being lost of duplicated in ways that can be very hard to debug, because the nature of the error and when it occurs may be dependent on system loading and timing conditions that are hard to replicate.</li>
+                <li>If several processes attempt to interact with a non-thread safe object, it can lead to data being
+                    lost of duplicated in ways that can be very hard to debug, because the nature of the error and when
+                    it occurs may be dependent on system loading and timing conditions that are hard to replicate.</li>
             </ul>
             <h4>Use the Correct Kind of Collection</h4>
             <ul>
-                <li>If you're processing a stream of incoming messages and then discarding them you should consider using a Queue class if you want first-in, first-out (FIFO) behaviour and a stack if you want last-in, first-out (LIFO) behaviour.</li>
-                <li>If you plan to use an index to access elements and you know in advance how many elements there are, you can use a simple array. This is useful for lookup tables.</li>
-                <li>If the number of items being stored is not known in advance you can use a List&lt;T&gt; type, which allows your program indexed access to given elements.</li>
-                <li>If you need to perform frequent insertions and deletions of data items, and also needs to work through a large list of items, you can use the LinkedList&lt;T&gt; type. This will be more efficient that using an index to access elements in a sequence.</li>
-                <li>If you want to store your data sorted in a particular order you can add a CompareTo behaviour to your data objects, make them implement the IComparable interface and then us the Sort method in the List type to perform the sorting.</li>
-                <li>If you want to index your information on a key value the Dictionary&lt;TKey,TValue&gt; collection class will do.</li>
+                <li>If you're processing a stream of incoming messages and then discarding them you should consider
+                    using a Queue class if you want first-in, first-out (FIFO) behaviour and a stack if you want
+                    last-in, first-out (LIFO) behaviour.</li>
+                <li>If you plan to use an index to access elements and you know in advance how many elements there are,
+                    you can use a simple array. This is useful for lookup tables.</li>
+                <li>If the number of items being stored is not known in advance you can use a List&lt;T&gt; type, which
+                    allows your program indexed access to given elements.</li>
+                <li>If you need to perform frequent insertions and deletions of data items, and also needs to work
+                    through a large list of items, you can use the LinkedList&lt;T&gt; type. This will be more efficient
+                    that using an index to access elements in a sequence.</li>
+                <li>If you want to store your data sorted in a particular order you can add a CompareTo behaviour to
+                    your data objects, make them implement the IComparable interface and then us the Sort method in the
+                    List type to perform the sorting.</li>
+                <li>If you want to index your information on a key value the Dictionary&lt;TKey,TValue&gt; collection
+                    class will do.</li>
                 <li>If you are storing only strings you can use the StringCollection and StringList classes.</li>
             </ul>
             <h4>Plan to Work with LINQ on Your Collections</h4>
             <ul>
-                <li>Any object that implements the IEnumberable or the IQueryable&lt;T&gt; interface can be acted on by a LINQ query.</li>
+                <li>Any object that implements the IEnumberable or the IQueryable&lt;T&gt; interface can be acted on by
+                    a LINQ query.</li>
                 <li>LINQ queries are compiled into expression trees and execute very quickly.</li>
-                <li>It is easy to create LINQ queryes and process their results, and the queries can produce sorted results.</li>
-                <li>IQueryable&lt;T&gt; is more effiecnt that IEnumerable, because it performs data filtering on the source database, rather than loading all data and then filtering it to produce the result.</li>
-                <li>It is advised you use LINQ for any searching and sorting operations, rather than trying to craete custom data high performance storage elements.</li>
+                <li>It is easy to create LINQ queryes and process their results, and the queries can produce sorted
+                    results.</li>
+                <li>IQueryable&lt;T&gt; is more effiecnt that IEnumerable, because it performs data filtering on the
+                    source database, rather than loading all data and then filtering it to produce the result.</li>
+                <li>It is advised you use LINQ for any searching and sorting operations, rather than trying to craete
+                    custom data high performance storage elements.</li>
             </ul>
         </div>
         <div>
             <h3>Use the Entity Framework to Design Your Data Storage</h3>
             <ul>
-                <li>The Entity Framework is part of ADO.NET (Active Data Objects) that you can use to create data storage for your applications.</li>
-                <li>Objects in your application can be mapped onto tables in a database that is automatically created.</li>
-                <li>The objects are created as C# classes and the Entity Framework tools migrate these into a database design.</li>
-                <li>The object and database design can be updated by performing successive migrations as the application evolves over time.</li>
+                <li>The Entity Framework is part of ADO.NET (Active Data Objects) that you can use to create data
+                    storage for your applications.</li>
+                <li>Objects in your application can be mapped onto tables in a database that is automatically created.
+                </li>
+                <li>The objects are created as C# classes and the Entity Framework tools migrate these into a database
+                    design.</li>
+                <li>The object and database design can be updated by performing successive migrations as the application
+                    evolves over time.</li>
                 <li>This is a great way to create and deploy a line of business and web applications.</li>
-                <li>Once you've built the model class, add a controller for that model using the Entiy Framework option. This will build the code for the class design needed to create a database from.</li>
-                <li>Install EntityFrameworkCore.Tools using the command: 
+                <li>Once you've built the model class, add a controller for that model using the Entiy Framework option.
+                    This will build the code for the class design needed to create a database from.</li>
+                <li>Install EntityFrameworkCore.Tools using the command:
                     <code>Install-Package Microsoft.EntityFrameworkCore.Tools</code></li>
-                <li>Once the tools are loaded, create the database by performing the first migration using the command: 
+                <li>Once the tools are loaded, create the database by performing the first migration using the command:
                     <code>Add-Migration Initial</code></li>
-                <li>Now the database is created, perform an updated to create the tables that will store the class data in the application. Use the command:
+                <li>Now the database is created, perform an updated to create the tables that will store the class data
+                    in the application. Use the command:
                     <code>Update-Database</code>
                 </li>
-                <li>This will result in an application that exposes data as a web page. Any data created will now be persistant.</li>
+                <li>This will result in an application that exposes data as a web page. Any data created will now be
+                    persistant.</li>
             </ul>
             <h4>Model View Controller and ASP Web Pages</h4>
             <ul>
-                <li>The Model View Controller (MVC) pattern makes it simpler to create complex applications by separating out the activities required to build an application with a rich user interface.</li>
-                <li>The model contains the data and any busines logic for the application. It also contains the state of the application.</li>
-                <li>In ASP, a given item in the model is exposed as an instance of a context, which provides methods that can be used to interact with data.</li>
-                <li>The controller responds to events that are generated by the view an selects which view to render. It also initiates any changes to the model in response to a user action.</li>
-                <li>The view displays what the user sees on the screen. In this case it is implemented by a web page for each view.</li>
+                <li>The Model View Controller (MVC) pattern makes it simpler to create complex applications by
+                    separating out the activities required to build an application with a rich user interface.</li>
+                <li>The model contains the data and any busines logic for the application. It also contains the state of
+                    the application.</li>
+                <li>In ASP, a given item in the model is exposed as an instance of a context, which provides methods
+                    that can be used to interact with data.</li>
+                <li>The controller responds to events that are generated by the view an selects which view to render. It
+                    also initiates any changes to the model in response to a user action.</li>
+                <li>The view displays what the user sees on the screen. In this case it is implemented by a web page for
+                    each view.</li>
                 <li>A given ASP controller class can be associated with a number of views.</li>
-                <li>The HTML that describes the web page also contains embedded C# code (using an ASP.NET feature called the Razor view engine) that can be used to aid with the presentation of the data.</li>
+                <li>The HTML that describes the web page also contains embedded C# code (using an ASP.NET feature called
+                    the Razor view engine) that can be used to aid with the presentation of the data.</li>
             </ul>
         </div>
         <div>
             <h3>Manage Data Integrity</h3>
             <ul>
-                <li>Ensuring that your data integrity falls directly out of the need to consider security at all points in the creation of your application.</li>
-                <li>You need to actively consider how changes are made to your data and how these might fail or be subverted and cause the data to be corrupted.</li>
-                <li>Data that is managed by an object should be private to that object, and the object should provide the bare minimum number of public interactions with the data.</li>
-                <li>Beyond this, you should consider how object interactions can be designed to ensure that the datain the objects has integrity.</li>
+                <li>Ensuring that your data integrity falls directly out of the need to consider security at all points
+                    in the creation of your application.</li>
+                <li>You need to actively consider how changes are made to your data and how these might fail or be
+                    subverted and cause the data to be corrupted.</li>
+                <li>Data that is managed by an object should be private to that object, and the object should provide
+                    the bare minimum number of public interactions with the data.</li>
+                <li>Beyond this, you should consider how object interactions can be designed to ensure that the datain
+                    the objects has integrity.</li>
             </ul>
             <h4>Integrity in Method Calls</h4>
             <ul>
-                <li>Parameters to method calls should be range checked to ensure that their behaviour cannot be subverted to corrupt data.</li>
-                <li>When passing parameters into a method call, be aware of the way that passing a method reference to an object as a parameter raises the possibility that the method may make changes to the object.</li>
-                <li>An action of a method that changes data outside the method is called a "side effect" of that method.</li>
-                <li>If you want to be sure that a method can't change the contents of an object that it is given a reference to, you will have to copy the object and pass the method a reference to the copy. You don't need to do this if the paramter being supplied is a value type.</li>
-                <li>A copy constructor can be used to achieve this. It is a constructor which takes an object of the same type as a parameter, and then the values are copied over to the new instance.</li>
-                <li>The use of copies of objects is also a good idea when creating multi-threaded applications. It removes the possibility of other threads making changes to an object reference.</li>
-                <li>When creating copies of objects, you have to be aware of the implictions of copying objects that contain references to other objects.</li>
-                <li>If the object contained a reference you'd have to decide whether or not to copy the nested reference object as well. This is called a "deep copy", the name given to a copy process that also copies all the objects referred to by an object being copied.</li>
-                <li>You need to decide if you should make a "shallow copy" and risk methods not behaving as expected, or put the extra effort to make a secure but computationally expensive "deep copy".</li>
+                <li>Parameters to method calls should be range checked to ensure that their behaviour cannot be
+                    subverted to corrupt data.</li>
+                <li>When passing parameters into a method call, be aware of the way that passing a method reference to
+                    an object as a parameter raises the possibility that the method may make changes to the object.</li>
+                <li>An action of a method that changes data outside the method is called a "side effect" of that method.
+                </li>
+                <li>If you want to be sure that a method can't change the contents of an object that it is given a
+                    reference to, you will have to copy the object and pass the method a reference to the copy. You
+                    don't need to do this if the paramter being supplied is a value type.</li>
+                <li>A copy constructor can be used to achieve this. It is a constructor which takes an object of the
+                    same type as a parameter, and then the values are copied over to the new instance.</li>
+                <li>The use of copies of objects is also a good idea when creating multi-threaded applications. It
+                    removes the possibility of other threads making changes to an object reference.</li>
+                <li>When creating copies of objects, you have to be aware of the implictions of copying objects that
+                    contain references to other objects.</li>
+                <li>If the object contained a reference you'd have to decide whether or not to copy the nested reference
+                    object as well. This is called a "deep copy", the name given to a copy process that also copies all
+                    the objects referred to by an object being copied.</li>
+                <li>You need to decide if you should make a "shallow copy" and risk methods not behaving as expected, or
+                    put the extra effort to make a secure but computationally expensive "deep copy".</li>
             </ul>
             <h4>Risk and Impact</h4>
             <ul>
                 <li>You need to consider how much risk you can tolerate at every point in your design.</li>
-                <li>You also need to consider the impact of any failure of the security you have implemented to protect your objects.</li>
-                <li>The potential for financial loss if someone, maliciously or inadvertently, changes the Price property of a MusicTrack, which means that this would have impact on the business.</li>
-                <li>This would be high risk as people might stand to benefit from a price change. So extra effort into protecting the Price property must be made.</li>
+                <li>You also need to consider the impact of any failure of the security you have implemented to protect
+                    your objects.</li>
+                <li>The potential for financial loss if someone, maliciously or inadvertently, changes the Price
+                    property of a MusicTrack, which means that this would have impact on the business.</li>
+                <li>This would be high risk as people might stand to benefit from a price change. So extra effort into
+                    protecting the Price property must be made.</li>
                 <li>Decisions like this should be made at the start of the development process.</li>
             </ul>
             <h4>Atomic Actions</h4>
             <ul>
                 <li>An action on a data item should be atomic. The word atomic in this context means "indivisible".</li>
-                <li>If a value failed to be set when an object instance was being created you will end up with incomplete data.</li>
-                <li>You should have a single "atomic" action to add a new object instance which either succeeds or fails. There should be no posibilty of the action half-completing and leaving the object in an invalid state.</li>
+                <li>If a value failed to be set when an object instance was being created you will end up with
+                    incomplete data.</li>
+                <li>You should have a single "atomic" action to add a new object instance which either succeeds or
+                    fails. There should be no posibilty of the action half-completing and leaving the object in an
+                    invalid state.</li>
             </ul>
         </div>
         <div>
             <h3>Evaluate a Regular Expression to Validate the Input Format</h3>
             <ul>
                 <li>String validation of data coming into your program can be hard work.</li>
-                <li>The C# string type provides methods that can be used to search a string for particular substrings.</li>
-                <li>However, it would be hard to use just these methods to do things like validate dates, times, email addresses and telephone numbers.</li>
-                <li>Fortunately, C# contains an implementation of regular expressions that can be used to perform data validation.</li>
-                <li>A regular expression is a means of expressing a string fo characters that need to be matched in a target string.</li>
+                <li>The C# string type provides methods that can be used to search a string for particular substrings.
+                </li>
+                <li>However, it would be hard to use just these methods to do things like validate dates, times, email
+                    addresses and telephone numbers.</li>
+                <li>Fortunately, C# contains an implementation of regular expressions that can be used to perform data
+                    validation.</li>
+                <li>A regular expression is a means of expressing a string fo characters that need to be matched in a
+                    target string.</li>
             </ul>
             <h4>String Editing Using Regular Expressions</h4>
             <ul>
                 <li>A regular expression can be as simple as just a single character match.</li>
-                <li>The Regex object from the System.Text.RegularExpressions namespace provides a method called Replace that can be used to replace regular expressions in a source string.</li>
-                <li>The Replace method is supplied with paramters that specify an input string, a regular expression to match, and a replacement string.</li>
-                <li>Regular expressions can be used to match very complex input strings. There are a series of control characters that will allow the expression to match ranges of characters in complex combinations.</li>
+                <li>The Regex object from the System.Text.RegularExpressions namespace provides a method called Replace
+                    that can be used to replace regular expressions in a source string.</li>
+                <li>The Replace method is supplied with paramters that specify an input string, a regular expression to
+                    match, and a replacement string.</li>
+                <li>Regular expressions can be used to match very complex input strings. There are a series of control
+                    characters that will allow the expression to match ranges of characters in complex combinations.
+                </li>
             </ul>
             <h4>Data Validation Using Regular Expressions</h4>
             <ul>
-                <li>The @ prefix before a regular expression string means that the string should be processed by the compiler as a verbatim string.</li>
-                <li>This means that the compielr will make no attempt to process any escape sequences in the string.</li>
-                <li>This is a good idea because regular expressions frequently contain characters that may be regarded by the compiler as escape characters.</li>
+                <li>The @ prefix before a regular expression string means that the string should be processed by the
+                    compiler as a verbatim string.</li>
+                <li>This means that the compielr will make no attempt to process any escape sequences in the string.
+                </li>
+                <li>This is a good idea because regular expressions frequently contain characters that may be regarded
+                    by the compiler as escape characters.</li>
                 <li>The ^ (circumflex) character means "the start of a line".</li>
-                <li>The | (vertical bar) characters means "or". It is used between alternative match values. It allows you to create a validation string to match upper and lower-case letters, along with a space.</li>
+                <li>The | (vertical bar) characters means "or". It is used between alternative match values. It allows
+                    you to create a validation string to match upper and lower-case letters, along with a space.</li>
             </ul>
         </div>
         <div>
             <h3>Use Built-in Functions to Validate Data Types and Content</h3>
             <ul>
-                <li>Defensive programming is a design appraoch which views an application as a castle that must be protected by a moat and a drawbridge and has guards that say "Halt. Who goes there?" to anyone trying to get insides. Everything coming towards the program is viewed as malicious.</li>
-                <li>Input processing should be designed in such a way as to make sure that invalid values are detected and rejected.</li>
-                <li>Regular expressions are a great way to ensure that data has a valid form but tehre are also some built-in functions that are provided by C# to help with data validation.</li>
+                <li>Defensive programming is a design appraoch which views an application as a castle that must be
+                    protected by a moat and a drawbridge and has guards that say "Halt. Who goes there?" to anyone
+                    trying to get insides. Everything coming towards the program is viewed as malicious.</li>
+                <li>Input processing should be designed in such a way as to make sure that invalid values are detected
+                    and rejected.</li>
+                <li>Regular expressions are a great way to ensure that data has a valid form but tehre are also some
+                    built-in functions that are provided by C# to help with data validation.</li>
             </ul>
             <h4>Reading Values</h4>
             <ul>
                 <li>The simplest form of conversion is taht of a string of digits into a numeric value.</li>
-                <li>The C# numeric types provide a Parse method that will convert a string to a number. It will not allow ivnalid strings to be converted into numbers, but rejectes invalid values by throwing an exception, which seems a little extreme.</li>
+                <li>The C# numeric types provide a Parse method that will convert a string to a number. It will not
+                    allow ivnalid strings to be converted into numbers, but rejectes invalid values by throwing an
+                    exception, which seems a little extreme.</li>
                 <li>It is best to reserve exceptons for events which are more unexpected.</li>
-                <li>All numeric types provide a TryParse method which will attempt to parse a string and return False if the parse fails. The first parameter is the string to be parsed, and the second is the variable that will receive the value.</li>
-                <li>The C# library also contains a Convert class that can be used to convert between various types. It can even convert strings into Boolean types.</li>
-                <li>The Convert method will throw an exception if the conversion fails, but not if the input value is null.</li>
+                <li>All numeric types provide a TryParse method which will attempt to parse a string and return False if
+                    the parse fails. The first parameter is the string to be parsed, and the second is the variable that
+                    will receive the value.</li>
+                <li>The C# library also contains a Convert class that can be used to convert between various types. It
+                    can even convert strings into Boolean types.</li>
+                <li>The Convert method will throw an exception if the conversion fails, but not if the input value is
+                    null.</li>
                 <li>There are some things to consider when considering the three different ways of converting values:
                     <ul>
-                        <li>int.Parse will throw an exception if supplied with a null argument or a string that does not contain text that represents a valud value.</li>
-                        <li>int.TryParse will return false if supplied with a null argument or a string that does not contain text that represents a valud value.</li>
-                        <li>Convert.ToInt32 will throw an exception if the supplied string argument does not contain text that represents a valid value. It will not, however, throw an exception if the supplied argument is null. Returning 0 if the supplied argument is null.</li>
+                        <li>int.Parse will throw an exception if supplied with a null argument or a string that does not
+                            contain text that represents a valud value.</li>
+                        <li>int.TryParse will return false if supplied with a null argument or a string that does not
+                            contain text that represents a valud value.</li>
+                        <li>Convert.ToInt32 will throw an exception if the supplied string argument does not contain
+                            text that represents a valid value. It will not, however, throw an exception if the supplied
+                            argument is null. Returning 0 if the supplied argument is null.</li>
                     </ul>
                 </li>
             </ul>
@@ -240,23 +344,287 @@
     </div>
     <div>
         <h2 id="skill-3-2">Skill 3.2: Perform Symmetric and Asymmetric Encryption</h2>
-        <ul>
-            <li>NOTES</li>
-            <li>NOTES</li>
-            <li>NOTES</li>
-        </ul>
         <p>This section covers how to:</p>
         <ul>
-            <li>TOPIC</li>
-            <li>TOPIC</li>
-            <li>TOPIC</li>
+            <li>Choose an appropriate encryption algorithm</li>
+            <li>Manage and create certificates</li>
+            <li>Implement key management</li>
+            <li>Implement the System.Security namespace</li>
+            <li>Hashing data</li>
+            <li>Encrypt streams</li>
         </ul>
         <div>
-            <h3>HEADING</h3>
+            <h3>Cryptography and Cryptoanalysis</h3>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>Cryptography is the business of rending a message unreadable to anyone except for the proper
+                    recipient of the message.</li>
+                <li>It involves taing the original message and encrypting it to generate a version that can be safely
+                    transferred over an open network.</li>
+                <li>The recipient will perform decryption of the message to recover the original contents.</li>
+                <li>Anyone else who gets a copy of the encrypted substitution will be unable to make sense of it.</li>
+                <li>Cryptoanalysis is the business of code breaking.</li>
+                <li>It involves examining an encrypted message and looking for statistical patterns in it that reflect
+                    the language and conventions of the sender.</li>
+                <li>Once these patterns have ben detected they can be used as the basis of attempts to break a code by
+                    performing repeated guesses as to the encrytion method until the original message is retrieved.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Symmetric and Asymmetric Encryption</h3>
+            <ul>
+                <li>Symmetric encryption involves a single key which both sides of the encryption-decryption process
+                    uses.</li>
+                <li>The only issue with this is that if you wan to talk to someone new you have to send them a copy of
+                    the key, which can be intercepted.</li>
+                <li>Asymmetric encryption involves two keys, one used on either end of the process.</li>
+                <li>The only issue with it is that it's very computationally expensive.</li>
+                <li>Using symmetric keys is far easier, but you can get around the issue by combinging symmetric and
+                    asymmetric keys.</li>
+                <li>Start by making one of the asymmetric key pairs a public key. This key can be given to anyone you
+                    want to have a secure connection with. The other key is kept private.</li>
+                <li>Anyone with the public key can decrypt messages that have been encrypted with the private key.</li>
+                <li>Anyone with the public key can encrypt messages that only you can read, because you're using the
+                    private key to decrypt them.</li>
+            </ul>
+            <h4>Conversing Using Asymmetric Keys</h4>
+            <ul>
+                <li>Alice and Bob want to have a private conversaton, and Eve wants to eavesdrop. This is how Alice and
+                    Bob can use asymmetric keys to talk in private:
+                    <ol>
+                        <li>At the start of the conversation Alice and Bob each make an asymmetric pair of keys. They
+                            nominate one of their keys public and the other private.</li>
+                        <li>Alice and Bob then exchange their public keys over an open network. Eve, of course, obtains
+                            copies of these.</li>
+                        <li>Alice and Bob now each create a symmetric key. Alice uses Bob's public key to encrypt her
+                            symmetric key and send it to Bob. Eve, of course, gets a copy of this encrypted message but,
+                            because she doesn't have Bob's private key, she can't decrypt it and obtain the symmetric
+                            key.</li>
+                        <li>Bob uses his private key to decrypt the message containing Alice's symmetric key and can use
+                            this to efficiently encrypt a long message to Alice. Alice can do the same if Bob uses her
+                            public key to send her an encrypted symmetric key.</li>
+                        <li>Eve, in the middle, can noly see encrypted messages. The conversation between Alice and Bob
+                            is private.</li>
+                    </ol>
+                </li>
+                <li>The combination of asymmetric keys to set up the conversation, and symmetric keys to transfer the
+                    data, underpines secure conversations on the internet.</li>
+            </ul>
+            <h4>Using Asymmetric Keys to Sign Messages</h4>
+            <ul>
+                <li>Another use of asymmetric keys is for signing messages. A message encoded by a private key can noly
+                    be decoded by the matching public key.
+                    <ol>
+                        <li>Bob creates a document and also a signature or "message digest" that describes the message.
+                            The signature is a tiny piece of data that can be used to authenticate the document. The
+                            simplest form can be a "checksum", which is a number calculated by adding together the codes
+                            of all the characters in the message.</li>
+                        <li>Bob sends Alice three things: his signed document, the signature encrypted using his private
+                            key, and his public key.</li>
+                        <li>Alice can use the public key she receives from Bob to decrypt the message digest and compare
+                            it with one that she has calculated for the document she received. If the two match she can
+                            be sure that the document came from bob. She can also be sure that the document she
+                            receieved has no been tampered with, as any changes would cause her calculated message
+                            digest to differ from the one she receieved in the message digest.</li>
+                    </ol>
+                </li>
+                <li>Document signing can be extended to cover items such as software downloads and system updates. It
+                    this how you can be sure that messages you receive are actually from the correct person.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Data Encryption Using AES Symmetric Encryption</h3>
+            <ul>
+                <li>The Advanced Encryption Standard (AES) is used worldwide to encrypt data.</li>
+                <li>It supersedes the Data Encryption Standard (DES).</li>
+                <li>AES is a symmetric encryption system.</li>
+                <li>Encrypted messages and the keys that are used to perform the encryption are stored in arrays of
+                    bytes.</li>
+                <li>The initialization vector adds security to a particular key value by specifiying a random start
+                    point in the stream of encryption values that will be produced to encrypt the input.</li>
+                <li>If every encryption started at the beginning of the encryption stream, there is a chance that the
+                    repeated use of a particular encryption key provides a large enough set of encrypted messages for an
+                    eavesdropper to break the code.</li>
+                <li>By using a different initialization vector for each message, you can remove this possibility.</li>
+                <li>The receiver will need both the key and the initialization vector value to decrypt the code.</li>
+                <li>The Aes class provides options that allow you to set the length of the key used. Longer keys mean
+                    greater security, but slower encrpytion and decryption.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Encrypting Data Using Other Symmetric Standards</h3>
+            <ul>
+                <li>The encryption process in .NET is an example of good class design. All of the encryption classes,
+                    including Aes, are extensions of the base class SymmetricAlgorithm, which is in the
+                    System.Security.Cryptography namespace.</li>
+                <li>There are a number of other encryption implementations you can use in a program including the Data
+                    Encryption Standard (DES), RC2, Rijndael, and Triple DES.</li>
+                <li>DES was developed in the 1970s. Advances in computer power and cryptoanalysis mean that this
+                    standard is now regarded as insecure.</li>
+                <li>DES should only be used for compatability with legacy systems. Any new systems requiring data
+                    encryption should use AES.</li>
+                <li>RC2 is also supported by .NET, but is also now regarded as insecure. This should also only be used
+                    if working with an existing system that uses it.</li>
+                <li>Rijndael is the cypher on which AES was based. AES is implemented as a subset of Rijndael.</li>
+                <li>TripleDES improves on the security of the DES standard by encrypting the incoming data three times
+                    in succession using three different keys. The electronic payment industry make use of TripleDES.
+                </li>
+            </ul>
+            <h4>Use RSA Asymmetric Encryption to Create Public and Private Keys</h4>
+            <ul>
+                <li>Rivest-Shamir-Adleman (RSA) is a very popular asymmetric encryption standard.</li>
+                <li>The RSACryptoServiceProvider class in the System.Security.Cryptography namespace will perform
+                    encryption and decryption using this standard.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Implementing Public and Private Key Management</h3>
+            <ul>
+                <li>The RSACryptoServiceProvider class provides methods that can be used to extract the public and
+                    private keys from an instance.</li>
+                <li>These can then be sent to a recipient who can use them to encrypt and decrypt messages.</li>
+                <li>The ToXmlString method will return either the public or the public and private keys, depending on
+                    the value of a Boolean argument.</li>
+                <li>Once the XML has been sent to the recipient it can be used to configure an RSACryptoServiceProvider
+                    isntance by using the FromXmlString method.</li>
+                <li>This works well, but it means that the user of the encryption service has to find a secure place to
+                    store the key file. It is important that this is stored somewhere safe, because it contains the
+                    private key.</li>
+            </ul>
+            <h4>User Level Key Storage</h4>
+            <ul>
+                <li>There is a secure key storage facility provided for each user of a computer.</li>
+                <li>When you create a new instance of RSACryptoServiceProvider you can tell the instance to use a
+                    particular location in this storage to save and load keys.</li>
+                <li>The CspParameters class from the System.Security.Cryptography can be used to specify the storage
+                    location.</li>
+                <li>If you want to delete a stored key you can set the PersistKeyInCsp property of the
+                    RSACryptoServiceProvider instance to False and the clear the service.</li>
+            </ul>
+            <h4>Machine Level Key Storage</h4>
+            <ul>
+                <li>User level key storage is fine if a machine only has one user, but if keys are to be shared among
+                    many users, they should be stored at a macine level.</li>
+                <li>Windows implements machine level key storage in a folder that contains a file for each key.</li>
+                <li>The path to this folder on Windows 10 is usally C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys.
+                </li>
+                <li>Once the keys have been saved, they will be loaded from the store the next time the program runs.
+                </li>
+                <li>A machine level key is removed in just the same way as a user key, by setting the PersistKeyInCsp
+                    property to False.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Digital Signatures and Certificates</h3>
+            <ul>
+                <li>The flaw of this approach concerns identity validation. Consider that one day Alice receives a
+                    message that is supposed to be from Bob. It contains a public key that she can use to encrypt
+                    messages to Bob and use to validate messages from Bob that have been signed by him.</li>
+                <li>How does Alice know this message actually came from Bob? Eve could have be pretending to be Bob and
+                    trying to get Alice to have an encrypted conversation with her. Or worse still, Eve could intercept
+                    a message from Bob to start a covnersation and reply to the message instead of Alice.</li>
+                <li>Alice could be receiving a public key that is being sent by Eve pretending to be Bob. Eve could be
+                    sittingin the middle, using the "real" public key she received from Bob and then re-encrypting the
+                    messages and passing them on to Alice.</li>
+                <li>Without some form of identiy validation, Alice has no way of knowing whether the sender of a message
+                    is who they claim to be. You need an authority that can be used to validate the idenity of the
+                    sender of a message.</li>
+                <li>There are a number of Certification Authorities that do this online. They produce digital
+                    certificates for use when signing messages.</li>
+                <li>Bob can register with a certification authority, providing his details upon request. Alice can ask
+                    the relevant authority for the public portion of Bob's certificate and use this to validate a
+                    message claiming to come from him.</li>
+                <li>The process is used every time your computer contacts a web site. Your computer contains a list of
+                    certification authorities and also provides a certificate store.</li>
+            </ul>
+            <h4>Signing Documents Using Certificates</h4>
+            <ul>
+                <li>You can test code taht uses certificates to sign documents.</li>
+                <li>Firstly, you need to create a test certificate. This can't be used for real validation because it
+                    was created by us, and not a trusted certification authority.</li>
+                <li>Visual Studio provides a prompt which can be used to make an X.509 certificate:
+                    <code>makecert democert.cer</code>
+                </li>
+                <li>You will need to create this certiciate in a folder where you have write permissions. You can also
+                    put the certificate into the certificate store on your machine. The following creates a certificate
+                    with the name "AlexEbbage" in a certificate store called "demoCertStore":
+                    <code>makecert -n "CN=AlexEbbage" -sr currentuser -ss demoCertStore</code>
+                </li>
+                <li>You can use this certificate to perform encryption and also sign documents.</li>
+                <li>You can think of the certificate store as very similar to the machine key storage, but the
+                    certificate store contains trusted items.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Implement the System.Security Namespace</h3>
+            <ul>
+                <li>The System.Securiy namespace contains the cryptography classes that can be used to encrypt and
+                    decrypt data.</li>
+                <li>All the encryption classes are extensions of the abstract base class SymmetricAlgorithm.</li>
+                <li>If you want to implement your own encryption technology you canc reate an encryption class that
+                    extends the SymmetricAlgorithm class and implements its own encryption and decryption.</li>
+                <li>Your class can be used interchangeably with other encryption classes on your machine, but it is
+                    strongly encouraged you don't do this.</li>
+                <li>The namespace also contains classes that underpin file access permissions as well as the
+                    cryptography namespace that contains the algorithms used above.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Data Integrity by Hashing Data</h3>
+            <ul>
+                <li>You "hash" a large lump of data to create a small lump of data that is distincitve for the large
+                    lump.</li>
+                <li>The checksum can be a good start for a hash code, and it can be calculated bery easily using the
+                    CalculateChecksum method which accepts a string and returns an integer.</li>
+                <li>The checksum calculation does not take into account the order of the characters of a string, so
+                    characters can be easily moved about without affecting the checksum.</li>
+                <li>A hashing algorithm will weight the values in the source data according to their positions in the
+                    data, so that these kinds of changes result in different hash codes being calculated.</li>
+                <li>All C# objects provide a GetHash method that will return an integer hash value for that object based
+                    on that objects location in memory.</li>
+                <li>The hash value provided by the GetHash method is a single integer value, which is held in four bytes
+                    of memory. Therefore it is going to be smaller than the data being hashed. This means that a given
+                    hash value will correspond to more than one source file.</li>
+                <li>The hasing algorithm provided by GetHash is good enough for use in programs so that you only want to
+                    use the hash value of an object for indexing and searching, but for cryptographic appliactions you
+                    need a hashing algorithm that produces a large hash value.</li>
+            </ul>
+            <h4>MD5 Hashing</h4>
+            <ul>
+                <li>The MD5 (Message Digest 5) algorithm was created in 1991 to replce MD4.</li>
+                <li>It produces a hash code that is 16 bytes (128 bits) in size.</li>
+                <li>It has been shown that it is possible to create different documents that have the same MD5 hash
+                    code, so the algorithm should not be used for cryptographic purposes such as document signing.</li>
+                <li>It can be used to detect data corruption. Corruption due to failure of a storage medium or bit
+                    errors during transmission of data.</li>
+                <li>The main advantage MD5 has over other hasing algorithms is that it is fast.</li>
+            </ul>
+            <h4>SHA1 Hashing</h4>
+            <ul>
+                <li>Secure Hash Algorithm 1 (SHA1) is a hash algorith that produces a 20 byte (160 bit) hash code value.
+                </li>
+                <li>While it's better than MD5 it has been shown to be vulnerable to brute force attacks.</li>
+            </ul>
+            <h4>SHA2 Hashing</h4>
+            <ul>
+                <li>SHA2 improves on SHA1 and is actually a family of six hash functions that can produce outputs that
+                    are 224, 256, 384 or 512 bits in size.</li>
+                <li>The key generated is much longer than the others, so it is normally applied to much larger datasets.
+                </li>
+                <li>It is vulnerable to "length extension attacks", where a malicious person can add to the end of an
+                    existing document without changing the hash code.</li>
+                <li>The SHA3 standard addresses this, but it is not presently available from the Security.Cryptography
+                    namespace.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Encrypting Streams</h3>
+            <ul>
+                <li>The symmetric encryption uses a CryptoStream object that acts as a Stream object and can be chained
+                    togetehr with other objects that implement the behaviour of a stream.</li>
+                <li>A MemoryStream instance can be used to connect to a CryptoStream, but you can connect a stream type
+                    to any other stream type.</li>
+                <li>CryptoStream instance can even be chained together so you can implement additional security by
+                    "double encrypting" data.</li>
             </ul>
         </div>
     </div>
