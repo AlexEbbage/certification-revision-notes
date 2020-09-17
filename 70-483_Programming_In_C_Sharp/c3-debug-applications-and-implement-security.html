@@ -630,23 +630,212 @@
     </div>
     <div>
         <h2 id="skill-3-3">Skill 3.3: Manage Assemblies</h2>
-        <ul>
-            <li>NOTES</li>
-            <li>NOTES</li>
-            <li>NOTES</li>
-        </ul>
         <p>This section covers how to:</p>
         <ul>
-            <li>TOPIC</li>
-            <li>TOPIC</li>
-            <li>TOPIC</li>
+            <li>Version assemblies</li>
+            <li>Sign assemblies using strong names</li>
+            <li>Implement side-by-side hosting</li>
+            <li>Put an assembly in the global assembly cache</li>
+            <li>Create a WinMD assembly</li>
         </ul>
         <div>
-            <h3>HEADING</h3>
+            <h3>Version Assemblies</h3>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>Earlier versions of Windows also used dynamically loaded libraries to build large applications.</li>
+                <li>The library files were loaded when required and some library files were shared between multiple
+                    appliactions running on a machine.</li>
+                <li>This was a good idea at the time, as it save memory, allowing a system to simultaneously host a
+                    large number of applications.</li>
+                <li>Sharing libraries causes problems when applications become dependent on particular versions of
+                    shared library files.</li>
+                <li>It was frequently the case that installign a nwe pplication would break applications already on a
+                    machine because the installation process replaced one of th shared libraries with a version
+                    incompatible with the other program on the machine. AKA "DLL Hell".</li>
+                <li>The manifest for an assemvly contains a description of the contents of the assembly. It also
+                    contains a list of all the assemblies that this assembly uses.</li>
+                <li>The version information is added by Visual Studio when the application is built.</li>
+                <li>When the application runs, the .NET runtime environment can ensure that the version of the library
+                    that is loaded matches the one that is required. If the versions don't match the application won't
+                    run.</li>
+                <li>The information is stored in a file called AssemblyInfo.cs, which is held in the properties folder
+                    for the Visual Studio solution.</li>
+                <li>The version number of an assembly is expressed as four values separated by the period character:
+                    <code>{Major version}.{Minor version}.{Build number}.{Revision}</code>
+                </li>
+                <li>The major version should be increased with each major release. Major releases contain new features
+                    and/or breaking changes.</li>
+                <li>The minor version increases when smaller changes are made to the assembly.</li>
+                <li>The build number is used by the build server to identify builds so that they can be tracked.</li>
+                <li>The revision number is used to track patched versions in the production environment.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Sign Assemblies Using Strong Names</h3>
+            <ul>
+                <li>A strong-named assembly is signed and validated using the same public/private key arrangement. There
+                    are a number of advantages to using strong-named assemblies:
+                    <ul>
+                        <li>Version checking of assemblies only takes place when they are signed with strong names.</li>
+                        <li>A strong-named assembly can only be used in an application with other strong-named
+                            assemblies. This ensures that an entire application has integrity.</li>
+                        <li>A strong-named assembly can be loaded into the Global Assembly Cache (GAC), which provides
+                            performance inmporvements and alows assemblies to be shared among applications.</li>
+                        <li>A strong-named assembly has a unique name that is generated using the pivrate key when the
+                            assembly is signed. This allows multiple versions of the same assembly to exist side-by-side
+                            on a system. Because the manifest of an assembly contains the strong name of the other
+                            assemblies that it wishes to use; tehre is no possibility of name confusion leading to "DLL
+                            hell".</li>
+                    </ul>
+                </li>
+                <li>The command line tool "sn" can be used to generate public and private keys used to sign an assembly.
+                    You can also generate key files by selecting the Sign tab in the properties for an assembly project.
+                </li>
+                <li>An assembly that has been given a strong-name contains the public key that can be used to validate
+                    its signature. The public key is placed in the manifest assembly.</li>
+            </ul>
+            <h4>Fully Qualified Assembly Name and Public Key Token</h4>
+            <ul>
+                <li>A strong-named assembly has a fuly qualified name thatis made up of the assembly's name, the culture
+                    of the assembly, the public key token, and a version number.</li>
+                <li>The public key token is a 64-bit (8 byte) hash of the public key in the strong-name.</li>
+                <li>It ensures that every fully qualified assembly name is unique.</li>
+                <li>You can use reflection to obtain the fully qualified name of an assembly from the FullName property.
+                </li>
+            </ul>
+            <h4>Delay Signing</h4>
+            <ul>
+                <li>The key file that is used to sign the assembly contains the private key that is used to sign
+                    assemblies.</li>
+                <li>This should be kept securely (not uploaded to GitHub) as it allows antone to create strong-named
+                    assemblies signed with that key.</li>
+                <li>An organization usnig signed assemblies can use "Delay Signing" of assemblies to reduce the chance
+                    of the private key falling into the wrong hands.</li>
+                <li>In the case of Delay Signing the key that is used to sign the assemblies during production is the
+                    public key of the key pair and attributes are added to the assembly to indicate that Delay Signing
+                    is being used.</li>
+                <li>During the final build process distributing the application, the assemblies can be signed with the
+                    private key.</li>
+            </ul>
+            <h4>Limitations of Strong-names</h4>
+            <ul>
+                <li>Strong-names prevent "DLL Hell" by giving every assembly a unique name.</li>
+                <li>They prevent tampering with the contents of an assembly and they also prevent the substituion of one
+                    assembly for another.</li>
+                <li>However, giving an assembly a strong-name does not protect the contents of the assembly, nor does it
+                    prove the idenity of the person who created the assembly.</li>
+                <li>Anyone can use ildasm to view the contents of an assembly with a strong-name; including the actual
+                    program code in the applications.</li>
+                <li>If you create and distribute applications you can use digital certificate provided by Authenticode
+                    to sign code and identify yourself as the publisher of the code.</li>
+                <li>If you publish applications in Windows Store, this certification process happens automatically and a
+                    certificate is created that identifies you as the publisher of the application.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>The Global Assembly Cache (GAC)</h3>
+            <ul>
+                <li>When the .EXE assembly is executed it will load the other assemblies as required, which works weel
+                    as a deployment model for individual applications.</li>
+                <li>However, you might want to share a particular assembly among a number of different applications that
+                    you have created, which can be done by putting the assembly in the Global Assembly Cache (GAC).</li>
+                <li>The GAC is implemented as a folder named assembly, which is stored in the Windows folder on the
+                    machine.</li>
+                <li>During the installation of the application a copy of the assembly is placed into this folder.</li>
+                <li>When the .NET Runtime searches for an assembly it automatically looks for the assembly in the GAC,
+                    among other places.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Implement Side-by-side Hosting</h3>
+            <ul>
+                <li>All assemblies in the GAC are strong-named and so can be uniquely identified via its fully qualified
+                    name.</li>
+                <li>This makes it possible for the GAC to contain multiple versions of the same assembly. This is called
+                    side-by-side hosting of assemblies.</li>
+                <li>The manifest of ana seembly contains referencs to the specific assembly version it works with.
+                    Removing the possibility of "DLL Hell" in .NET applications.</li>
+                <li>A new "side hosted" version of an assembly that has a different fully qualified name is only
+                    associated with assemblies that specify that they want to use the new version of the assembly.</li>
+            </ul>
+            <h4>Assembly Binding Redirection</h4>
+            <ul>
+                <li>Side-by-side hosting works because the assemblies used by a particular application are explicitly
+                    specified in the manifest for the application.</li>
+                <li>However, this can lead to problesms during the lifecycle of an application. If you fix a bug in a
+                    shared assembly you can deploy a new version of the assembly into the GAC alongside the original,
+                    but it will not be used because all of the existing applications contain references to original.
+                </li>
+                <li>The problem can be addressed by creating assembly binding redirection, which modifies the behaviour
+                    of the GAC so that when a module asks for the faulty assembly the request is redireced to the
+                    assembly that contains the fixed code.</li>
+                <li>The redirection can be specified at 3 levels: the application level, the published level and the
+                    machine level. In each you can add a policy file to specify that an application requests a
+                    particular assembly it should be redirected to the replacement.</li>
+                <li>The policy file for an applicaton has the same name as the application executable file with the
+                    language extension ".config". It is an XML formatted file that contains application configuration
+                    options for a specific applicaiton.</li>
+                <li>The replacement assembly must have the same publicKeyTokrn value. This ensures that only the
+                    original publisher of an assembly can release replacement versions. This is applied during the
+                    installation of a service pack or an update to an application.</li>
+                <li>A configuration can be applied at the nmachine level. By adding entries into the system wide
+                    machine.config file, a system administrator can redirect all of the applications on a machine to use
+                    particular versions of assemblies.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Put an Assembly in the Global Assembly Cache</h3>
+            <ul>
+                <li>The primary reason for placing assemblies in the GAC is to allow them to be shared between
+                    applications.</li>
+                <li>It might also be done to prevent them from being removed from the systemm; only system administators
+                    can remove assemblies from the GAC.</li>
+                <li>Finally, it might be to take advantage of the ability to implement side by side versions of
+                    assemblies and to perform assembly binding redirection.</li>
+                <li>Developers can add assemblies into the GAC as part of the setup process, or with gacutil (Global
+                    Assembly Cache tool) during development.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Create a WinMD Assembly</h3>
+            <ul>
+                <li>Assemblies contain MSIL code that implements its behaviours.</li>
+                <li>The MSIL code is produced by compiling a language like C# or VB.</li>
+                <li>The MSIL will be "Just In Time" compiled for the target platform when the assembly is loaded and
+                    methods in the assembly are called.</li>
+                <li>The MSIl code runs inside a maanged code environment.</li>
+                <li>The runtime element of an OS starts programs running and manages their execution. When a C# program
+                    is started, the .NET runtime opens the startig assembly, finds the entry point, and begins running
+                    the program.</li>
+                <li>When Windows 8 released, Microsoft introduced a new WinRT runtime, which is written in C++.</li>
+                <li>WintRT runtime is completely different from Windows 8 RT, which was a version of Windows developed
+                    for use with ARm processors.</li>
+                <li>WinRT was created to provide the same level of support for C++ application components provided by
+                    .NET assemblies.</li>
+                <li>The informaton about a WinRT component is held in a WinMD (Windows Metadata) file. It might contain
+                    both metadata and executable code, or it might just contain metadata and serve as a "wrapper" for an
+                    existing block of compiled code.</li>
+                <li>WinRT has evolved into one of the technologies that underpins the Universal Windows Platform.
+                    Allowing Windows applications to be created and deployed across a wide range of different devices.
+                </li>
+                <li>WinRT allows programmers to create portable C++ applications that can run on devices supported by
+                    Windows OS.</li>
+                <li>WinRT applications interact with the OS via WinMD files that expose all of the API elements of
+                    Windows.</li>
+                <li>C# classes that are used in Windows Runtime Components are subject to a few limitations, so that
+                    their behaviours conform with the C++ origins of WinRT:
+                    <ul>
+                        <li>You must use Windows Runtime types for all the member variables, fields, and return values
+                            in your classes.</li>
+                        <li>It is not possible to use generics in your programs.</li>
+                        <li>A class can only implement Windows Runtime interfaces.</li>
+                        <li>A class can only derive from Windows Runtime classes.</li>
+                        <li>Public classes must be sealed (i.e. nothing can derive from them).</li>
+                        <li>Public structures must contain only public members, which must be strings or value types.
+                        </li>
+                        <li>The namespace of a public type must match the name of the assembly.</li>
+                        <li>Public member types must not have names that start with the word "Windows".</li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
