@@ -841,23 +841,172 @@
     </div>
     <div>
         <h2 id="skill-3-4">Skill 3.4: Debug An Application</h2>
-        <ul>
-            <li>NOTES</li>
-            <li>NOTES</li>
-            <li>NOTES</li>
-        </ul>
         <p>This section covers how to:</p>
         <ul>
-            <li>TOPIC</li>
-            <li>TOPIC</li>
-            <li>TOPIC</li>
+            <li>Create and manage preprocessor compiler directives</li>
+            <li>Choose an appropriate build type</li>
+            <li>Manage programming program database files and debug symbols</li>
         </ul>
         <div>
-            <h3>HEADING</h3>
+            <h3>Create and Manage Preprocessor Compiler Directives</h3>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>The C# compiler is a program that takes the C# source code and converts it into the Microsoft
+                    Intermediate Language (MSL) code that will be stored in the assembly file output.</li>
+                <li>The compilers behaviour can be modified by giving it compuler directives which are commands that are
+                    pre-ceded by the # character.</li>
+                <li>These commands are also known as preprocessor directives.</li>
+                <li>An explicit part of the compilation process in which the program source file is scanned and
+                    preprocessor directives are acted on.</li>
+                <li>The C and C++ pre-processor nuderstands a wide range of commands that allow programmers to create
+                    and trigger pre-built macros, swap one symbol in a program for another, and even include the
+                    contents of one source file in another.</li>
+                <li>The C# compiler directives are more limited in scope, but they are still very useful.</li>
+            </ul>
+            <h4>Use the #if Directive to Control Code Compilation</h4>
+            <ul>
+                <li>Code instrumentation is when you add code that produces diagnostic messages to your program.</li>
+                <li>Boolean flags can be used to determine whether or not to produce dianostic output. This adds extra
+                    code which increases the file size and slows the performance of the shipped product.</li>
+                <li>The #if compiler directive can be used to control whether or not a particular set of statements in a
+                    program are actually processed by the compiler.</li>
+                <li>It is used with the #define directive that lts us define a symbol that controls the behaviour of the
+                    #if.</li>
+                <li>If the symbol is defined at the top of the program then the code within the #if and #endif
+                    directives will be compiled, otherwise, it'll be grayed out and inactive.</li>
+                <li>Conditonal compilations symbols can be defiend in the proeprties of an application. Multiple symbols
+                    can be defined if separated by a semicolon.</li>
+                <li>The #else directive can be used to perform code when a symbol isn't defined.</li>
+                <li>The #elif directive can be used to perform an alternate #if condition.</li>
+                <li>The #undef directive can undefine any symbol that might have been defined outside the program, but
+                    must be at the very start of the program file.</li>
+                <li>Use it with care as it makes the code much harder to read and the developers need to be aware which
+                    symbols are defined.</li>
+                <li>They can be good for single version programs that need to run on multiple platforms. Though this
+                    need is greatly reduced thanks to Universal Applications.</li>
+            </ul>
+            <h4>Manage Method Execution with the Conditional Attribute</h4>
+            <ul>
+                <li>You can use the Conditonal attribute to enable and disable a method in your program.</li>
+                <li>The attribute is defined in the System.Diagnostics namespace and can be used to flag a method as to
+                    only be executed if a given conditional compilation symbol is defined.</li>
+                <li>It can be passed a symbol to make the method active or inactive based on whether or not the symbol
+                    is defined.</li>
+                <li>The conditional attribute doesn't control whether or not the method is included in the compiled
+                    assembly file output By the compiler.</li>
+            </ul>
+            <h4>Mark Code as Obsolete using the Obsolete Directive</h4>
+            <ul>
+                <li>Classes, interfaces, method and properties can be marked with the Obselete attribute to indicate
+                    that they have been superseded by newer versions.</li>
+                <li>The Obsolete attribute is applied to the superseded element and given a message and a boolean value
+                    that indicates whether the compiler warning (false) or an error (true) should be produced if the
+                    element with the attribute is used by the program.</li>
+            </ul>
+            <h4>Control Compilation with Warning and Error Directives</h4>
+            <ul>
+                <li>The #warning and #error directievs allow you to produce a compiler warning or even prevent
+                    compilation of a source code file.</li>
+                <li>The #error directive causes a compilation error to be produced. It is used to prevent the
+                    compilation of a source code file with an invalid combination of conditional configuration options.
+                </li>
+            </ul>
+            <h4>Manage Compilers Warning Reporting with the Pragma Directive</h4>
+            <ul>
+                <li>The #pragma warning directive can be used to disable warning reporting for a region of code.</li>
+                <li>#pragma warning disable and #pragma warning restore are used to open and close a block where
+                    warnings are ignored.</li>
+                <li>Warning filtering can be improved by specifying the warning you want the compiler to ignore.
+                    Multiples warning can be specified using a comma separated list.</li>
+            </ul>
+            <h4>Identify Error Positions with #line</h4>
+            <ul>
+                <li>The line numbers in error reports aren't always accurate due to auto-generated elements.</li>
+                <li>The #line directive can be used to set the reported line numbers of statements in yor code.</li>
+                <li>It can also be used to specify the file name delivered the error reporting.</li>
+                <li>The #line default directive statement resume normal line number and source file name reporting.</li>
+            </ul>
+            <h4>Hide Code Using #line</h4>
+            <ul>
+                <li>Another use of the #line directive is to hide code statements from the debugger.</li>
+                <li>This can be useful if your source code contains programmatically generated elements. You don't want
+                    to have to step through all the programmatically generated statements when debugging.</li>
+                <li>The #line hidden statement is used to prevent the debugger stepping through a block of code.</li>
+            </ul>
+            <h4>Use DebuggerStepThrough to Prevent Debugger Stepping</h4>
+            <ul>
+                <li>The DebuggerStepThrough attribute can be used to mark a method or class so that the debugger will
+                    not debug each statement in turn when single stepping through the code in that method or class.</li>
+                <li>This can be useful when the program contains programmatically generated elements that you don't want
+                    to step through.</li>
+                <li>Note that if you use this attribute on a class, none of the methods in the class will be stepped
+                    through by the debugger.</li>
+                <li>No breakpoints contained within elements marked with this attribute will be hit either.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Choose an Appropriate Build Configuration</h3>
+            <ul>
+                <li>The build configuration of your program controls the settings that are applied to the build process.
+                </li>
+                <li>The default configurations available are Debug and Release.</li>
+                <li>The MSIL file generated by the Debug mode contains statements that declare and initialize unused
+                    varaibles, whereas the Release file does not.</li>
+                <li>The Debug file also contains nop (no operation) statements, which do nothing when the program runs.
+                    They only serve as locations in the program that can be used as breakpoints.</li>
+                <li>As breakpoints are only used in debugging, these get omitted in the Release build.</li>
+                <li>The Release build may contain other differences such as "inline" implementations of short methods.
+                    The compiler may decide the program runs faster if the method body was copied "inline" each time the
+                    emthod is called, rather than generating the instructions that manage a method call.</li>
+                <li>A Release build may also be more aggressive about the removal of objects as it runs, meaning the
+                    finalizer methods are more likely to be called on objects. Usually they will perform the same but
+                    you should be aware they can be different.</li>
+                <li>The Configuration Manager can be used to make custom builds which are configured to target
+                    particular processor platforms.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Manage Programming Program Database Files and Debug Symbols</h3>
+            <ul>
+                <li>The Program Debug Database (.pdb) file is produced when the program is compiled.</li>
+                <li>It is sometimes known as the symbol file.</li>
+                <li>It contains debugger information, including a mapping of the program source code to the compiled
+                    statements, and the names of all the symbols in the program along with their addresses in the
+                    program memory space.</li>
+                <li>A new PDD is generated each time a program is compiles.</li>
+                <li>A database file contains a Globally Unique Identifier (GUID), which is also held in the executable
+                    file which the debug database is associated.</li>
+                <li>When the debug database is opened this value is checked, and only the database with the matching
+                    GUID can be used.</li>
+            </ul>
+            <h4>Symbol Servers</h4>
+            <ul>
+                <li>A symbol server provides debug database information to a program in place of local debug database
+                    file.</li>
+                <li>If you really want to step through the Microsoft elements of a program you can connect Visual Studio
+                    to a Symbol Server that provides the information that would normally be in the debug database.</li>
+                <li>To do this, and maange the use of other symbol servers, you can use the Debugging element of Visual
+                    Studio options.</li>
+                <li>New locations can be added for symbol files that are to be used with deugging, and you can also
+                    request the application connects to the Microsoft Symbol servers when the program runs.</li>
+                <li>The dialog also shows where program debug symbols should be cached on the machine.</li>
+                <li>Visual Studio will keep local copies of debug database information to reduce the amount of network
+                    traffic that is generated during debuging.</li>
+                <li>If you use TFS to maange your projects, you have the opton of saving all debug data files to a
+                    central server from which they can be accessed as required.</li>
+            </ul>
+            <h4>Public and Private Symbols</h4>
+            <ul>
+                <li>A program debug file can contain prublic and private symbol information.</li>
+                <li>The public information contains descriptions of public elements in that assembly.</li>
+                <li>The private information also cotnains descriptions of things like private methods and local
+                    variables.</li>
+                <li>Visual Studio creates debug files that contain both private and public components.</li>
+                <li>You might not want other people to be able to see information about private elements in your
+                    solution.</li>
+                <li>The pdbcopy tool can be used to make a copy of a pdfb file and remove all the private elements. It
+                    can also be provided with a list of symbols to remove.</li>
+                <li>The output of the pdbcopy has the same GUID as an incoming file, so it can be used with the same
+                    executable file.</li>
             </ul>
         </div>
     </div>
