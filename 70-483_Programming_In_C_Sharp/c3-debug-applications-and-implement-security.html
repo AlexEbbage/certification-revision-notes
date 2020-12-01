@@ -1176,7 +1176,8 @@
             <ul>
                 <li>The SourceSwitch can be used to directly control the behaviour of a TraceSource object.</li>
                 <li>It works the same as a TraceSwitch object.</li>
-                <li>This example shows a SourceSwitch instance being assigned to the Switch property of the TraceSource object.
+                <li>This example shows a SourceSwitch instance being assigned to the Switch property of the TraceSource
+                    object.
                     <code>
                         TraceSource trace = new TraceSource("Tracer", SourceLevels.All);
 
@@ -1201,13 +1202,116 @@
                         TraceSource trace = new TraceSource("configControl");
                     </code>
                 </li>
-                <li>If switch information with the given name isn't found in the app config, a trace is created that will not output any events.</li>
+                <li>If switch information with the given name isn't found in the app config, a trace is created that
+                    will not output any events.</li>
             </ul>
             <h4>Advanced Tracing</h4>
             <ul>
-                <li>More complex behaviours can be added to the config, including the creation and assignment of listeners to TraceSource objects.</li>
-                <li>Filters can be applied to listeners, so a given listener will only receive particular levels of tracing information.</li>
+                <li>More complex behaviours can be added to the config, including the creation and assignment of
+                    listeners to TraceSource objects.</li>
+                <li>Filters can be applied to listeners, so a given listener will only receive particular levels of
+                    tracing information.</li>
                 <li>There offers lot of flexibility in the tracing and logging that your application can perform.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Profiling Applications</h3>
+            <ul>
+                <li>One of the most common devleoper mistakes is to spend too much time optimizing a solution during
+                    development.</li>
+                <li>There are much more important issues than performance, especially considering the power of modern
+                    computers.</li>
+                <li>This section covers the occasions where performance can become a problem and tools which can be used
+                    to address the issue.</li>
+            </ul>
+            <h4>The StopWatch Class</h4>
+            <ul>
+                <li>The StopWatch class can be used to measure elapsed time which can then be used to compare different
+                    methods of peforming a task.</li>
+                <li>It provides Start, Stop, Reset, and Restart methods.</li>
+                <li>
+                    <code>
+                        Stopwatch stopwatch = new StopWatch();
+
+                        stopwatch.Start();
+                        sequentialTest();
+                        stopwatch.Stop();
+                        Console.WriteLine("Sequential time in milliseconds: {0}", stopwatch.ElapsedMilliseconds);
+
+                        stopwatch.Restart();
+                        parallelTest();
+                        stopwatch.Stop();
+                        Console.WriteLine("Parallel loop time in milliseconds: {0}", stopwatch.ElapsedMilliseconds);
+                    </code>
+                </li>
+            </ul>
+            <h4>Profiling in Visual Studio</h4>
+            <ul>
+                <li>The diagnostics display in Visual Studio gives a very good overview of the performance of an
+                    application.</li>
+                <li>Visual Studio 2017 contains powerful profiling tools that you can use to discover where your
+                    application is spending most of its time.</li>
+                <li>Once you've determined where the slow methods are, you can focus on optimizing those methods.</li>
+                <li>The Performance Wizard provides a good starting point for application profiling. There are 4 options available:
+                    <ul>
+                        <li><b>CPU Sampling:</b> A good place to start. The profiling process isn't imposing on the processor load and generates enough information to indicate points of further investigation.</li>
+                        <li><b>Instrumentation:</b> Adds extra code into methods to capture detailed timing information. Can be used to focus on methods identified by CPU sampinlg.</li>
+                        <li><b>.NET Memory Allocation:</b> Logs the creation and destruction of objects in the program, including the activity of the garbage collector. It can be used to determine whether you should create pools that allow you to reuse objects.</li>
+                        <li><b>Resource Contention Data:</b> If you are creating a multi-threaded application, this will allow you to discover which methods are being blocked when working with a shared resource. It can be used to identify bottlenecks in performance.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h3>HEADING</h3>
+            <ul>
+                <li>NOTES</li>
+                <li>NOTES</li>
+                <li>NOTES</li>
+            </ul>
+            <h4>SUBHEADING</h4>
+            <ul>
+                <li>NOTES</li>
+                <li>NOTES</li>
+                <li>NOTES</li>
+            </ul>
+            <h4>SUBHEADING</h4>
+            <ul>
+                <li>NOTES</li>
+                <li>NOTES</li>
+                <li>NOTES</li>
+            </ul>
+            <h4>SUBHEADING</h4>
+            <ul>
+                <li>NOTES</li>
+                <li>NOTES</li>
+                <li>NOTES</li>
+            </ul>
+        </div>
+        <div>
+            <h3>HEADING</h3>
+            <ul>
+                <li>NOTES</li>
+                <li>NOTES</li>
+                <li>NOTES</li>
+            </ul>
+            <h4>SUBHEADING</h4>
+            <ul>
+                <li>NOTES</li>
+                <li>NOTES</li>
+                <li>NOTES</li>
+            </ul>
+            <h4>SUBHEADING</h4>
+            <ul>
+                <li>NOTES</li>
+                <li>NOTES</li>
+                <li>NOTES</li>
+            </ul>
+            <h4>SUBHEADING</h4>
+            <ul>
+                <li>NOTES</li>
+                <li>NOTES</li>
+                <li>NOTES</li>
             </ul>
         </div>
     </div>
