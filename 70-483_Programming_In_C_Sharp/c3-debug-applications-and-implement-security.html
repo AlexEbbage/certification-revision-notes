@@ -1113,6 +1113,86 @@
                     to both the console, and an XML log file if you wish.</li>
                 <li>Listeners can be removed from the Listeners collection as well.</li>
             </ul>
+            <h4>Trace Using the TraceSource Class</h4>
+            <ul>
+                <li>The TraceSource class offers a more managed approach to program tracing.</li>
+                <li>An instance will create events that can be used to trace program execution.</li>
+                <li>This example creates four events. The simplest event contains event type information and an event
+                    number. A text string can be added to an event, and the TraceData method also allows information to
+                    be added to an event in the form of a collection of object references.
+                    <code>
+                        TraceSource trace = new TraceSource("Tracer", SourceLevels.All);
+                        trace.TraceEvent(TraceEventType.Start, 10000);
+                        trace.TraceEvent(TraceEventType.Warning, 10001);
+                        trace.TraceEvent(TraceEventType.Verbose, 10002, "At the end of the program");
+                        trace.TraceEvent(TraceEventType.Information, 10003, new object[]{ "Note 1", "Message 2"});
+                        trace.Flush();
+                        trace.Close();
+                    </code>
+                </li>
+                <li>The event number is just an integer used for identificaiton. They can be used to represent
+                    particular events.</li>
+                <li>There are a range of event types that are specified by a value of type TraceEventType. The event
+                    types, in increasing order of significance are:
+                    <ul>
+                        <li><b>Stop, Start, Suspend, Resume, Transfer:</b> These are activity event types. Used to
+                            indicate events that occur during normal operation. They don't reflect any error conditions.
+                        </li>
+                        <li><b>Verbose:</b> This indicates events that provide detailed information about normal
+                            operations. This may include messages that are produced when methods are entered and exited,
+                            or objects created and destroyed.</li>
+                        <li><b>Information:</b> This indicates events that provide significant information about
+                            operation; perhaps that transaction has started or ended.</li>
+                        <li><b>Warning:</b> This indicates a warning event. Perhaps a login has failed, an operation
+                            took longer to complete than expected or a resource such as memory is becoming low.</li>
+                        <li><b>Error:</b> This indicates an error has been detected and dealt with by the application.
+                            Perhaps some incoming data was provided in the wrong format, or an operation did not
+                            complete and was re-tried.</li>
+                        <li><b>Critical:</b> This indicates that the application has reached a point where it cannot
+                            continue. Perhaps an exception was raised that the exception handler doesn't recognize, or a
+                            resource or connection is not longer available.</li>
+                    </ul>
+                </li>
+            </ul>
+            <h4>Use TraceSwitch to Control Tracing Output</h4>
+            <ul>
+                <li>The TraceSwitch object is provided to help manage tracing output from a program in the form of a
+                    Level property that determines the level of tracing output produced.</li>
+                <li>This example shows a TraceSwitch instance being used to set the trace level, and it being used to
+                    control tracing output.
+                    <code>
+                        TraceSwitch control = new TraceSwitch("Control", "Control the trace output");
+                        control.Level = TraceLevel.Warning;
+
+                        if(control.TraceError){
+                        Console.WriteLine("An error has occurred");
+                        }
+
+                        Trace.WriteLine(Control.TraceWarning, "A warning message");
+                    </code>
+                </li>
+            </ul>
+            <h4>Use SourceSwitch to Control Tracing</h4>
+            <ul>
+                <li>The SourceSwitch can be used to directly control the behaviour of a TraceSource object.</li>
+                <li>It works the same as a TraceSwitch object.</li>
+                <li>This example shows a SourceSwitch instance being assigned to the Switch property of the TraceSource object.
+                    <code>
+                        TraceSource trace = new TraceSource("Tracer", SourceLevels.All);
+
+                        SourceSwitch control = new SourceSwitch("Control", "Control the tracing");
+                        control.Level = SourceLevels.Information;
+                        trace.Switch = control;
+
+                        trace.TraceEvent(TraceEventType.Start, 10000);
+                        trace.TraceEvent(TraceEventType.Warning, 10001);
+                        trace.TraceEvent(TraceEventType.Verbose, 10002, "At the end of the program");
+                        trace.TraceEvent(TraceEventType.Information, 10003, new object[]{ "Note 1", "Message 2"});
+                        trace.Flush();
+                        trace.Close();
+                    </code>
+                </li>
+            </ul>
         </div>
     </div>
     <div>
