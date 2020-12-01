@@ -1063,6 +1063,56 @@
                     program continues. If false, the assertion fails and the program will display a message offering the
                     developer the option to continue.</li>
             </ul>
+            <h4>Use Listeners to Gather Tracing Information</h4>
+            <ul>
+                <li>By default the output from the Debug and Trace classes is sent to the output window in Visual
+                    Studio.</li>
+                <li>This works in development, but after deployment listener objects must be added to Debug and Trace,
+                    which serve as destinations for tracing information.
+                    <code>TraceListener consoleListener = new ConsoleTraceListener();
+                        Trace.Listeners.Add(consoleListener);
+                        Trace.TraceInformation("This is an information message");
+                        Trace.TraceWarning("This is a warning message");
+                        Trace.TraceError("This is an error message");
+                    </code>
+                </li>
+                <li>There are a number of different TraceListener objects that can be created. You can also create your
+                    own custom one:
+                    <table>
+                        <th>
+                        <td>Class Name</td>
+                        <td>Output</td>
+                        </th>
+                        <tr>
+                            <td>ConsoleTraceListener</td>
+                            <td>Sends the output to the console.</td>
+                        </tr>
+                        <tr>
+                            <td>DelimitedTextTraceListener</td>
+                            <td>Sends the ouput to a TextWriter.</td>
+                        </tr>
+                        <tr>
+                            <td>EventLogTraceListener</td>
+                            <td>Sends the output to the Event log.</td>
+                        </tr>
+                        <tr>
+                            <td>EventSchemaTraceListener</td>
+                            <td>Sends the output to an XML encoded file compliant with the Event log schema.</td>
+                        </tr>
+                        <tr>
+                            <td>TextWriterTraceListener</td>
+                            <td>Sends the output to a given TextWriter.</td>
+                        </tr>
+                        <tr>
+                            <td>XMLWriterTraceListener</td>
+                            <td>Sends XML formatted output to an XML writer.</td>
+                        </tr>
+                    </table>
+                </li>
+                <li>Multiple listeners can be given to a single tracing source so that tracing information can be sent
+                    to both the console, and an XML log file if you wish.</li>
+                <li>Listeners can be removed from the Listeners collection as well.</li>
+            </ul>
         </div>
     </div>
     <div>
