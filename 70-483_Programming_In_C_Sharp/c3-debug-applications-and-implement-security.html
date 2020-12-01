@@ -1285,9 +1285,9 @@
                 <li>
                     <code>
                         PerformanceCounter processor = new PerformanceCounter(
-                            categoryName:"Processor Information",
-                            counterName: "% Processor Time",
-                            instanceName: "_Total");
+                        categoryName:"Processor Information",
+                        counterName: "% Processor Time",
+                        instanceName: "_Total");
 
                         while(true){
                         Console.WriteLine("Processor time {0}", processor.NextValue());
@@ -1298,39 +1298,87 @@
             </ul>
             <h4>Create Your Own Performance Counters</h4>
             <ul>
-                <li>You can create custom performance counters. These are added to the performance counters on the host machine and can be accessed by other programs and viewed using the Performance Monitor progrma.</li>
-                <li>The SetupPerformanceCounters method checks that the counters exist before it tries to load them. If they don't, then they are created.</li>
-                <li>Counters are organized in categories. Each has a name and can be applied to one or more instances.</li>
-                <li>There are a number of different types of counter than can be created. A NumberOfItems64 type counts using a 64 bit integer. A RateOfCountsPerSecond32 type averages the number of updates per second to the counter.</li>
+                <li>You can create custom performance counters. These are added to the performance counters on the host
+                    machine and can be accessed by other programs and viewed using the Performance Monitor progrma.</li>
+                <li>The SetupPerformanceCounters method checks that the counters exist before it tries to load them. If
+                    they don't, then they are created.</li>
+                <li>Counters are organized in categories. Each has a name and can be applied to one or more instances.
+                </li>
+                <li>There are a number of different types of counter than can be created. A NumberOfItems64 type counts
+                    using a 64 bit integer. A RateOfCountsPerSecond32 type averages the number of updates per second to
+                    the counter.</li>
                 <li>A counter can be incremented or updated by any value.</li>
                 <li>Once created on a machine, they can be browsed for and viewed as any other counter.</li>
-                <li>For the program to create performance monitors, it must be running with Administrator privileges.</li>
+                <li>For the program to create performance monitors, it must be running with Administrator privileges.
+                </li>
             </ul>
         </div>
         <div>
-            <h3>HEADING</h3>
+            <h3>Write to the Event Log</h3>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>As well as an application writing tracing information to an output file, it is possible to send
+                    tracing output to the Windows Event Log.</li>
+                <li>The Event Log is used by Windows system components and applications to log the operation of your
+                    computer.</li>
+                <li>The EventLog class is in the System.Diagnostics namespace and can be used to add events to the event
+                    log in a similar manner to adding performance counters.</li>
+                <li>An application can only write to the event log if it has appropriate permissions. Visual Studio must
+                    be run as an Administrator.</li>
+                <li>The process of writing to an event log is very similar to that of creating and updating a counter.
+                    Before a log can be written, it must be created. Then, it can accept log events.</li>
             </ul>
-            <h4>SUBHEADING</h4>
+            <h4>Reading from the Event Log</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>A program can also read from the event log.</li>
+                <li>In this example if the event log hasn't been created (or the setup program hasn't been run on the
+                    computer) the program prints a warning message.
+                    <code>
+                        static void Main(string[] args){
+                        string categoryName = "Image Processing";
+
+                        if(!EventLog.SourceExists(categoryName)){
+                        Console.WriteLine("Event log not present");
+                        }
+                        else{
+                        EventLog imageEventLog = new EventLog();
+                        imageEventLog.Source = categoryName;
+                        foreach(EventLogEntry entry in imageEventLog.Entries){
+                        Console.WriteLine("Source: {0} Type: {1} Time: {2} Message: {3}",
+                        entry.Source, entry.EntryType, entry.TimeWritten, entry.Message);
+                        }
+                        }
+                        Console.WriteLine("Press any key");
+                        Console.ReadKey();
+                        }
+                    </code>
+                </li>
             </ul>
-            <h4>SUBHEADING</h4>
+            <h4>Binding to Log Events</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
-            </ul>
-            <h4>SUBHEADING</h4>
-            <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>A program can bind to an event log and receive notifcation events when the log is written to.</li>
+                <li>You can use this to create a dashboard that displays the activity of your applications. The
+                    dashboard binds to log events that your application generates.</li>
+                <li>This example shows how to bind a handler to the Image Processing log events then waits for events to
+                    arrive:
+                    <code>
+                        static void Main(string[] args){
+                        string categoryName = "Image Processing";
+
+                        EventLog imageEventLog = new EventLog();
+                        imageEventLog.Source = categoryName;
+                        imageEventLog.EntryWritten += ImageEventLog_EntryWritten;
+                        imageEventLog.EnableRaisingEvents = true;
+
+                        Console.WriteLine("Listening for log events");
+                        Console.WriteLine("Press any key to exit");
+                        Console.ReadKey();
+                        }
+
+                        private static void ImageEventLog_EntryWritten(object sender, EntryWrittenEventArgs e){
+                        Console.WriteLine(e.Entry.Message);
+                        }
+                    </code>
+                </li>
             </ul>
         </div>
     </div>
