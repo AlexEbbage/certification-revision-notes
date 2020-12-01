@@ -1252,31 +1252,55 @@
                 <li>Visual Studio 2017 contains powerful profiling tools that you can use to discover where your
                     application is spending most of its time.</li>
                 <li>Once you've determined where the slow methods are, you can focus on optimizing those methods.</li>
-                <li>The Performance Wizard provides a good starting point for application profiling. There are 4 options available:
+                <li>The Performance Wizard provides a good starting point for application profiling. There are 4 options
+                    available:
                     <ul>
-                        <li><b>CPU Sampling:</b> A good place to start. The profiling process isn't imposing on the processor load and generates enough information to indicate points of further investigation.</li>
-                        <li><b>Instrumentation:</b> Adds extra code into methods to capture detailed timing information. Can be used to focus on methods identified by CPU sampinlg.</li>
-                        <li><b>.NET Memory Allocation:</b> Logs the creation and destruction of objects in the program, including the activity of the garbage collector. It can be used to determine whether you should create pools that allow you to reuse objects.</li>
-                        <li><b>Resource Contention Data:</b> If you are creating a multi-threaded application, this will allow you to discover which methods are being blocked when working with a shared resource. It can be used to identify bottlenecks in performance.</li>
+                        <li><b>CPU Sampling:</b> A good place to start. The profiling process isn't imposing on the
+                            processor load and generates enough information to indicate points of further investigation.
+                        </li>
+                        <li><b>Instrumentation:</b> Adds extra code into methods to capture detailed timing information.
+                            Can be used to focus on methods identified by CPU sampinlg.</li>
+                        <li><b>.NET Memory Allocation:</b> Logs the creation and destruction of objects in the program,
+                            including the activity of the garbage collector. It can be used to determine whether you
+                            should create pools that allow you to reuse objects.</li>
+                        <li><b>Resource Contention Data:</b> If you are creating a multi-threaded application, this will
+                            allow you to discover which methods are being blocked when working with a shared resource.
+                            It can be used to identify bottlenecks in performance.</li>
                     </ul>
                 </li>
             </ul>
         </div>
         <div>
-            <h3>HEADING</h3>
+            <h3>Create and Monitor Performance Counters</h3>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>Windows maintains a large number of performance counters that can be used to monitor your computer.
+                    These counters can be viewed using the Performance Monitor (perfmon) tool.</li>
+                <li>This can be started using the command perfmon in the Windows Powershell or Command prompt.</li>
             </ul>
-            <h4>SUBHEADING</h4>
+            <h4>Read Performance Counters</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>A program can read the values of the performance counters so that it can monitor the system in which
+                    it is running.</li>
+                <li>A given performance counter is identified by its category name, counter name and isntance name.</li>
+                <li>
+                    <code>
+                        PerformanceCounter processor = new PerformanceCounter(
+                            categoryName:"Processor Information",
+                            counterName: "% Processor Time",
+                            instanceName: "_Total");
+
+                        while(true){
+                        Console.WriteLine("Processor time {0}", processor.NextValue());
+                        Thread.Sleep(500);
+                        }
+                    </code>
+                </li>
             </ul>
-            <h4>SUBHEADING</h4>
+            <h4>Create Your Own Performance Counters</h4>
             <ul>
+                <li>You can create custom performance counters. These are added to the performance counters on the host machine and can be accessed by other programs and viewed using the Performance Monitor progrma.</li>
+                <li>The SetupPerformanceCounters method checks that the counters exist before it tries to load them. If they don't, then they are created.</li>
+                <li>Counters are organized in categories. Each has a name and can be applied to one or more instances.</li>
                 <li>NOTES</li>
                 <li>NOTES</li>
                 <li>NOTES</li>
