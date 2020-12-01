@@ -1193,6 +1193,22 @@
                     </code>
                 </li>
             </ul>
+            <h4>Configure Tracing using Application Config Files</h4>
+            <ul>
+                <li>It is possible to configure tracing output using the application configuration file.</li>
+                <li>If a switch with the name configControl is created in the config, it can be used in code like so:
+                    <code>
+                        TraceSource trace = new TraceSource("configControl");
+                    </code>
+                </li>
+                <li>If switch information with the given name isn't found in the app config, a trace is created that will not output any events.</li>
+            </ul>
+            <h4>Advanced Tracing</h4>
+            <ul>
+                <li>More complex behaviours can be added to the config, including the creation and assignment of listeners to TraceSource objects.</li>
+                <li>Filters can be applied to listeners, so a given listener will only receive particular levels of tracing information.</li>
+                <li>There offers lot of flexibility in the tracing and logging that your application can perform.</li>
+            </ul>
         </div>
     </div>
     <div>
