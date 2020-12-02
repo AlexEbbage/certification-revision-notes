@@ -219,18 +219,28 @@
                         <li><b>FileAttributes.Temporary:</b> The file is a temporary file that will not be required when the application has finished. The file system will attempt to keep this file in memory to improve performance.</li>
                     </ul>
                 </li>
+                <li>This information is exposed in a C# program via the FileInfo class.</li>
+                <li>You can use a FileInfo instance to open a file for reading and writing, moving a file, renaming a file, and also modifying the security settings of a file.</li>
+                <li>Some of the functions provided by FileInfo are diplicates of those provided by the File class.</li>
+                <li>The File class is most useful when you want to perform an action on a single file, and FileInfo when working with a large number of files.</li>
             </ul>
             <h4>Use the Directory and DirectoryInfo Classes</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>A file system can create files that contain collections of file information items called directories or folders.</li>
+                <li>Directories can contain directory information about child directories, which allows a user to nest directories to create tree structures.</li>
+                <li>As with files, there are 2 way to work with directories: the Directory class and the DirectoryInfo class.</li>
+                <li>The Directory class is static and provides methods that can enumerate the contents of directories and to create and manipulate directories.</li>
             </ul>
             <h4>Files and Paths</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>A path defines the location of a file on a storage device. They can be relative or absolute.</li>
+                <li>A relative path specifies the location of a file relative to the folder in which the program is presently running. They can specify a file in a parent directory, or a file in a directory in another part of the tree.</li>
+                <li>The period "." character means the current directory and a double period ".." means the directory above the current one.</li>
+                <li>The "@" character can be placed at the start of a string to mark it as a verbatim string. This means that any escape character will be ignored making it useful because otherwise backslash characters might be interpreted as escape characters.</li>
+                <li>An absolute path includes the drive letter and identifies all the sub-directories in the path to the file.</li>
+                <li>The Path class provides methods to remove filenames from full paths, change the extension on a filename, and combine filenames and directory paths.</li>
+                <li>The Path class is very useful and should always be used in preference to manually working with path string.</li>
+                <li>It also provides methods that can generate temporary filenames.</li>
             </ul>
             <h4>Searching for Files</h4>
             <ul>
