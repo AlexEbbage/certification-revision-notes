@@ -5,31 +5,75 @@
         <li><a href="#skill-4-1">Skill 4.1: Perform I/O Operations</a></li>
         <li><a href="#skill-4-2">Skill 4.2: Consume Data</a></li>
         <li><a href="#skill-4-3">Skill 4.3: Query and Manipulate Data and Objects by Using LINQ</a></li>
-        <li><a href="#skill-4-4">Skill 4.4: Serialize and Deserialize Data by Using Binary and Custom Serialization, and XML, JSON and Data Contract Serializer</a></li>
+        <li><a href="#skill-4-4">Skill 4.4: Serialize and Deserialize Data by Using Binary and Custom Serialization, and
+                XML, JSON and Data Contract Serializer</a></li>
         <li><a href="#skill-4-5">Skill 4.5: Store Data in and Retrieve Data from Collections</a></li>
         <li><a href="#qa-4">Thought Experiments</a></li>
     </ul>
     <div>
         <h2 id="skill-4-1">Skill 4.1: Perform I/O Operations</h2>
-        <ul>
-            <li>NOTES</li>
-            <li>NOTES</li>
-            <li>NOTES</li>
-        </ul>
         <p>This section covers how to:</p>
         <ul>
-            <li>TOPIC</li>
-            <li>TOPIC</li>
-            <li>TOPIC</li>
+            <li>Read and write files and streams</li>
+            <li>Read and write from the network by using classes in the System.NET namespace</li>
+            <li>Implement asynchronous I/O operations</li>
         </ul>
         <div>
-            <h3>HEADING</h3>
+            <h3>Read and Write Files and Streams</h3>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>A stream is a software object that represents a stream of data.</li>
+                <li>The .NET framework provides a Stream class that serves as the parent type to a range of classes that
+                    can be used to read and write data.</li>
+                <li>There are 3 ways that a program can interact with a stream:
+                    <ul>
+                        <li>Write a sequence of bytes to a stream</li>
+                        <li>Read a sequence of bytes from a stream</li>
+                        <li>Position the "file pointer" in a stream</li>
+                    </ul>
+                </li>
+                <li>File Pointer: Position in the stream where the next read or write operation will take place.</li>
+                <li>Seek Method: Provided by the stream to set the file pointer position.</li>
+                <li>The Stream class is abstract and serves as a template for streams that connect to actual storage
+                    resources.</li>
+                <li>Any object that can work with a Stream can work with any objects that behave like a stream.</li>
+                <li>System.IO.Stream is the base type to 5 types: BufferedStream, FileStream, MemoryStream, PipeStream,
+                    and NetworkStream.</li>
+                <li>Each base class contains the Stream behaviours that allow data to be transferred. However, each type
+                    is created differently. <i>e.g. A FileStream must specify the path to the file, and a Memory Stream
+                        must specify the buffer in memory.</i></li>
             </ul>
-        </div>
+            <h4>Use FileStream</h4>
+            <ul>
+                <li>The FileStream object provides a stream instance connected to a file which converts calls into the
+                    stream into commands for the filesystem on the computer running the program.</li>
+                <li>The file system provides the interface to the physical device performing the data storage for the
+                    computer.</li>
+                <li>A call to the stream object's Write method will generate a request to the file system to write the
+                    data to the storage.</li>
+                <li>
+                    <code>
+                        static void Main(string[] args){
+                        // Writing to a files
+                        FileStream outputStream = new FileStream("Output.txt", FileMode.OpenOrCreate, FileAccess.Write);
+                        string outputMessageString = "Hello world";
+                        byte[] outputMessageBytes = Encoding.UTF8.GetBytes(outputMessageString);
+                        outputStream.Write(outputMessageBytes, 0, outputMessageBytes.Length);
+                        outputStream.Close();
+
+                        // Reading from files
+                        FileStream inputStream = new FileStream("Output.txt", FileMode.Open, FileAccess.Read);
+                        long fileLength = inputStream.Length;
+                        byte[] readBytes = new byte[fileLength];
+                        inputStream.Read(readBytes, 0, (int)fileLength);
+                        string readString = Encoding.UTF8.GetString(readBytes);
+                        inputStream.Close();
+                        Console.WriteLine("Read message: {0}", readString);
+
+                        Console.ReadKey();
+                        }
+                    </code>
+                </li>
+            </ul>
     </div>
     <div>
         <h2 id="skill-4-2">Skill 4.2: Consume Data</h2>
@@ -76,7 +120,8 @@
         </div>
     </div>
     <div>
-        <h2 id="skill-4-4">Skill 4.4: Serialize and Deserialize Data by Using Binary and Custom Serialization, and XML, JSON and Data Contract Serializer</h2>
+        <h2 id="skill-4-4">Skill 4.4: Serialize and Deserialize Data by Using Binary and Custom Serialization, and XML,
+            JSON and Data Contract Serializer</h2>
         <ul>
             <li>NOTES</li>
             <li>NOTES</li>
