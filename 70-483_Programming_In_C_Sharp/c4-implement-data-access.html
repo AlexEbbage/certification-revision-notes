@@ -5,25 +5,314 @@
         <li><a href="#skill-4-1">Skill 4.1: Perform I/O Operations</a></li>
         <li><a href="#skill-4-2">Skill 4.2: Consume Data</a></li>
         <li><a href="#skill-4-3">Skill 4.3: Query and Manipulate Data and Objects by Using LINQ</a></li>
-        <li><a href="#skill-4-4">Skill 4.4: Serialize and Deserialize Data by Using Binary and Custom Serialization, and XML, JSON and Data Contract Serializer</a></li>
+        <li><a href="#skill-4-4">Skill 4.4: Serialize and Deserialize Data by Using Binary and Custom Serialization, and
+                XML, JSON and Data Contract Serializer</a></li>
         <li><a href="#skill-4-5">Skill 4.5: Store Data in and Retrieve Data from Collections</a></li>
         <li><a href="#qa-4">Thought Experiments</a></li>
     </ul>
     <div>
         <h2 id="skill-4-1">Skill 4.1: Perform I/O Operations</h2>
-        <ul>
-            <li>NOTES</li>
-            <li>NOTES</li>
-            <li>NOTES</li>
-        </ul>
         <p>This section covers how to:</p>
         <ul>
-            <li>TOPIC</li>
-            <li>TOPIC</li>
-            <li>TOPIC</li>
+            <li>Read and write files and streams</li>
+            <li>Read and write from the network by using classes in the System.NET namespace</li>
+            <li>Implement asynchronous I/O operations</li>
         </ul>
         <div>
-            <h3>HEADING</h3>
+            <h3>Read and Write Files and Streams</h3>
+            <ul>
+                <li>A stream is a software object that represents a stream of data.</li>
+                <li>The .NET framework provides a Stream class that serves as the parent type to a range of classes that
+                    can be used to read and write data.</li>
+                <li>There are 3 ways that a program can interact with a stream:
+                    <ul>
+                        <li>Write a sequence of bytes to a stream</li>
+                        <li>Read a sequence of bytes from a stream</li>
+                        <li>Position the "file pointer" in a stream</li>
+                    </ul>
+                </li>
+                <li>File Pointer: Position in the stream where the next read or write operation will take place.</li>
+                <li>Seek Method: Provided by the stream to set the file pointer position.</li>
+                <li>The Stream class is abstract and serves as a template for streams that connect to actual storage
+                    resources.</li>
+                <li>Any object that can work with a Stream can work with any objects that behave like a stream.</li>
+                <li>System.IO.Stream is the base type to 5 types: BufferedStream, FileStream, MemoryStream, PipeStream,
+                    and NetworkStream.</li>
+                <li>Each base class contains the Stream behaviours that allow data to be transferred. However, each type
+                    is created differently. <i>e.g. A FileStream must specify the path to the file, and a Memory Stream
+                        must specify the buffer in memory.</i></li>
+            </ul>
+            <h4>Use FileStream</h4>
+            <ul>
+                <li>The FileStream object provides a stream instance connected to a file which converts calls into the
+                    stream into commands for the filesystem on the computer running the program.</li>
+                <li>The file system provides the interface to the physical device performing the data storage for the
+                    computer.</li>
+                <li>A call to the stream object's Write method will generate a request to the file system to write the
+                    data to the storage.</li>
+                <li>
+                    <code>
+                        static void Main(string[] args){
+                        // Writing to a files
+                        FileStream outputStream = new FileStream("Output.txt", FileMode.OpenOrCreate, FileAccess.Write);
+                        string outputMessageString = "Hello world";
+                        byte[] outputMessageBytes = Encoding.UTF8.GetBytes(outputMessageString);
+                        outputStream.Write(outputMessageBytes, 0, outputMessageBytes.Length);
+                        outputStream.Close();
+
+                        // Reading from files
+                        FileStream inputStream = new FileStream("Output.txt", FileMode.Open, FileAccess.Read);
+                        long fileLength = inputStream.Length;
+                        byte[] readBytes = new byte[fileLength];
+                        inputStream.Read(readBytes, 0, (int)fileLength);
+                        string readString = Encoding.UTF8.GetString(readBytes);
+                        inputStream.Close();
+                        Console.WriteLine("Read message: {0}", readString);
+
+                        Console.ReadKey();
+                        }
+                    </code>
+                </li>
+            </ul>
+            <h4>Control File Use with FileMode and FileAccess</h4>
+            <ul>
+                <li>A stream can be associated with reading, writing, or updating a file.</li>
+                <li>The base Stream class provides properties that a program can use to determine the abilities of a
+                    given stream instance.</li>
+                <li>The FileMode enumeration is used in the constructor of a FileStream to indicate how the file is to
+                    be opened:
+                    <ul>
+                        <li><b>FileMode.Append:</b> Open a file for appending to the end. If the file exists, move the
+                            seek position to the end of this file. If not, create it. Only useable if the file is being
+                            opened for writing.</li>
+                        <li><b>FileMode.Create:</b> Create a file for writing. If it exists, it is overwritten.</li>
+                        <li><b>FileMode.CreateNew:</b> Create a file for writing. If it exists, an exception is thrown.
+                        </li>
+                        <li><b>FileMode.Open:</b> Open an existing file. If it doesn't exist, an exception is thrown.
+                            The mode can be used for reading or writing.</li>
+                        <li><b>FileMode.OpenOrCreate:</b> Open a file for reading or writing. If it doesn't exist, an
+                            empty file is created. The mode can be used for reading or writing.</li>
+                        <li><b>FileMode.Truncate:</b> Open a file for writing and remove any existing contents.</li>
+                    </ul>
+                </li>
+                <li>The FileAccess enumeration is used to indicate how the file is to be used:
+                    <ul>
+                        <li><b>FileMode.Read:</b> Open a file for writing.</li>
+                        <li><b>FileMode.ReadWrite:</b> Open a file for reading or writing.</li>
+                        <li><b>FileMode.Write:</b> Open a file for writing.</li>
+                    </ul>
+                </li>
+            </ul>
+            <h4>Convert Text to Binary Data with Unicode</h4>
+            <ul>
+                <li>The System.Text namespace has the Encoding class which has a property, UTF8, which provides methods
+                    that will encode and decode Unicode text.</li>
+                <li>Unicode is a mapping of character symbols to number vaules. The UTF8 encoding maps Unicode
+                    charaacters onto 8-bit calues that can be stored in arrays of bytes.</li>
+                <li>Most text files are encoded using UTF8.</li>
+                <li>The Encoding class also provides support for other encoding standaring including UTF32 and ASCII.
+                </li>
+                <li>The GetBytes encoding method takes a C# string and returns the bytes that represent that string in
+                    the specified encoding.</li>
+                <li>The GetString decoding method takes an array of bytes and returns the string that a buffer full of
+                    bytes represents.</li>
+            </ul>
+            <h4>IDispose and FileStream Objects</h4>
+            <ul>
+                <li>The stream class implements IDisposable, meaning objects derived from the Stream type must also
+                    implement the interface.</li>
+                <li>This also means the using construction can be used to ensure that files are closed when they are no
+                    longer required.</li>
+            </ul>
+            <h4>Work with Text Files</h4>
+            <ul>
+                <li>The filesystem makes no particular distinciton between text files and binary files.</li>
+                <li>The TextWriter and TextReader classes are abstract stream classes which make it much easier to work
+                    with text, and define a set of methods that can be used with text.</li>
+                <li>The StreamWriter class extends the TextWriter class to allow us to write text to streams.
+                    <code>
+                        using (StreamWriter writeStream = new StreamWriter("Output.txt")){
+                        writeStream.Write("Hello world!");
+                        }
+
+                        using (StreamReader readStream = new StreamReader("Output.txt")){
+                        string readString = readStream.ReadToEnd();
+                        Console.WriteLine("Text read: {0}", readString);
+                        }
+                    </code>
+                </li>
+            </ul>
+            <h4>Chain Stream Together</h4>
+            <ul>
+                <li>The Stream class has a constructor that will accept another stream as a paramter, allowing the
+                    creation of chains of streams.</li>
+                <li>This example shhows how to use the GZipStream from the System.IO.Compression namespace in a chain of
+                    streams that will save and load compressed text:
+                    <code>
+                        using (FileStream writeFile = new FileStream("CompressedText.zip", FileMode.OpenOrCreate,
+                        FileAccess.Write))
+                        {
+                        using (GZipStream writeFileZip = new GZipStream(writeFile, CompressionMode.Compress))
+                        {
+                        using (StreamWriter writeFileText = new StreamWriter(writeFileZip))
+                        {
+                        writeFileText.Write("Hello world!");
+                        }
+                        }
+                        }
+
+                        using (FileStream readFile = new FileStream("CompressedText.zip", FileMode.Open,
+                        FileAccess.Read))
+                        {
+                        using (GZipStream readFileZip = new GZipStream(readFile, CompressionMode.Decompress))
+                        {
+                        using (StreamReader readFileText = new StreamReader(readFileZip))
+                        {
+                        string readString = readFileText.ReadToEnd();
+                        Console.WriteLine("Text read: {0}", readString);
+                        }
+                        }
+                        }
+                    </code>
+                </li>
+            </ul>
+            <h4>Use the File Class</h4>
+            <ul>
+                <li>The Files class is a helper class that makes it easier to work with files.</li>
+                <li>It contains a set of static methods that can be used to append text to a file, copy a file, create a
+                    file, delete a fil, move a file, open a file, read a file, and manage file security.</li>
+            </ul>
+            <h4>Handle Stream Exceptions</h4>
+            <ul>
+                <li>When creating applications that use streams you need to ensure that your code can deal with any
+                    exceptions that might be thrown by a stream.</li>
+                <li>An application may try to open a file that doesn't exist, or a given storage device may become full
+                    during writing.</li>
+                <li>It is possible that threads in multi-threaded applications can "fight" over files. If one thread
+                    attempts to access a file already in use by another this will lead to exceptions being thrown.</li>
+            </ul>
+            <h4>Handle Stream Exceptions</h4>
+            <ul>
+                <li>When creating applications that use streams you need to ensure that your code can deal with any
+                    exceptions that might be thrown by a stream.</li>
+                <li>An application may try to open a file that doesn't exist, or a given storage device may become full
+                    during writing.</li>
+                <li>It is possible that threads in multi-threaded applications can "fight" over files. If one thread
+                    attempts to access a file already in use by another this will lead to exceptions being thrown.</li>
+            </ul>
+            <h4>File Storage</h4>
+            <ul>
+                <li>A storage device can be devided into partitions. Each represents an area on the storage device that
+                    can be used to store data.</li>
+                <li>A partition on a storage device is exposed as a drive which, on the Windows OS, is represented by a
+                    drive letter.</li>
+                <li>The drive letter is assigned by the OS and is used as the root of an absolute path to a file on the
+                    computer.</li>
+                <li>The Disk Management application allows administrators to re-assign drive letter, combine multiple
+                    physical drivers into a single logical driver, and attach virtual hard drives (VHD) created from
+                    drive images.</li>
+                <li>Each of the partitions on a physical storage device is formatted using a particular filing system
+                    that manages the storage of files.</li>
+                <li>The System.IO namespace provides the DriveInfo class which can be used to obtain information about
+                    the drivers attached to a system.</li>
+            </ul>
+            <h4>Use FileInfo</h4>
+            <ul>
+                <li>A file system maintains information about each file it stores. Including the name, permissions,
+                    dates for creation and modification, and the physical location on the storage device.</li>
+                <li>It also maintains attribute information about each file. Attribute information is held as a single
+                    value with different bits in the value indicating different attributes.</li>
+                <li>Logical operators can be used to work with these values and to assign different attributes to a
+                    file.</li>
+                <li>The available attributes are as follows:
+                    <ul>
+                        <li><b>FileAttributes.Archive:</b> The file has not been backed up yet. The attribute will be
+                            cleared when/if the file is backed up.</li>
+                        <li><b>FileAttributes.Compressed:</b> The file is compressed. This is not something that our
+                            program should change.</li>
+                        <li><b>FileAttributes.Directory:</b> The file is a directory. This is not something that our
+                            prgram should change.</li>
+                        <li><b>FileAttributes.Hidden:</b> This file will not appear in an ordinary directory listing.
+                        </li>
+                        <li><b>FileAttributes.Normal:</b> This is a normal file with no special attributes. This
+                            attribute is only valid when there are no other attributes assigned to the file.</li>
+                        <li><b>FileAttributes.ReadOnly:</b> The file cannot be written.</li>
+                        <li><b>FileAttributes.System:</b> The file is part of the OS and is used by it.</li>
+                        <li><b>FileAttributes.Temporary:</b> The file is a temporary file that will not be required when
+                            the application has finished. The file system will attempt to keep this file in memory to
+                            improve performance.</li>
+                    </ul>
+                </li>
+                <li>This information is exposed in a C# program via the FileInfo class.</li>
+                <li>You can use a FileInfo instance to open a file for reading and writing, moving a file, renaming a
+                    file, and also modifying the security settings of a file.</li>
+                <li>Some of the functions provided by FileInfo are diplicates of those provided by the File class.</li>
+                <li>The File class is most useful when you want to perform an action on a single file, and FileInfo when
+                    working with a large number of files.</li>
+            </ul>
+            <h4>Use the Directory and DirectoryInfo Classes</h4>
+            <ul>
+                <li>A file system can create files that contain collections of file information items called directories
+                    or folders.</li>
+                <li>Directories can contain directory information about child directories, which allows a user to nest
+                    directories to create tree structures.</li>
+                <li>As with files, there are 2 way to work with directories: the Directory class and the DirectoryInfo
+                    class.</li>
+                <li>The Directory class is static and provides methods that can enumerate the contents of directories
+                    and to create and manipulate directories.</li>
+            </ul>
+            <h4>Files and Paths</h4>
+            <ul>
+                <li>A path defines the location of a file on a storage device. They can be relative or absolute.</li>
+                <li>A relative path specifies the location of a file relative to the folder in which the program is
+                    presently running. They can specify a file in a parent directory, or a file in a directory in
+                    another part of the tree.</li>
+                <li>The period "." character means the current directory and a double period ".." means the directory
+                    above the current one.</li>
+                <li>The "@" character can be placed at the start of a string to mark it as a verbatim string. This means
+                    that any escape character will be ignored making it useful because otherwise backslash characters
+                    might be interpreted as escape characters.</li>
+                <li>An absolute path includes the drive letter and identifies all the sub-directories in the path to the
+                    file.</li>
+                <li>The Path class provides methods to remove filenames from full paths, change the extension on a
+                    filename, and combine filenames and directory paths.</li>
+                <li>The Path class is very useful and should always be used in preference to manually working with path
+                    string.</li>
+                <li>It also provides methods that can generate temporary filenames.</li>
+            </ul>
+            <h4>Searching for Files</h4>
+            <ul>
+                <li>The DirectoryInfo class provides a method called GetFiles that can be used to get a collection of
+                    FileInfo items that describe the files in a directory.</li>
+                <li>One overload of GetFiles can accept a search string. An asterisk "*" character in the search string
+                    represents any number of characters and the question mark "?" character can repreent a single
+                    character.</li>
+                <li>Recursion can be used to retrieve the files of nested directories, and nested directories within
+                    those directories.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Read and Write from the Network by Using Classes in the System.NET Namespace</h3>
+            <ul>
+                <li>NOTES</li>
+                <li>NOTES</li>
+                <li>NOTES</li>
+            </ul>
+            <h4>SUBHEADING</h4>
+            <ul>
+                <li>NOTES</li>
+                <li>NOTES</li>
+                <li>NOTES</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Implement Asynchronous I/O Operations</h3>
+            <ul>
+                <li>NOTES</li>
+                <li>NOTES</li>
+                <li>NOTES</li>
+            </ul>
+            <h4>SUBHEADING</h4>
             <ul>
                 <li>NOTES</li>
                 <li>NOTES</li>
@@ -76,7 +365,8 @@
         </div>
     </div>
     <div>
-        <h2 id="skill-4-4">Skill 4.4: Serialize and Deserialize Data by Using Binary and Custom Serialization, and XML, JSON and Data Contract Serializer</h2>
+        <h2 id="skill-4-4">Skill 4.4: Serialize and Deserialize Data by Using Binary and Custom Serialization, and XML,
+            JSON and Data Contract Serializer</h2>
         <ul>
             <li>NOTES</li>
             <li>NOTES</li>
