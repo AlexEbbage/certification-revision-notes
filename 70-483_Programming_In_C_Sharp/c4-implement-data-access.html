@@ -73,6 +73,74 @@
                         }
                     </code>
                 </li>
+            </ul>          
+            <h4>Control File Use with FileMode and FileAccess</h4>
+            <ul>
+                <li>A stream can be associated with reading, writing, or updating a file.</li>
+                <li>The base Stream class provides properties that a program can use to determine the abilities of a
+                    given stream instance.</li>
+                <li>The FileMode enumeration is used in the constructor of a FileStream to indicate how the file is to
+                    be opened:
+                    <ul>
+                        <li><b>FileMode.Append:</b> Open a file for appending to the end. If the file exists, move the
+                            seek position to the end of this file. If not, create it. Only useable if the file is being
+                            opened for writing.</li>
+                        <li><b>FileMode.Create:</b> Create a file for writing. If it exists, it is overwritten.</li>
+                        <li><b>FileMode.CreateNew:</b> Create a file for writing. If it exists, an exception is thrown.
+                        </li>
+                        <li><b>FileMode.Open:</b> Open an existing file. If it doesn't exist, an exception is thrown.
+                            The mode can be used for reading or writing.</li>
+                        <li><b>FileMode.OpenOrCreate:</b> Open a file for reading or writing. If it doesn't exist, an
+                            empty file is created. The mode can be used for reading or writing.</li>
+                        <li><b>FileMode.Truncate:</b> Open a file for writing and remove any existing contents.</li>
+                    </ul>
+                </li>
+                <li>The FileAccess enumeration is used to indicate how the file is to be used:
+                    <ul>
+                        <li><b>FileMode.Read:</b> Open a file for writing.</li>
+                        <li><b>FileMode.ReadWrite:</b> Open a file for reading or writing.</li>
+                        <li><b>FileMode.Write:</b> Open a file for writing.</li>
+                    </ul>
+                </li>
+            </ul>
+            <h4>Convert Text to Binary Data with Unicode</h4>
+            <ul>
+                <li>The System.Text namespace has the Encoding class which has a property, UTF8, which provides methods
+                    that will encode and decode Unicode text.</li>
+                <li>Unicode is a mapping of character symbols to number vaules. The UTF8 encoding maps Unicode
+                    charaacters onto 8-bit calues that can be stored in arrays of bytes.</li>
+                <li>Most text files are encoded using UTF8.</li>
+                <li>The Encoding class also provides support for other encoding standaring including UTF32 and ASCII.
+                </li>
+                <li>The GetBytes encoding method takes a C# string and returns the bytes that represent that string in
+                    the specified encoding.</li>
+                <li>The GetString decoding method takes an array of bytes and returns the string that a buffer full of
+                    bytes represents.</li>
+            </ul>
+            <h4>IDispose and FileStream Objects</h4>
+            <ul>
+                <li>The stream class implements IDisposable, meaning objects derived from the Stream type must also
+                    implement the interface.</li>
+                <li>This also means the using construction can be used to ensure that files are closed when they are no
+                    longer required.</li>
+            </ul>
+            <h4>Work with Text Files</h4>
+            <ul>
+                <li>The filesystem makes no particular distinciton between text files and binary files.</li>
+                <li>The TextWriter and TextReader classes are abstract stream classes which make it much easier to work
+                    with text, and define a set of methods that can be used with text.</li>
+                <li>The StreamWriter class extends the TextWriter class to allow us to write text to streams.
+                    <code>
+                        using (StreamWriter writeStream = new StreamWriter("Output.txt")){
+                        writeStream.Write("Hello world!");
+                        }
+
+                        using (StreamReader readStream = new StreamReader("Output.txt")){
+                        string readString = readStream.ReadToEnd();
+                        Console.WriteLine("Text read: {0}", readString);
+                        }
+                    </code>
+                </li>
             </ul>
     </div>
     <div>
