@@ -73,7 +73,7 @@
                         }
                     </code>
                 </li>
-            </ul>          
+            </ul>
             <h4>Control File Use with FileMode and FileAccess</h4>
             <ul>
                 <li>A stream can be associated with reading, writing, or updating a file.</li>
@@ -142,6 +142,81 @@
                     </code>
                 </li>
             </ul>
+            <h4>Chain Stream Together</h4>
+            <ul>
+                <li>The Stream class has a constructor that will accept another stream as a paramter, allowing the
+                    creation of chains of streams.</li>
+                <li>This example shhows how to use the GZipStream from the System.IO.Compression namespace in a chain of
+                    streams that will save and load compressed text:
+                    <code>
+                        using (FileStream writeFile = new FileStream("CompressedText.zip", FileMode.OpenOrCreate,
+                        FileAccess.Write))
+                        {
+                        using (GZipStream writeFileZip = new GZipStream(writeFile, CompressionMode.Compress))
+                        {
+                        using (StreamWriter writeFileText = new StreamWriter(writeFileZip))
+                        {
+                        writeFileText.Write("Hello world!");
+                        }
+                        }
+                        }
+
+                        using (FileStream readFile = new FileStream("CompressedText.zip", FileMode.Open,
+                        FileAccess.Read))
+                        {
+                        using (GZipStream readFileZip = new GZipStream(readFile, CompressionMode.Decompress))
+                        {
+                        using (StreamReader readFileText = new StreamReader(readFileZip))
+                        {
+                        string readString = readFileText.ReadToEnd();
+                        Console.WriteLine("Text read: {0}", readString);
+                        }
+                        }
+                        }
+                    </code>
+                </li>
+            </ul>
+            <h4>Use the File Class</h4>
+            <ul>
+                <li>NOTES</li>
+                <li>NOTES</li>
+                <li>NOTES</li>
+            </ul>
+            <h4>Handle Stream Exceptions</h4>
+            <ul>
+                <li>NOTES</li>
+                <li>NOTES</li>
+                <li>NOTES</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Read and Write from the Network by Using Classes in the System.NET Namespace</h3>
+            <ul>
+                <li>NOTES</li>
+                <li>NOTES</li>
+                <li>NOTES</li>
+            </ul>
+            <h4>SUBHEADING</h4>
+            <ul>
+                <li>NOTES</li>
+                <li>NOTES</li>
+                <li>NOTES</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Implement Asynchronous I/O Operations</h3>
+            <ul>
+                <li>NOTES</li>
+                <li>NOTES</li>
+                <li>NOTES</li>
+            </ul>
+            <h4>SUBHEADING</h4>
+            <ul>
+                <li>NOTES</li>
+                <li>NOTES</li>
+                <li>NOTES</li>
+            </ul>
+        </div>
     </div>
     <div>
         <h2 id="skill-4-2">Skill 4.2: Consume Data</h2>
