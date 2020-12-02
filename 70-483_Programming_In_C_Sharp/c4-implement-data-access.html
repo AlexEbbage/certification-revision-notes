@@ -178,11 +178,61 @@
             </ul>
             <h4>Use the File Class</h4>
             <ul>
+                <li>The Files class is a helper class that makes it easier to work with files.</li>
+                <li>It contains a set of static methods that can be used to append text to a file, copy a file, create a file, delete a fil, move a file, open a file, read a file, and manage file security.</li>
+            </ul>
+            <h4>Handle Stream Exceptions</h4>
+            <ul>
+                <li>When creating applications that use streams you need to ensure that your code can deal with any exceptions that might be thrown by a stream.</li>
+                <li>An application may try to open a file that doesn't exist, or a given storage device may become full during writing.</li>
+                <li>It is possible that threads in multi-threaded applications can "fight" over files. If one thread attempts to access a file already in use by another this will lead to exceptions being thrown.</li>
+            </ul>
+            <h4>Handle Stream Exceptions</h4>
+            <ul>
+                <li>When creating applications that use streams you need to ensure that your code can deal with any exceptions that might be thrown by a stream.</li>
+                <li>An application may try to open a file that doesn't exist, or a given storage device may become full during writing.</li>
+                <li>It is possible that threads in multi-threaded applications can "fight" over files. If one thread attempts to access a file already in use by another this will lead to exceptions being thrown.</li>
+            </ul>
+            <h4>File Storage</h4>
+            <ul>
+                <li>A storage device can be devided into partitions. Each represents an area on the storage device that can be used to store data.</li>
+                <li>A partition on a storage device is exposed as a drive which, on the Windows OS, is represented by a drive letter.</li>
+                <li>The drive letter is assigned by the OS and is used as the root of an absolute path to a file on the computer.</li>
+                <li>The Disk Management application allows administrators to re-assign drive letter, combine multiple physical drivers into a single logical driver, and attach virtual hard drives (VHD) created from drive images.</li>
+                <li>Each of the partitions on a physical storage device is formatted using a particular filing system that manages the storage of files.</li>
+                <li>The System.IO namespace provides the DriveInfo class which can be used to obtain information about the drivers attached to a system.</li>
+            </ul>
+            <h4>Use FileInfo</h4>
+            <ul>
+                <li>A file system maintains information about each file it stores. Including the name, permissions, dates for creation and modification, and the physical location on the storage device.</li>
+                <li>It also maintains attribute information about each file. Attribute information is held as a single value with different bits in the value indicating different attributes.</li>
+                <li>Logical operators can be used to work with these values and to assign different attributes to a file.</li>
+                <li>The available attributes are as follows:
+                    <ul>
+                        <li><b>FileAttributes.Archive:</b> The file has not been backed up yet. The attribute will be cleared when/if the file is backed up.</li>
+                        <li><b>FileAttributes.Compressed:</b> The file is compressed. This is not something that our program should change.</li>
+                        <li><b>FileAttributes.Directory:</b> The file is a directory. This is not something that our prgram should change.</li>
+                        <li><b>FileAttributes.Hidden:</b> This file will not appear in an ordinary directory listing.</li>
+                        <li><b>FileAttributes.Normal:</b> This is a normal file with no special attributes. This attribute is only valid when there are no other attributes assigned to the file.</li>
+                        <li><b>FileAttributes.ReadOnly:</b> The file cannot be written.</li>
+                        <li><b>FileAttributes.System:</b> The file is part of the OS and is used by it.</li>
+                        <li><b>FileAttributes.Temporary:</b> The file is a temporary file that will not be required when the application has finished. The file system will attempt to keep this file in memory to improve performance.</li>
+                    </ul>
+                </li>
+            </ul>
+            <h4>Use the Directory and DirectoryInfo Classes</h4>
+            <ul>
                 <li>NOTES</li>
                 <li>NOTES</li>
                 <li>NOTES</li>
             </ul>
-            <h4>Handle Stream Exceptions</h4>
+            <h4>Files and Paths</h4>
+            <ul>
+                <li>NOTES</li>
+                <li>NOTES</li>
+                <li>NOTES</li>
+            </ul>
+            <h4>Searching for Files</h4>
             <ul>
                 <li>NOTES</li>
                 <li>NOTES</li>
