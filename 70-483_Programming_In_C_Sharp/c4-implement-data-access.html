@@ -507,9 +507,47 @@
             </ul>
             <h4>Read with SQL</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>A database is managed by a server process that accepts commands and acts on them. These commands are given in the SQL (Structured Query Language) format.</li>
+                <li>SQL dates back to the 1970's and is called a domain specific language because it is used solely for expressing commands to control a database.</li>
+                <li>The asterisk "*" character in SQL is a wildcard that matches all the entries in the table.</li>
+                <li>The following command will read all the records from a given table:
+                    <code>
+                        SELECT * FROM TableName
+                    </code>
+                </li>
+                <li>A program uses an SQL database in a similar way to a stream. It creates an object that represents a connection to the database and sends SQL commands to it.</li>
+                <li>The DbConnection is an abstract class that represents a connection to a database and describes behaviours of the connection in the same way that the Stream class is also abstract and describes the behaviours of streams.</li>
+                <li>The SqlConnection class is a child of the DbConnection class and represents the implementation of a connection to a SQL database.</li>
+                <li>The SqlConnection constructor needs a connection string that identifies the datavase that is to be opened.</li>
+                <li>A connection string contains a number of items expressed as name-value pairs. For a server on a remote machine the string will contain the address of the server, the port on which the server is listening and a username/password pair that can authenticate the connection.</li>
+                <li>In this example I connect to a database, create an SQL query, execute it and read and print the information:
+                    <code>
+                        static void Main(string[] args)
+                        {
+                            string connectionString = "Server=(localdb)\\mssqllocaldb;" +
+                            "Database=DatabaseName;" +
+                            "Trusted_Connection=True;MultipleActiveResultSets=true";
+
+                            using (SqlConnection connection = new SqlConnection(connectionString))
+                            {
+                                connection.Open();
+                                SqlCommand command = new SqlCommand("SELECT * FROM TableName", connection);
+                                SqlReader reader = command.ExecuteReader();                             
+                                while (reader.read())
+                                {
+                                    string artist = reader["Artist"].ToString();
+                                    string title = reader["Title"].ToString();
+
+                                    Console.WriteList("Artist: {0} Title: {1}", artist, title);
+                                }
+                            }
+                            Console.ReadKey();
+                        }
+                    </code>
+                </li>
+                <li>It is important that a connection string is not hard-coded. Otherwise, anyone obtaining the source code of the program can view the connection string and will get accdess to the database.</li>
+                <li>Anyone obtaining the compiled version of the program can use a tool such as ildasm to view the MSIL code and extract the connection.</li>
+                <li>You would also have to change the code, recompile it, and publish it, if you want to change the connection string.</li>
             </ul>
             <h4>Connection String Management in ASP.NET</h4>
             <ul>
