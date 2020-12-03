@@ -430,7 +430,9 @@
                         }
                     </code>
                 </li>
-                <li>The only asynchronous methods that should return void are the actual event handlers for the windows controls. Other asynchronous methods must return either a result or a Task, so that any thrown exceptions can be dealt with correctly.</li>
+                <li>The only asynchronous methods that should return void are the actual event handlers for the windows
+                    controls. Other asynchronous methods must return either a result or a Task, so that any thrown
+                    exceptions can be dealt with correctly.</li>
             </ul>
         </div>
         <div>
@@ -474,25 +476,217 @@
                         }
                     </code>
                 </li>
-                <li>The only asynchronous methods that should return void are the actual event handlers for the windows controls. Other asynchronous methods must return either a result or a Task, so that any thrown exceptions can be dealt with correctly.</li>
+                <li>The only asynchronous methods that should return void are the actual event handlers for the windows
+                    controls. Other asynchronous methods must return either a result or a Task, so that any thrown
+                    exceptions can be dealt with correctly.</li>
             </ul>
         </div>
     </div>
     <div>
         <h2 id="skill-4-2">Skill 4.2: Consume Data</h2>
-        <ul>
-            <li>NOTES</li>
-            <li>NOTES</li>
-            <li>NOTES</li>
-        </ul>
         <p>This section covers how to:</p>
         <ul>
-            <li>TOPIC</li>
-            <li>TOPIC</li>
-            <li>TOPIC</li>
+            <li>Retrieve data from a database</li>
+            <li>Update date in a database</li>
+            <li>Consume JSON and XMl data</li>
+            <li>Retrieve data by using web Windows Communication Foundation (WCF)</li>
         </ul>
         <div>
-            <h3>HEADING</h3>
+            <h3>Retrieve Data from a Database</h3>
+            <h4>Data in a Database</h4>
+            <ul>
+                <li>The following class contains data members and an integer ID value, which will be used by the
+                    database to allow it to uniquely identify each record.
+                    <code>
+                        public class MusicTrack
+                        {
+                        public int ID {get; set;}
+                        public string Artist {get; set;}
+                        public string Title {get; set;}
+                        public int Length {get; set;}
+                        }
+                    </code>
+                </li>
+                <li>The Entity Framework toolchain uses the class definnition to produce a table in a database that has
+                    the required data storage.</li>
+                <li>From a data design point of view, a table in a database can be considered as a collection of
+                    objects.</li>
+            </ul>
+            <h4>Read with SQL</h4>
+            <ul>
+                <li>A database is managed by a server process that accepts commands and acts on them. These commands are
+                    given in the SQL (Structured Query Language) format.</li>
+                <li>SQL dates back to the 1970's and is called a domain specific language because it is used solely for
+                    expressing commands to control a database.</li>
+                <li>The asterisk "*" character in SQL is a wildcard that matches all the entries in the table.</li>
+                <li>The following command will read all the records from a given table:
+                    <code>
+                        SELECT * FROM TableName
+                    </code>
+                </li>
+                <li>A program uses an SQL database in a similar way to a stream. It creates an object that represents a
+                    connection to the database and sends SQL commands to it.</li>
+                <li>The DbConnection is an abstract class that represents a connection to a database and describes
+                    behaviours of the connection in the same way that the Stream class is also abstract and describes
+                    the behaviours of streams.</li>
+                <li>The SqlConnection class is a child of the DbConnection class and represents the implementation of a
+                    connection to a SQL database.</li>
+                <li>The SqlConnection constructor needs a connection string that identifies the datavase that is to be
+                    opened.</li>
+                <li>A connection string contains a number of items expressed as name-value pairs. For a server on a
+                    remote machine the string will contain the address of the server, the port on which the server is
+                    listening and a username/password pair that can authenticate the connection.</li>
+                <li>In this example I connect to a database, create an SQL query, execute it and read and print the
+                    information:
+                    <code>
+                        static void Main(string[] args)
+                        {
+                        string connectionString = "Server=(localdb)\\mssqllocaldb;" +
+                        "Database=DatabaseName;" +
+                        "Trusted_Connection=True;MultipleActiveResultSets=true";
+
+                        using (SqlConnection connection = new SqlConnection(connectionString))
+                        {
+                        connection.Open();
+                        SqlCommand command = new SqlCommand("SELECT * FROM TableName", connection);
+                        SqlReader reader = command.ExecuteReader();
+                        while (reader.read())
+                        {
+                        string artist = reader["Artist"].ToString();
+                        string title = reader["Title"].ToString();
+
+                        Console.WriteList("Artist: {0} Title: {1}", artist, title);
+                        }
+                        }
+                        Console.ReadKey();
+                        }
+                    </code>
+                </li>
+                <li>It is important that a connection string is not hard-coded. Otherwise, anyone obtaining the source
+                    code of the program can view the connection string and will get accdess to the database.</li>
+                <li>Anyone obtaining the compiled version of the program can use a tool such as ildasm to view the MSIL
+                    code and extract the connection.</li>
+                <li>You would also have to change the code, recompile it, and publish it, if you want to change the
+                    connection string.</li>
+            </ul>
+            <h4>Connection String Management in ASP.NET</h4>
+            <ul>
+                <li>The database connection strings in ASP.NET applications are stored in the configuration files.
+                    Usually, this file is the web.config, app.config, or appsettings.json file.</li>
+                <li>The ConnectionStrings element in the settings file contains the connection strings for all the data
+                    contexts used in the program.</li>
+                <li>The setting information in a solution can contain the descriptions of environments that are to be
+                    used for development and production deployments of an application.</li>
+                <li>The setting information to be used is when a server is started and determined by an environment
+                    variable on the computer that is tested when the program starts running. There are 2 contexts in
+                    which the word environment is being used:
+                    <ul>
+                        <li>An ASP applicaiton environment determines the settings for logging, tracing, and debugging,
+                            and the database connection string that will be in force when the ASP application runs on a
+                            machine. A developer can also create their own settings values that can be used to give them
+                            more control over a particular environment.</li>
+                        <li>An environment variable is a value that is maintained by the OS and can be used by processes
+                            running on the machine. Environment variables managed by Windows 10 include the name of the
+                            machine and the file paths to be used to search for programs. The system environment
+                            variable ASPNETCORE_ENVIRONMENT can be set to values that determine which environment an ASP
+                            application will select when it starts running.</li>
+                    </ul>
+                </li>
+                <li>In older ASP.NET applications the SQL settings are held in the web.config file, which is part of the
+                    solution. Developers then use XML transformations to override settings in the file to allow
+                    different SQl servers to be selected.</li>
+            </ul>
+            <h4>SQL Query Operation</h4>
+            <ul>
+                <li>A program can make a query of a database by creating an SqlCommand instance. The constructor for it
+                    takes an SQL command in the form of a string and a database connection.</li>
+                <li>In this example the query is executed as a reader command:
+                    <code>
+                        SqlCommand command = ne SqlCommand("SELECT * FROM TableName", connection);
+                    </code>
+                </li>
+                <li>The SqlReader provides methods that can be used to move through the results returned by the query.
+                    It is only possible to move forward through the results.</li>
+                <li>The Read method returns false when there are no more results.</li>
+                <li>Individual items in the element can be accessed using their name:
+                    <code>
+                        while(reader.read())
+                        {
+                        string artist = reader["Artist"].ToString();
+                        string title = reader["Title"].ToString();
+
+                        Console.WriteLine("Artist: {0} Title: {1}", artist, title);
+                        }
+                    </code>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h3>Update Data In A Database</h3>
+            <ul>
+                <li>NOTES</li>
+                <li>NOTES</li>
+                <li>NOTES</li>
+            </ul>
+            <h4>SQL Injection and Database Commands</h4>
+            <ul>
+                <li>NOTES</li>
+                <li>NOTES</li>
+                <li>NOTES</li>
+            </ul>
+            <h4>Asynchronous Database Access</h4>
+            <ul>
+                <li>NOTES</li>
+                <li>NOTES</li>
+                <li>NOTES</li>
+            </ul>
+            <h4>Using SQL in ASP Applications</h4>
+            <ul>
+                <li>NOTES</li>
+                <li>NOTES</li>
+                <li>NOTES</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Consume JSON and XML Data</h3>
+            <ul>
+                <li>NOTES</li>
+                <li>NOTES</li>
+                <li>NOTES</li>
+            </ul>
+            <h4>Consume JSON Data</h4>
+            <ul>
+                <li>NOTES</li>
+                <li>NOTES</li>
+                <li>NOTES</li>
+            </ul>
+            <h4>Consume XML Data</h4>
+            <ul>
+                <li>NOTES</li>
+                <li>NOTES</li>
+                <li>NOTES</li>
+            </ul>
+            <h4>XML Documents</h4>
+            <ul>
+                <li>NOTES</li>
+                <li>NOTES</li>
+                <li>NOTES</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Retrieve Data by Using Windows Communication Foundation (WCF)</h3>
+            <ul>
+                <li>NOTES</li>
+                <li>NOTES</li>
+                <li>NOTES</li>
+            </ul>
+            <h4>Create a Web Service</h4>
+            <ul>
+                <li>NOTES</li>
+                <li>NOTES</li>
+                <li>NOTES</li>
+            </ul>
+            <h4>Create a Web Client</h4>
             <ul>
                 <li>NOTES</li>
                 <li>NOTES</li>
