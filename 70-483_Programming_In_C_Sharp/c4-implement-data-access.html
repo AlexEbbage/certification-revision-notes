@@ -433,6 +433,50 @@
                 <li>The only asynchronous methods that should return void are the actual event handlers for the windows controls. Other asynchronous methods must return either a result or a Task, so that any thrown exceptions can be dealt with correctly.</li>
             </ul>
         </div>
+        <div>
+            <h3>Implement Asynchronous I/O Operations</h3>
+            <ul>
+                <li>When a user has to wait for a synchronous file action to perform it may lead to a very poor user
+                    experience.</li>
+                <li>File operations provided by the File class do not have any asynchronous versions, so the FileStream
+                    class should be used instead.
+                    <code>
+                        async Task WriteBytesAsync(string filename, byte[] items)
+                        {
+                        using (FileStream outStream = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.Write))
+                        {
+                        await outStream.WriteAsync(items, 0, items.Length);
+                        }
+                        }
+                    </code>
+                </li>
+            </ul>
+            <h4>Handling Exceptions in Asynchronous Methods</h4>
+            <ul>
+                <li>If any exceptions are thrown by the asynchronous file write method they must be caught and a message
+                    displayed for the user.</li>
+                <li>This will only happen if the WriteBytesAsync method returns a Task object that is awaited when the
+                    WriteBytesAsync method is called.
+                    <code>
+                        private async void StartTaskButton_Click(object sender, RoutedEventArgs e)
+                        {
+                        byte[] data = new byte[100];
+
+                        try
+                        {
+                        // This filename contains an invalid character.
+                        await WriteBytesAsynctask("demo:.dat", data);
+                        }
+                        catch (Exception ex)
+                        {
+                        MessageBox.Show(ex.Message, "File write failed");
+                        }
+                        }
+                    </code>
+                </li>
+                <li>The only asynchronous methods that should return void are the actual event handlers for the windows controls. Other asynchronous methods must return either a result or a Task, so that any thrown exceptions can be dealt with correctly.</li>
+            </ul>
+        </div>
     </div>
     <div>
         <h2 id="skill-4-2">Skill 4.2: Consume Data</h2>
