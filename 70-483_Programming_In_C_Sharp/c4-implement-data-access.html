@@ -294,11 +294,93 @@
         <div>
             <h3>Read and Write from the Network by Using Classes in the System.NET Namespace</h3>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>.NET Framework provides a range of application programming interfaces that cn interact with a TCP/IP
+                    (Transmission Control Protcol/Internet Protocol) network.</li>
+                <li>C# programs can create network socket objects that can communicate over the network by sending
+                    unacknowledged datagrams using UDP (User Datagram Protocol) or creating managed connection using TCP
+                    (Transmission Control Protocol).</li>
+                <li>Classes in the System.Net namespace allow a porgram to communicate with servers using the HTTP
+                    (HyperText Transport Protocol). This protocol operates on top of a TCP/IP connection.</li>
+                <li>An HTTP client, for example a web browser, creates a TCP connection to a server an makes a request
+                    for data by sending the HTTP GET command. The server will then respond with a page of information
+                    and the TCP connection will close.</li>
+                <li>Information returned from the server will be formatted using HTML (HyperText Markup Language) and
+                    rendered by the browser.</li>
+                <li>In the case of an ASP (Active Server Pages) application the HTMl document may be produced
+                    dynamically by software, rather than being loaded from a file stored on the server.</li>
+                <li>HTTP was originally used for the sharing of human-readable web pages. However, now an HTTP request
+                    can return an XML or JSON formatted document that describes data in an application.</li>
+                <li>The REST (REpresentational State Transfer) architecture uses the GET, PUT, POST and DELETE
+                    operations of HTTP to allow a client to request a server to perform functions in a client-server
+                    application.</li>
+                <li>The fundamental operation that is used to communicate with these and other servers is the sending of
+                    a "web request" to a server to perform an HTML command on the server.</li>
             </ul>
-            <h4>SUBHEADING</h4>
+            <h4>WebRequest</h4>
+            <ul>
+                <li>The WebRequest class is an abstract base class that specifies the behaviours of a web request. it
+                    exposes a static factory method called Create, which is given a URI (Universal Resource Identifier)
+                    string that specifies the resource that is to be used.</li>
+                <li>The Create method inspects the URI and returns a child of the WebRequest class that matches that
+                    resource, these are: HttpWebRequest, FtpWebRequest, and FileWebRequest.</li>
+                <li>In the case of a website, a URI string will start with "http" or "https" and the Create method will
+                    return an HttpWebRequest instance.</li>
+                <li>The GetResponse method on an HttpWebRequest returns a WebResponse instance that describes the
+                    response from the server.</li>
+                <li>To read the text from a webpage you must use the GetResponseStream method on the response.</li>
+                <li>Using WebRequest instances to read web pages works, but is rather complicated. It does have the
+                    advantage that a program can set a wide range of properties on the web request to tailor it to
+                    particular server requirements.</li>
+                <li>
+                    <code>
+                        WebRequest webRequest = WebRequest.Create("https://microsoft.com");
+                        WebResponse webResponse = webRequest.GetResponse();
+
+                        using (StreamReader responseReader = new StreamReader(webResponse.GetResponseStream()))
+                        {
+                        string siteText = responseReader.ReadToEnd();
+                        Console.WriteLine(siteText);
+                        }
+                    </code>
+                </li>
+            </ul>
+            <h4>WebClient</h4>
+            <ul>
+                <li>The WebClient class provides a simpler and quicker way of reading the text from a web server. </li>
+                <li>There is no need to create a stream to read the page contents and there is no need to deal with the
+                    response to the web request before you cna obtain the reply from the server.</li>
+                <li>
+                    <code>
+                        WebClient client = new WebClient();
+                        string siteText = client.DownloadString("https://www.microsoft.com");
+                        Console.WriteLine(siteText);
+                    </code>
+                </li>
+                <li>The WebClient also provides methods that can be used to read from the server asynchronously.
+                    <code>
+                        async Task&lt;string&gt; readWebpage(string uri)
+                        {
+                            WebClient client = new WebClient();
+                            return await client.DownloadStringTaskAsync(uri);
+                        }
+                    </code>
+                </li>
+            </ul>
+            <h4>HttpClient</h4>
+            <ul>
+                <li>The HttpClient is important because it is the way Windows Universal Applications download the contents of a website.</li>
+                <li>Unlike the WebRequest and the WebClient classes, an HttpClient only provides asynchronous methods, but can be used in a very similar manner to the WebClient.</li>
+                <li>
+                    <code>
+                        async Task&lt;string&gt; readWebpage(string uri)
+                        {
+                            HttpClient client = new HttpClient();
+                            return await client.GetStringAsync(uri);
+                        }
+                    </code>
+                </li>
+            </ul>
+            <h4>Exception Handling</h4>
             <ul>
                 <li>NOTES</li>
                 <li>NOTES</li>
