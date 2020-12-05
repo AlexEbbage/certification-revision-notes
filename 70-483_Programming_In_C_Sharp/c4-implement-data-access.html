@@ -724,28 +724,106 @@
         </div>
         <div>
             <h3>Consume JSON and XML Data</h3>
-            <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
-            </ul>
             <h4>Consume JSON Data</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>JSON (JavaScript object Notation) is a means by which applications can exchange data.</li>
+                <li>A JSON document is a plain text file that contains a structured collection of and value pairs.</li>
+                <li>JSON files can be read and written using the Newtonsoft.Json library.</li>
+                <li>In this example the program consumes a JSON feed provided by NASA. It's updated every daya with new pictures or videos from the NASA archives:
+                    <code>
+                        public class ImageOfDaya
+                        {
+                            public string date {get; set;}
+                            public string explanation {get; set;}
+                            public string hdurl {get; set;}
+                            public string media_type {get; set;}
+                            public string service_version {get; set;}
+                            public string title {get; set;}
+                            public string url {get; set;}
+                        }
+
+                        async Task&lt;ImageOfDay&gt; GetImageOfDay(String imageUrl)
+                        {
+                            string NASAJson = await readWebpage(imageUrl);
+                            ImageOfDay result = JsonConvert.DeserializeObject&lt;ImageOfDay&gt;(NASAJson);
+                            return result;
+                        }
+                    </code>
+                </li>
+                <li>For this to work the ImageOfDay class had to be created which exactly matches the object described in the JSON feed from NASA.</li>
+                <li>This can be done using http://json2csharp.com which accepts a web address that returns a JSON document and then automatically generates a C# class as described by the doucment.</li>
+                <li>In this example the code displays the image when the user clicks a button to perform the load. In this case it'll always display the same image but could easily be updated to display the image for a particular day:
+                    <code>
+                        private async void LoadButtonClickedObject(object sender, RoutedEventArgs e)
+                        {
+                            try
+                            {
+                                ImageOfDay imageOfDay = await getImageOfDay("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date=2018-05-29");
+
+                                if(imageOfDay.media_type != "image")
+                                {
+                                    MessageBox.Show("It is not an image today");
+                                    return;
+                                }
+
+                                DescriptionTextBlock.Text = imageOfDay.explanation;
+
+                                await displayUrl(imageOfDay.url);
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Fetch failed: {0}", ex.Message);
+                            }
+                        }
+                    </code>
+                </li>
             </ul>
             <h4>Consume XML Data</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>XML is slightly more expressive than JSON, but XML documents are larger than equivalent JSON documents, and this, along with the ease of JSON, has led to JSON replacing XML. However, a lot of information is still expressed ussing XML.</li>
+                <li>The System.XML namespace contains a set of classes for working with XML documents. The XMLTextReader class works through a stream of text and decodes each XML element in turn:
+                    <code>
+                        using (StringReader stringReader = new StringReader(XMLDocument))
+                        {
+                            XmlTextReader reader = new XmlTextReader(stringReader);
+
+                            while (reader.Read())
+                            {
+                                string description = string.Format("Type:{0} Name:{1} Value:{2}",
+                                reader.NodeType.ToString(),
+                                reader.Name,
+                                reader.Value);
+                                Console.WriteLine(description);
+                            }
+                        }
+                    </code>
+                </li>
             </ul>
             <h4>XML Documents</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>It is possible to read information from an XML document by decoding each individual element, but this can be hard work to code.</li>
+                <li>An easier approach is to use an XMLDocument instance. This creates a DOM (Document Object Model) in memory from which data can be extracted.</li>
+                <li>An advantage of a DOM is that a program can change elements in the DOM and then write out a modified copy of the document incorporating the change:
+                    <code>
+                        XmlDocument doc = new XmlDocument();
+                        doc.LoadXml(XMLDocument);
+
+                        System.Xml.XmlElement rootElement = doc.DocumentElement;
+                        // Make sure it is the right element.
+                        if (rooElement.Name != "MusicTrack")
+                        {
+                            Console.WriteLine("Not a music track");
+                        }
+                        elements
+                        {
+                            string artist = rootElement["Artist"].FirstChild.Value;
+                            string title = rootElement["Title"].FirstChild.Value;
+                            Console.WriteLine("Arist:{0} Title:{1}", artist, title);
+                        }
+                    </code>
+                </li>
+                <li>An XmlDocument contains a hierarchy of items with a rootElement object at the top of the hierarchy.</li>
+                <li>These items can be accessed in an element by using a string indexer that contains the name of the required item.</li>
             </ul>
         </div>
         <div>
