@@ -829,21 +829,88 @@
         <div>
             <h3>Retrieve Data by Using Windows Communication Foundation (WCF)</h3>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>The NASA image reader works by converting a response from a server into an instance of a class that contains a description of the image and the web address from which the image can be downloaded.</li>
+                <li>To read information provided by the NASA server, a client program contains a C# class that matches the JSON document that is received from the server.</li>
+                <li>A client of a web service also uses an instance of an object to interact with a server. However, in this case, the client can call methods on the object to read data and also update information on the server.</li>
+                <li>The object that is created is a "proxy object". A call to a method of the proxy object will cause a request to be create that is sent to the service on the server.</li>
+                <li>When the server receives the request, it will then call the method in a server object. The result which is returned by the method is packaged up into another network message, which is sent back to the client and then sends the return value back to the calling software.</li>
+                <li>The service also exposes a description of the methods that it provides. These are used by the development tool to actually create the proxy object in the client program. Meaning you can easily create a client application.</li>
             </ul>
             <h4>Create a Web Service</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>As an example, we'll create a 'Joke of the Day' service. It'll return a string containing a joke on request from the client. The user will be able to select the "strength" of the joke, ranging from 0 to 2 where 0 is mildly amusing and 2 is a guaranteed ROFL experience.</li>
+                <li>The application is made up of 2 parts: the server program that exports the service, and the client program that uses it.</li>
+                <li>The server is created as a WCF (Windows Communication Foundation) Service application.</li>
+                <li>The client will be an application that connects to the service and requests a joke.</li>
+                <li>The attributes [ServiceContract] and [OperationContract] denote that the interface and method are to be exposed as services.</li>
+                <li>
+                    <code>
+                        using System.ServiceModel;
+
+                        namespace JokeOfTheDay
+                        {
+                        [ServiceContract]
+                        public interface IJokeOfTheDayService
+                        {
+                            [OperationContract]
+                            string GetJoke(int jokeStrength);
+                        }
+                        }
+                    </code>
+                </li>
+                <li>Once you have the interface you now need a class that implements the method:
+                    <code>
+                        public class JokeOfTheDayService : IJokeOfTheDayService
+                        {
+                            public string GetJoke(int jokeStrength)
+                            {
+                                string result = "Invalid strength";
+                                switch(jokeStrength)
+                                {
+                                    case 0:
+                                    result = "Knock knock. Who's there? Oh, you've heard it.";
+                                    break;
+                                    case 1:
+                                    result = "What's green and hairy and goes up and down? A gooseberry in a lift.";
+                                    break;
+                                    case 2:
+                                    result = "A horse walks into a bar and the barman asks 'Why the long face?'.";
+                                    break;
+                                }
+                                return result;
+                            }
+                        }
+                    </code>
+                </li>
+                <li>If you create a service you can use the WCF Test Client to inboke the methods and view the results.</li>
+                <li>You can also view the service description in a browser. This gives you a link to the service description, as well as some sample code that shows how to use it.</li>
             </ul>
             <h4>Create a Web Client</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>The client application can run on any machine that has a network connection and wants to consume the service.</li>
+                <li>The client application needs to contain a connection to the JokeOfTheDayService which is added to the client Visual Studio project like any other references.</li>
+                <li>Once done, you'll see a panel that displays the JokeOfTheDayService only provides one method and you can also change the namespace used to access it on the client.</li>
+                <li>The client must now create a proxy object that will be used to invoke the methods in the service:
+                    <code>
+                        using System;
+                        using JokeClient.JokeService;
+
+                        namespace JokeClient
+                        {
+                            class program
+                            {
+                                static void Main(string[] args)
+                                {
+                                    using (JokeOfTheDayServiceClient jokeClient = new JokeOfTheDayServiceClient())
+                                    {
+                                        Console.WriteLine(jokeClient.GetJoke(1));
+                                    }
+                                    Console.ReadKey();
+                                }
+                            }
+                        }
+                    </code>
+                </li>
             </ul>
         </div>
     </div>
