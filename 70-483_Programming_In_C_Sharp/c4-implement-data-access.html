@@ -602,6 +602,7 @@
                     takes an SQL command in the form of a string and a database connection.</li>
                 <li>In this example the query is executed as a reader command:
                     <code>
+                        SqlCommand command = new SqlCommand("SELECT * FROM TableName", connection);
                         SqlCommand command = ne SqlCommand("SELECT * FROM TableName", connection);
                     </code>
                 </li>
@@ -624,28 +625,102 @@
         <div>
             <h3>Update Data In A Database</h3>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>An SQL UPDATE command will update the contents of a database.</li>
+                <li>Specific records in a table can be targeted by identifying them with the WHERE clause.</li>
+                <li>
+                    <code>
+                        using (SqlConnection connection = new SqlConnection(connectionString))
+                        {
+                        connection.Open();
+                        dumpDatabase(connection);
+                        SqlCommand command = new SqlCommand("UPDATE TableName SET FieldName='newValue' WHERE ID IN
+                        (1,4,5);", connection);
+                        int result = command.ExecuteNonQuery();
+                        Console.WRiteLine("Number of entries updated: {0}", result);
+                        dumpDatabase(connection);
+                        }
+                    </code>
+                </li>
             </ul>
             <h4>SQL Injection and Database Commands</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>You can allow a user to enter values which can be used in the SQL query but this is very dangerous. They could easily delete data with SQL injecton.</li>
+                <li>SQL injection is where a malicious user injects SQL commands into the code, often via input fields whose values are used to construct an SQL command.</li>
+                <li>You should never construct SQL commands directly from user input. You must use parameterized SQL statements instead.</li>
+                <li>This example shows how to use parameterized SQL statements:
+                    <code>
+                        string sqlCommandText = "UPDATE TableName SET FieldNameA=@newValue WHERE FieldNameB=@searchValue";
+
+                        SqlCommand command = new SqlCommand(sqlCommandText, connection);
+                        command.Parameters.AddWithValue("@newValue", newValue);
+                        command.Parameters.AddWithValue("@searchValue", searchValue);
+                    </code>
+                </li>
             </ul>
             <h4>Asynchronous Database Access</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>There are asynchronous versions of all the methods used above.</li>
+                <li>These methods used in conjunction with the async/await mechanisms allow a program to run database queries asynchronously.</li>
+                <li>This is particularly important if your program is interacting with the user via a windowed interface.</li>
+                <li>The dumpDatabase nethod uses asynchronous database commands to create a listing of the contents of a database. It is part of a WPF (Windows Presentation Foundation) application that also allows database editing.
+                    <code>
+                        async Task &lt;string&gt; dumpDatabase(SqlConnection connection)
+                        {
+                            SqlCommand command = new SqlCommand("SELECT * FROM MusicTrack", connection);
+                            SqlDataReader reader = await command.ExecuteReaderAsync();
+                            StringBuilder databaseList = new StringBuilder();
+                            while(await reader.ReadAsync())
+                            {
+                                string id = reader["ID"].ToString();
+                                string artist = reader["Artist"].ToString();
+                                string title = reader["Title"].ToString();
+
+                                string row = string.Format("ID: {0} Artist: {1} Title: {2}", id, artist, title);
+                                databaseList.AppendLine(row);
+                            }
+                            return databaseList.ToString();
+                        }
+                    </code>
+                </li>
             </ul>
             <h4>Using SQL in ASP Applications</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
-            </ul>
+                <li>You won't find any SQL commands in the code that implement the controller classes for ASP applications.</li>
+                <li>This is due to database updates in ASP applications being performed using an Update method that accepts a modified instance of the class to be updated.</li>
+                <li>In this example the code updates the database and catches any exceptions that may be thrown:
+                    <code>
+                        try
+                        {
+                            _context.Update(record); // Update the database context with the edited track.
+                            await _context.SaveChangesAsync(); // Save all the changes.
+                        }
+                        catch(DbUpdateConcurrencyException)
+                        {
+                            // Deal with exceptions.
+                        }
+                    </code>
+                </li>
+                <li>ASP applications use embedded C# code in the web page (Razor) which iterates through the database contents and presents a view of the data.</li>
+                <li>In this example is the index.cshtml file for a MusicTrack:
+                    <code>
+                        &lt;tr&gt;                      
+                        &lt;td&gt;
+                            @Html.DisplayFor(modelItem => item.Artist)
+                        &lt;/td&gt;                      
+                        &lt;td&gt;
+                            @Html.DisplayFor(modelItem => item.Title)
+                        &lt;/td&gt;                      
+                        &lt;td&gt;
+                            @Html.DisplayFor(modelItem => item.Length)
+                        &lt;/td&gt;                      
+                        &lt;td&gt;
+                            &lt;a asp-action="Edit" asp-route-id="@item.ID"&gt;Edit&lt;/a&gt; |
+                            &lt;a asp-action="Details" asp-route-id="@item.ID"&gt;Details&lt;/a&gt; |
+                            &lt;a asp-action="Delete" asp-route-id="@item.ID"&gt;Delete&lt;/a&gt;
+                        &lt;/td&gt;
+                        &lt;/tr&gt;
+                    </code>
+                </li>
         </div>
         <div>
             <h3>Consume JSON and XML Data</h3>
