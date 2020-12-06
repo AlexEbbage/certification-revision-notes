@@ -1030,15 +1030,57 @@
             </ul>
             <h4>LINQ Join</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>The MusicTrack and Artist classes used in prior examples use C# references to implement the associations between the objects in the system.</li>
+                <li>If you store your data in a database, you will not be able to store the associations in this way.</li>
+                <li>Instead, each item in the database will have a unique ID (its primary key) and objects referring to this object will contain this ID value (a foreign key).</li>
+                <li>Rather than a reference to an Artist instance the MusicTrack now contains an ArtistID field that identifies the artist associated with that track.</li>
+                <li>This design makes it slightly more difficult to search for tracks by a particular artist. The progrma needs to find the ID value for the artist with the name being searched for an then search for an tracks with that value of artist ID.</li>
+                <li>Fortunately, LINQ provides a join operator that can be used to join the output of on LINQ query to the input of another:
+                    <code>
+                        var artistTracks = from artist in artists where artist.Name == "Rob Miles"
+                            join track in musicTracks on artist.ID equals track.ArtistID
+                            select new
+                            {
+                                ArtistName = artist.Name,
+                                track.Title
+                            };
+                    </code>
+                </li>
             </ul>
             <h4>LINQ Group</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>Another useful LINQ feature is the ability to group the results of a query to create a summary output. Such as a query to tell how many tracks there are by each artist in the music collection.</li>
+                <li>The group action is given the data item to group by and the property by which it is to be grouped.</li>
+                <li>The artistTrackSummary contains an entry for each different artist. Each of the items i the summary has a Key property, which is th value that item is "grouped" around:
+                    <code>
+                        var artistTracks = from track in musicTracks
+                            group track by track.ArtistID
+                            into artistTrackSummary
+                            select new
+                            {
+                                ID = artistTrackSummary.Key,
+                                Count = artistTrackSummary.Count()
+                            };
+
+                        foreach (var item in artistSummary)
+                        {
+                            Console.WriteLine("Artist:{0} Tracks recorded:{1}", item.ID, item.Count);
+                        }
+                    </code>
+                </li>
+                <li>The issue with this query is that rather than the name of the Artist in displays their ID. This can be resolved with the use of a join operation:
+                    <code>
+                        var artistTracks = from track in musicTracks
+                            join artist in artists on track.ArtistID equals artist.ID
+                            group track by artist.Name
+                            into artistTrackSummary
+                            select new
+                            {
+                                ID = artistTrackSummary.Key,
+                                Count = artistTrackSummary.Count()
+                            };
+                    </code>
+                </li>
             </ul>
             <h4>LINQ Take and Skip</h4>
             <ul>
