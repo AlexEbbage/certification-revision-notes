@@ -644,12 +644,16 @@
             </ul>
             <h4>SQL Injection and Database Commands</h4>
             <ul>
-                <li>You can allow a user to enter values which can be used in the SQL query but this is very dangerous. They could easily delete data with SQL injecton.</li>
-                <li>SQL injection is where a malicious user injects SQL commands into the code, often via input fields whose values are used to construct an SQL command.</li>
-                <li>You should never construct SQL commands directly from user input. You must use parameterized SQL statements instead.</li>
+                <li>You can allow a user to enter values which can be used in the SQL query but this is very dangerous.
+                    They could easily delete data with SQL injecton.</li>
+                <li>SQL injection is where a malicious user injects SQL commands into the code, often via input fields
+                    whose values are used to construct an SQL command.</li>
+                <li>You should never construct SQL commands directly from user input. You must use parameterized SQL
+                    statements instead.</li>
                 <li>This example shows how to use parameterized SQL statements:
                     <code>
-                        string sqlCommandText = "UPDATE TableName SET FieldNameA=@newValue WHERE FieldNameB=@searchValue";
+                        string sqlCommandText = "UPDATE TableName SET FieldNameA=@newValue WHERE
+                        FieldNameB=@searchValue";
 
                         SqlCommand command = new SqlCommand(sqlCommandText, connection);
                         command.Parameters.AddWithValue("@newValue", newValue);
@@ -660,63 +664,70 @@
             <h4>Asynchronous Database Access</h4>
             <ul>
                 <li>There are asynchronous versions of all the methods used above.</li>
-                <li>These methods used in conjunction with the async/await mechanisms allow a program to run database queries asynchronously.</li>
-                <li>This is particularly important if your program is interacting with the user via a windowed interface.</li>
-                <li>The dumpDatabase nethod uses asynchronous database commands to create a listing of the contents of a database. It is part of a WPF (Windows Presentation Foundation) application that also allows database editing.
+                <li>These methods used in conjunction with the async/await mechanisms allow a program to run database
+                    queries asynchronously.</li>
+                <li>This is particularly important if your program is interacting with the user via a windowed
+                    interface.</li>
+                <li>The dumpDatabase nethod uses asynchronous database commands to create a listing of the contents of a
+                    database. It is part of a WPF (Windows Presentation Foundation) application that also allows
+                    database editing.
                     <code>
                         async Task &lt;string&gt; dumpDatabase(SqlConnection connection)
                         {
-                            SqlCommand command = new SqlCommand("SELECT * FROM MusicTrack", connection);
-                            SqlDataReader reader = await command.ExecuteReaderAsync();
-                            StringBuilder databaseList = new StringBuilder();
-                            while(await reader.ReadAsync())
-                            {
-                                string id = reader["ID"].ToString();
-                                string artist = reader["Artist"].ToString();
-                                string title = reader["Title"].ToString();
+                        SqlCommand command = new SqlCommand("SELECT * FROM MusicTrack", connection);
+                        SqlDataReader reader = await command.ExecuteReaderAsync();
+                        StringBuilder databaseList = new StringBuilder();
+                        while(await reader.ReadAsync())
+                        {
+                        string id = reader["ID"].ToString();
+                        string artist = reader["Artist"].ToString();
+                        string title = reader["Title"].ToString();
 
-                                string row = string.Format("ID: {0} Artist: {1} Title: {2}", id, artist, title);
-                                databaseList.AppendLine(row);
-                            }
-                            return databaseList.ToString();
+                        string row = string.Format("ID: {0} Artist: {1} Title: {2}", id, artist, title);
+                        databaseList.AppendLine(row);
+                        }
+                        return databaseList.ToString();
                         }
                     </code>
                 </li>
             </ul>
             <h4>Using SQL in ASP Applications</h4>
             <ul>
-                <li>You won't find any SQL commands in the code that implement the controller classes for ASP applications.</li>
-                <li>This is due to database updates in ASP applications being performed using an Update method that accepts a modified instance of the class to be updated.</li>
+                <li>You won't find any SQL commands in the code that implement the controller classes for ASP
+                    applications.</li>
+                <li>This is due to database updates in ASP applications being performed using an Update method that
+                    accepts a modified instance of the class to be updated.</li>
                 <li>In this example the code updates the database and catches any exceptions that may be thrown:
                     <code>
                         try
                         {
-                            _context.Update(record); // Update the database context with the edited track.
-                            await _context.SaveChangesAsync(); // Save all the changes.
+                        _context.Update(record); // Update the database context with the edited track.
+                        await _context.SaveChangesAsync(); // Save all the changes.
                         }
                         catch(DbUpdateConcurrencyException)
                         {
-                            // Deal with exceptions.
+                        // Deal with exceptions.
                         }
                     </code>
                 </li>
-                <li>ASP applications use embedded C# code in the web page (Razor) which iterates through the database contents and presents a view of the data.</li>
+                <li>ASP applications use embedded C# code in the web page (Razor) which iterates through the database
+                    contents and presents a view of the data.</li>
                 <li>In this example is the index.cshtml file for a MusicTrack:
                     <code>
-                        &lt;tr&gt;                      
+                        &lt;tr&gt;
                         &lt;td&gt;
-                            @Html.DisplayFor(modelItem => item.Artist)
-                        &lt;/td&gt;                      
+                        @Html.DisplayFor(modelItem => item.Artist)
+                        &lt;/td&gt;
                         &lt;td&gt;
-                            @Html.DisplayFor(modelItem => item.Title)
-                        &lt;/td&gt;                      
+                        @Html.DisplayFor(modelItem => item.Title)
+                        &lt;/td&gt;
                         &lt;td&gt;
-                            @Html.DisplayFor(modelItem => item.Length)
-                        &lt;/td&gt;                      
+                        @Html.DisplayFor(modelItem => item.Length)
+                        &lt;/td&gt;
                         &lt;td&gt;
-                            &lt;a asp-action="Edit" asp-route-id="@item.ID"&gt;Edit&lt;/a&gt; |
-                            &lt;a asp-action="Details" asp-route-id="@item.ID"&gt;Details&lt;/a&gt; |
-                            &lt;a asp-action="Delete" asp-route-id="@item.ID"&gt;Delete&lt;/a&gt;
+                        &lt;a asp-action="Edit" asp-route-id="@item.ID"&gt;Edit&lt;/a&gt; |
+                        &lt;a asp-action="Details" asp-route-id="@item.ID"&gt;Details&lt;/a&gt; |
+                        &lt;a asp-action="Delete" asp-route-id="@item.ID"&gt;Delete&lt;/a&gt;
                         &lt;/td&gt;
                         &lt;/tr&gt;
                     </code>
@@ -729,81 +740,93 @@
                 <li>JSON (JavaScript object Notation) is a means by which applications can exchange data.</li>
                 <li>A JSON document is a plain text file that contains a structured collection of and value pairs.</li>
                 <li>JSON files can be read and written using the Newtonsoft.Json library.</li>
-                <li>In this example the program consumes a JSON feed provided by NASA. It's updated every daya with new pictures or videos from the NASA archives:
+                <li>In this example the program consumes a JSON feed provided by NASA. It's updated every daya with new
+                    pictures or videos from the NASA archives:
                     <code>
                         public class ImageOfDaya
                         {
-                            public string date {get; set;}
-                            public string explanation {get; set;}
-                            public string hdurl {get; set;}
-                            public string media_type {get; set;}
-                            public string service_version {get; set;}
-                            public string title {get; set;}
-                            public string url {get; set;}
+                        public string date {get; set;}
+                        public string explanation {get; set;}
+                        public string hdurl {get; set;}
+                        public string media_type {get; set;}
+                        public string service_version {get; set;}
+                        public string title {get; set;}
+                        public string url {get; set;}
                         }
 
                         async Task&lt;ImageOfDay&gt; GetImageOfDay(String imageUrl)
                         {
-                            string NASAJson = await readWebpage(imageUrl);
-                            ImageOfDay result = JsonConvert.DeserializeObject&lt;ImageOfDay&gt;(NASAJson);
-                            return result;
+                        string NASAJson = await readWebpage(imageUrl);
+                        ImageOfDay result = JsonConvert.DeserializeObject&lt;ImageOfDay&gt;(NASAJson);
+                        return result;
                         }
                     </code>
                 </li>
-                <li>For this to work the ImageOfDay class had to be created which exactly matches the object described in the JSON feed from NASA.</li>
-                <li>This can be done using http://json2csharp.com which accepts a web address that returns a JSON document and then automatically generates a C# class as described by the doucment.</li>
-                <li>In this example the code displays the image when the user clicks a button to perform the load. In this case it'll always display the same image but could easily be updated to display the image for a particular day:
+                <li>For this to work the ImageOfDay class had to be created which exactly matches the object described
+                    in the JSON feed from NASA.</li>
+                <li>This can be done using http://json2csharp.com which accepts a web address that returns a JSON
+                    document and then automatically generates a C# class as described by the doucment.</li>
+                <li>In this example the code displays the image when the user clicks a button to perform the load. In
+                    this case it'll always display the same image but could easily be updated to display the image for a
+                    particular day:
                     <code>
                         private async void LoadButtonClickedObject(object sender, RoutedEventArgs e)
                         {
-                            try
-                            {
-                                ImageOfDay imageOfDay = await getImageOfDay("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date=2018-05-29");
+                        try
+                        {
+                        ImageOfDay imageOfDay = await
+                        getImageOfDay("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date=2018-05-29");
 
-                                if(imageOfDay.media_type != "image")
-                                {
-                                    MessageBox.Show("It is not an image today");
-                                    return;
-                                }
+                        if(imageOfDay.media_type != "image")
+                        {
+                        MessageBox.Show("It is not an image today");
+                        return;
+                        }
 
-                                DescriptionTextBlock.Text = imageOfDay.explanation;
+                        DescriptionTextBlock.Text = imageOfDay.explanation;
 
-                                await displayUrl(imageOfDay.url);
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show("Fetch failed: {0}", ex.Message);
-                            }
+                        await displayUrl(imageOfDay.url);
+                        }
+                        catch (Exception ex)
+                        {
+                        MessageBox.Show("Fetch failed: {0}", ex.Message);
+                        }
                         }
                     </code>
                 </li>
             </ul>
             <h4>Consume XML Data</h4>
             <ul>
-                <li>XML is slightly more expressive than JSON, but XML documents are larger than equivalent JSON documents, and this, along with the ease of JSON, has led to JSON replacing XML. However, a lot of information is still expressed ussing XML.</li>
-                <li>The System.XML namespace contains a set of classes for working with XML documents. The XMLTextReader class works through a stream of text and decodes each XML element in turn:
+                <li>XML is slightly more expressive than JSON, but XML documents are larger than equivalent JSON
+                    documents, and this, along with the ease of JSON, has led to JSON replacing XML. However, a lot of
+                    information is still expressed ussing XML.</li>
+                <li>The System.XML namespace contains a set of classes for working with XML documents. The XMLTextReader
+                    class works through a stream of text and decodes each XML element in turn:
                     <code>
                         using (StringReader stringReader = new StringReader(XMLDocument))
                         {
-                            XmlTextReader reader = new XmlTextReader(stringReader);
+                        XmlTextReader reader = new XmlTextReader(stringReader);
 
-                            while (reader.Read())
-                            {
-                                string description = string.Format("Type:{0} Name:{1} Value:{2}",
-                                reader.NodeType.ToString(),
-                                reader.Name,
-                                reader.Value);
-                                Console.WriteLine(description);
-                            }
+                        while (reader.Read())
+                        {
+                        string description = string.Format("Type:{0} Name:{1} Value:{2}",
+                        reader.NodeType.ToString(),
+                        reader.Name,
+                        reader.Value);
+                        Console.WriteLine(description);
+                        }
                         }
                     </code>
                 </li>
             </ul>
             <h4>XML Documents</h4>
             <ul>
-                <li>It is possible to read information from an XML document by decoding each individual element, but this can be hard work to code.</li>
-                <li>An easier approach is to use an XMLDocument instance. This creates a DOM (Document Object Model) in memory from which data can be extracted.</li>
-                <li>An advantage of a DOM is that a program can change elements in the DOM and then write out a modified copy of the document incorporating the change:
+                <li>It is possible to read information from an XML document by decoding each individual element, but
+                    this can be hard work to code.</li>
+                <li>An easier approach is to use an XMLDocument instance. This creates a DOM (Document Object Model) in
+                    memory from which data can be extracted.</li>
+                <li>An advantage of a DOM is that a program can change elements in the DOM and then write out a modified
+                    copy of the document incorporating the change:
                     <code>
                         XmlDocument doc = new XmlDocument();
                         doc.LoadXml(XMLDocument);
@@ -812,37 +835,52 @@
                         // Make sure it is the right element.
                         if (rooElement.Name != "MusicTrack")
                         {
-                            Console.WriteLine("Not a music track");
+                        Console.WriteLine("Not a music track");
                         }
                         elements
                         {
-                            string artist = rootElement["Artist"].FirstChild.Value;
-                            string title = rootElement["Title"].FirstChild.Value;
-                            Console.WriteLine("Arist:{0} Title:{1}", artist, title);
+                        string artist = rootElement["Artist"].FirstChild.Value;
+                        string title = rootElement["Title"].FirstChild.Value;
+                        Console.WriteLine("Arist:{0} Title:{1}", artist, title);
                         }
                     </code>
                 </li>
-                <li>An XmlDocument contains a hierarchy of items with a rootElement object at the top of the hierarchy.</li>
-                <li>These items can be accessed in an element by using a string indexer that contains the name of the required item.</li>
+                <li>An XmlDocument contains a hierarchy of items with a rootElement object at the top of the hierarchy.
+                </li>
+                <li>These items can be accessed in an element by using a string indexer that contains the name of the
+                    required item.</li>
             </ul>
         </div>
         <div>
             <h3>Retrieve Data by Using Windows Communication Foundation (WCF)</h3>
             <ul>
-                <li>The NASA image reader works by converting a response from a server into an instance of a class that contains a description of the image and the web address from which the image can be downloaded.</li>
-                <li>To read information provided by the NASA server, a client program contains a C# class that matches the JSON document that is received from the server.</li>
-                <li>A client of a web service also uses an instance of an object to interact with a server. However, in this case, the client can call methods on the object to read data and also update information on the server.</li>
-                <li>The object that is created is a "proxy object". A call to a method of the proxy object will cause a request to be create that is sent to the service on the server.</li>
-                <li>When the server receives the request, it will then call the method in a server object. The result which is returned by the method is packaged up into another network message, which is sent back to the client and then sends the return value back to the calling software.</li>
-                <li>The service also exposes a description of the methods that it provides. These are used by the development tool to actually create the proxy object in the client program. Meaning you can easily create a client application.</li>
+                <li>The NASA image reader works by converting a response from a server into an instance of a class that
+                    contains a description of the image and the web address from which the image can be downloaded.</li>
+                <li>To read information provided by the NASA server, a client program contains a C# class that matches
+                    the JSON document that is received from the server.</li>
+                <li>A client of a web service also uses an instance of an object to interact with a server. However, in
+                    this case, the client can call methods on the object to read data and also update information on the
+                    server.</li>
+                <li>The object that is created is a "proxy object". A call to a method of the proxy object will cause a
+                    request to be create that is sent to the service on the server.</li>
+                <li>When the server receives the request, it will then call the method in a server object. The result
+                    which is returned by the method is packaged up into another network message, which is sent back to
+                    the client and then sends the return value back to the calling software.</li>
+                <li>The service also exposes a description of the methods that it provides. These are used by the
+                    development tool to actually create the proxy object in the client program. Meaning you can easily
+                    create a client application.</li>
             </ul>
             <h4>Create a Web Service</h4>
             <ul>
-                <li>As an example, we'll create a 'Joke of the Day' service. It'll return a string containing a joke on request from the client. The user will be able to select the "strength" of the joke, ranging from 0 to 2 where 0 is mildly amusing and 2 is a guaranteed ROFL experience.</li>
-                <li>The application is made up of 2 parts: the server program that exports the service, and the client program that uses it.</li>
+                <li>As an example, we'll create a 'Joke of the Day' service. It'll return a string containing a joke on
+                    request from the client. The user will be able to select the "strength" of the joke, ranging from 0
+                    to 2 where 0 is mildly amusing and 2 is a guaranteed ROFL experience.</li>
+                <li>The application is made up of 2 parts: the server program that exports the service, and the client
+                    program that uses it.</li>
                 <li>The server is created as a WCF (Windows Communication Foundation) Service application.</li>
                 <li>The client will be an application that connects to the service and requests a joke.</li>
-                <li>The attributes [ServiceContract] and [OperationContract] denote that the interface and method are to be exposed as services.</li>
+                <li>The attributes [ServiceContract] and [OperationContract] denote that the interface and method are to
+                    be exposed as services.</li>
                 <li>
                     <code>
                         using System.ServiceModel;
@@ -852,8 +890,8 @@
                         [ServiceContract]
                         public interface IJokeOfTheDayService
                         {
-                            [OperationContract]
-                            string GetJoke(int jokeStrength);
+                        [OperationContract]
+                        string GetJoke(int jokeStrength);
                         }
                         }
                     </code>
@@ -862,34 +900,39 @@
                     <code>
                         public class JokeOfTheDayService : IJokeOfTheDayService
                         {
-                            public string GetJoke(int jokeStrength)
-                            {
-                                string result = "Invalid strength";
-                                switch(jokeStrength)
-                                {
-                                    case 0:
-                                    result = "Knock knock. Who's there? Oh, you've heard it.";
-                                    break;
-                                    case 1:
-                                    result = "What's green and hairy and goes up and down? A gooseberry in a lift.";
-                                    break;
-                                    case 2:
-                                    result = "A horse walks into a bar and the barman asks 'Why the long face?'.";
-                                    break;
-                                }
-                                return result;
-                            }
+                        public string GetJoke(int jokeStrength)
+                        {
+                        string result = "Invalid strength";
+                        switch(jokeStrength)
+                        {
+                        case 0:
+                        result = "Knock knock. Who's there? Oh, you've heard it.";
+                        break;
+                        case 1:
+                        result = "What's green and hairy and goes up and down? A gooseberry in a lift.";
+                        break;
+                        case 2:
+                        result = "A horse walks into a bar and the barman asks 'Why the long face?'.";
+                        break;
+                        }
+                        return result;
+                        }
                         }
                     </code>
                 </li>
-                <li>If you create a service you can use the WCF Test Client to inboke the methods and view the results.</li>
-                <li>You can also view the service description in a browser. This gives you a link to the service description, as well as some sample code that shows how to use it.</li>
+                <li>If you create a service you can use the WCF Test Client to inboke the methods and view the results.
+                </li>
+                <li>You can also view the service description in a browser. This gives you a link to the service
+                    description, as well as some sample code that shows how to use it.</li>
             </ul>
             <h4>Create a Web Client</h4>
             <ul>
-                <li>The client application can run on any machine that has a network connection and wants to consume the service.</li>
-                <li>The client application needs to contain a connection to the JokeOfTheDayService which is added to the client Visual Studio project like any other references.</li>
-                <li>Once done, you'll see a panel that displays the JokeOfTheDayService only provides one method and you can also change the namespace used to access it on the client.</li>
+                <li>The client application can run on any machine that has a network connection and wants to consume the
+                    service.</li>
+                <li>The client application needs to contain a connection to the JokeOfTheDayService which is added to
+                    the client Visual Studio project like any other references.</li>
+                <li>Once done, you'll see a panel that displays the JokeOfTheDayService only provides one method and you
+                    can also change the namespace used to access it on the client.</li>
                 <li>The client must now create a proxy object that will be used to invoke the methods in the service:
                     <code>
                         using System;
@@ -897,17 +940,17 @@
 
                         namespace JokeClient
                         {
-                            class program
-                            {
-                                static void Main(string[] args)
-                                {
-                                    using (JokeOfTheDayServiceClient jokeClient = new JokeOfTheDayServiceClient())
-                                    {
-                                        Console.WriteLine(jokeClient.GetJoke(1));
-                                    }
-                                    Console.ReadKey();
-                                }
-                            }
+                        class program
+                        {
+                        static void Main(string[] args)
+                        {
+                        using (JokeOfTheDayServiceClient jokeClient = new JokeOfTheDayServiceClient())
+                        {
+                        Console.WriteLine(jokeClient.GetJoke(1));
+                        }
+                        Console.ReadKey();
+                        }
+                        }
                         }
                     </code>
                 </li>
@@ -929,170 +972,257 @@
             <h3>Query Data by Using Operators, Including Projection, Join, Group, Take, Skip, and Aggregate</h3>
             <h4>Use an Object Initializer</h4>
             <ul>
-                <li>Object initializer syntax is used to create new instances of record objects and to initialize thei values at the same time.</li>
-                <li>This is a very useful C# feature that allows you to initialize objects when they are created without the need to create a consturctor method in the class being initialized.</li>
-                <li>In this example the statement creates and initializes a new MusicTrack instance where the braces delimit the items that initialize the instance:
+                <li>Object initializer syntax is used to create new instances of record objects and to initialize thei
+                    values at the same time.</li>
+                <li>This is a very useful C# feature that allows you to initialize objects when they are created without
+                    the need to create a consturctor method in the class being initialized.</li>
+                <li>In this example the statement creates and initializes a new MusicTrack instance where the braces
+                    delimit the items that initialize the instance:
                     <code>
                         MusicTrack newTrack = MusicTrack
                         {
-                            Artist = "Rob Miles",
-                            Title = "My Way",
-                            Length = 150
+                        Artist = "Rob Miles",
+                        Title = "My Way",
+                        Length = 150
                         };
                     </code>
                 </li>
-                <li>Any properties not initialized are set to their default values (0 for numeric values and null for strings).</li>
+                <li>Any properties not initialized are set to their default values (0 for numeric values and null for
+                    strings).</li>
                 <li>Properties initialized this way must be made public members of the class.</li>
             </ul>
             <h4>Use a LINQ Operator</h4>
             <ul>
-                <li>In this xample, the first statement uses a LINQ query to create an enumerable collection of MusicTracks, which is then enumerated by the foreach construction to print the results:
+                <li>In this xample, the first statement uses a LINQ query to create an enumerable collection of
+                    MusicTracks, which is then enumerated by the foreach construction to print the results:
                     <code>
-                        IEnumberable&lt;MusicTrack&gt; selectedTracks = from track in musicTracks where track.Arist.Name == "Rob Miles" select track;
+                        IEnumberable&lt;MusicTrack&gt; selectedTracks = from track in musicTracks where track.Arist.Name
+                        == "Rob Miles" select track;
                         foreach (MusicTrack track in selectedTracks)
                         {
-                            Console.WriteLine("Artist:{0} Title:{1}", track.Artist.Name, track.Title);
+                        Console.WriteLine("Artist:{0} Title:{1}", track.Artist.Name, track.Title);
                         }
                     </code>
                 </li>
             </ul>
             <h4>Use the var Keyword with LINQ</h4>
             <ul>
-                <li>C# is statically typed. Meaning, the type of objects in a program is determined at compile time and the compiler rejects any actions that are not valid.</li>
-                <li>This means that the following code fails to compile because the compiler will not allow strings to be subtracted from numbers:
+                <li>C# is statically typed. Meaning, the type of objects in a program is determined at compile time and
+                    the compiler rejects any actions that are not valid.</li>
+                <li>This means that the following code fails to compile because the compiler will not allow strings to
+                    be subtracted from numbers:
                     <code>
                         string name = "Rob Miles";
                         int age = 21;
                         int silly = age - name;
                     </code>
                 </li>
-                <li>This increases our confidence in our programs being correct when they run, but does involve going through extra effort to give each variable a type when you declare it.</li>
-                <li>The above code can be simplified by using the car keyword to tell the compiler to infer the type of variable being created from the context in which the variable is used:
+                <li>This increases our confidence in our programs being correct when they run, but does involve going
+                    through extra effort to give each variable a type when you declare it.</li>
+                <li>The above code can be simplified by using the car keyword to tell the compiler to infer the type of
+                    variable being created from the context in which the variable is used:
                     <code>
                         var name = "Rob Miles";
                     </code>
                 </li>
-                <li>This does not mean that the compiler cannot detect compilation errors. The example earlier will still fail to compile.</li>
-                <li>The var keyword is especially useful when using LINQ as the result of a simple LINQ query is an enumerable colection of the type of data element held in the data source:
+                <li>This does not mean that the compiler cannot detect compilation errors. The example earlier will
+                    still fail to compile.</li>
+                <li>The var keyword is especially useful when using LINQ as the result of a simple LINQ query is an
+                    enumerable colection of the type of data element held in the data source:
                     <code>
-                        var selectedTracks = from track in musicTracks where track.Arist.Name == "Rob Miles" select track;
+                        var selectedTracks = from track in musicTracks where track.Arist.Name == "Rob Miles" select
+                        track;
                     </code>
                 </li>
-                <li>There are some situations where you won't know the type of a variable when writing the code. These are called anonymous types and the only way to refer to these is by use of variables of type var.</li>
-                <li>You can use var everywhere in your code but you won't be popular with other devs as they'll have to infer the type of variable by diging through the code. When you do use it, make sure the type can be inferred easily by the variable name.</li>
+                <li>There are some situations where you won't know the type of a variable when writing the code. These
+                    are called anonymous types and the only way to refer to these is by use of variables of type var.
+                </li>
+                <li>You can use var everywhere in your code but you won't be popular with other devs as they'll have to
+                    infer the type of variable by diging through the code. When you do use it, make sure the type can be
+                    inferred easily by the variable name.</li>
             </ul>
             <h4>LINQ Projection</h4>
             <ul>
                 <li>The select operation in LINQ can be used to produce a filtered version of a data source.</li>
-                <li>Projection can be used to ask a query to "project" the data in the class onto new instaces of a class created just to hold the data returned by the query.</li>
-                <li>In this example the query is asked to create a new instance of the TrackDetails class to hold the result of each query.
+                <li>Projection can be used to ask a query to "project" the data in the class onto new instaces of a
+                    class created just to hold the data returned by the query.</li>
+                <li>In this example the query is asked to create a new instance of the TrackDetails class to hold the
+                    result of each query.
                     <code>
                         class TrackDetails
                         {
-                            public string ArtistName;
-                            public string Title;
+                        public string ArtistName;
+                        public string Title;
                         }
-                        
-                        var selectedTracks = from track in musicTracks 
-                            where track.Arist.Name == "Rob Miles" 
-                            select new TrackDetails
-                            {
-                                ArtistName = track.Artist.Name,
-                                track.Title
-                            };
+
+                        var selectedTracks = from track in musicTracks
+                        where track.Arist.Name == "Rob Miles"
+                        select new TrackDetails
+                        {
+                        ArtistName = track.Artist.Name,
+                        track.Title
+                        };
 
                     </code>
                 </li>
             </ul>
             <h4>Anonymous Types</h4>
             <ul>
-                <li>You can remove the need to create a class to hold the result of a search query by making the query return results of an anonymous type:
+                <li>You can remove the need to create a class to hold the result of a search query by making the query
+                    return results of an anonymous type:
                     <code>
-                        var selectedTracks = from track in musicTracks 
-                            where track.Arist.Name == "Rob Miles" 
-                            select new // Project type name missing from here.
-                            {
-                                ArtistName = track.Artist.Name,
-                                track.Title
-                            };
+                        var selectedTracks = from track in musicTracks
+                        where track.Arist.Name == "Rob Miles"
+                        select new // Project type name missing from here.
+                        {
+                        ArtistName = track.Artist.Name,
+                        track.Title
+                        };
                     </code>
                 </li>
                 <li>Instances of the new type are initialized using the object initializer syntax.</li>
-                <li>The item that is returned by this query is an enumerable collection of instances of a type that has no name. It is anonymous. You have to use a var reference to refer to the query result.</li>
-                <li>You can iterate through the collection in this result as your would any other, but each item must also be referred to using a var:
+                <li>The item that is returned by this query is an enumerable collection of instances of a type that has
+                    no name. It is anonymous. You have to use a var reference to refer to the query result.</li>
+                <li>You can iterate through the collection in this result as your would any other, but each item must
+                    also be referred to using a var:
                     <code>
                         foreach (var item in selectedTracks)
                         {
-                            console.WriteLine("Artist:{0} Title:{1}", item.ArtistName.Name, item.Title);
+                        console.WriteLine("Artist:{0} Title:{1}", item.ArtistName.Name, item.Title);
                         }
                     </code>
                 </li>
             </ul>
             <h4>LINQ Join</h4>
             <ul>
-                <li>The MusicTrack and Artist classes used in prior examples use C# references to implement the associations between the objects in the system.</li>
-                <li>If you store your data in a database, you will not be able to store the associations in this way.</li>
-                <li>Instead, each item in the database will have a unique ID (its primary key) and objects referring to this object will contain this ID value (a foreign key).</li>
-                <li>Rather than a reference to an Artist instance the MusicTrack now contains an ArtistID field that identifies the artist associated with that track.</li>
-                <li>This design makes it slightly more difficult to search for tracks by a particular artist. The progrma needs to find the ID value for the artist with the name being searched for an then search for an tracks with that value of artist ID.</li>
-                <li>Fortunately, LINQ provides a join operator that can be used to join the output of on LINQ query to the input of another:
+                <li>The MusicTrack and Artist classes used in prior examples use C# references to implement the
+                    associations between the objects in the system.</li>
+                <li>If you store your data in a database, you will not be able to store the associations in this way.
+                </li>
+                <li>Instead, each item in the database will have a unique ID (its primary key) and objects referring to
+                    this object will contain this ID value (a foreign key).</li>
+                <li>Rather than a reference to an Artist instance the MusicTrack now contains an ArtistID field that
+                    identifies the artist associated with that track.</li>
+                <li>This design makes it slightly more difficult to search for tracks by a particular artist. The
+                    progrma needs to find the ID value for the artist with the name being searched for an then search
+                    for an tracks with that value of artist ID.</li>
+                <li>Fortunately, LINQ provides a join operator that can be used to join the output of on LINQ query to
+                    the input of another:
                     <code>
                         var artistTracks = from artist in artists where artist.Name == "Rob Miles"
-                            join track in musicTracks on artist.ID equals track.ArtistID
-                            select new
-                            {
-                                ArtistName = artist.Name,
-                                track.Title
-                            };
+                        join track in musicTracks on artist.ID equals track.ArtistID
+                        select new
+                        {
+                        ArtistName = artist.Name,
+                        track.Title
+                        };
                     </code>
                 </li>
             </ul>
             <h4>LINQ Group</h4>
             <ul>
-                <li>Another useful LINQ feature is the ability to group the results of a query to create a summary output. Such as a query to tell how many tracks there are by each artist in the music collection.</li>
-                <li>The group action is given the data item to group by and the property by which it is to be grouped.</li>
-                <li>The artistTrackSummary contains an entry for each different artist. Each of the items i the summary has a Key property, which is th value that item is "grouped" around:
+                <li>Another useful LINQ feature is the ability to group the results of a query to create a summary
+                    output. Such as a query to tell how many tracks there are by each artist in the music collection.
+                </li>
+                <li>The group action is given the data item to group by and the property by which it is to be grouped.
+                </li>
+                <li>The artistTrackSummary contains an entry for each different artist. Each of the items i the summary
+                    has a Key property, which is th value that item is "grouped" around:
                     <code>
                         var artistTracks = from track in musicTracks
-                            group track by track.ArtistID
-                            into artistTrackSummary
-                            select new
-                            {
-                                ID = artistTrackSummary.Key,
-                                Count = artistTrackSummary.Count()
-                            };
+                        group track by track.ArtistID
+                        into artistTrackSummary
+                        select new
+                        {
+                        ID = artistTrackSummary.Key,
+                        Count = artistTrackSummary.Count()
+                        };
 
                         foreach (var item in artistSummary)
                         {
-                            Console.WriteLine("Artist:{0} Tracks recorded:{1}", item.ID, item.Count);
+                        Console.WriteLine("Artist:{0} Tracks recorded:{1}", item.ID, item.Count);
                         }
                     </code>
                 </li>
-                <li>The issue with this query is that rather than the name of the Artist in displays their ID. This can be resolved with the use of a join operation:
+                <li>The issue with this query is that rather than the name of the Artist in displays their ID. This can
+                    be resolved with the use of a join operation:
                     <code>
                         var artistTracks = from track in musicTracks
-                            join artist in artists on track.ArtistID equals artist.ID
-                            group track by artist.Name
-                            into artistTrackSummary
-                            select new
-                            {
-                                ID = artistTrackSummary.Key,
-                                Count = artistTrackSummary.Count()
-                            };
+                        join artist in artists on track.ArtistID equals artist.ID
+                        group track by artist.Name
+                        into artistTrackSummary
+                        select new
+                        {
+                        ID = artistTrackSummary.Key,
+                        Count = artistTrackSummary.Count()
+                        };
                     </code>
                 </li>
             </ul>
             <h4>LINQ Take and Skip</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>A LINQ query will normally return all of the items that it finds. However, this might be more items
+                    than your program wants.</li>
+                <li>You might want to show the user the output one page at a time. You can use take to tell the query to
+                    take a particular number of items and the skip to tell a query to skip a particular number of items
+                    in the result before taking the requested number.</li>
+                <li>In this example the program displays all of the music tracks ten items at a time:
+                    <code>
+                        int pageNo = 0;
+                        int pageSize = 10;
+
+                        while(true)
+                        {
+                        // Get the track information.
+                        var trackList = from musicTrack in musicTracks.Skip(pageNo*pageSize).Take(pageSize)
+                        join artist in artists on musicTrack.ArtistID equals artist.ID
+                        select newTrack
+                        {
+                        ArtistName = artist.Name,
+                        Title = musicTrack.title
+                        };
+
+                        // Quit if we reached the end of the data.
+                        if (trackList.Count() == 0)
+                        break;
+
+                        // Display the query result.
+                        foreach (var item in trackList)
+                        {
+                        Console.WriteLine("Artist:{0} Title:{1}", item.ArtistName, item.Title);
+                        }
+
+                        Console.WriteLine("Press any key to continue!");
+                        Console.ReadKey();
+
+                        // Move on to the next page.
+                        pageNo++;
+                        }
+                    </code>
+                </li>
             </ul>
             <h4>LINQ Aggregate Commands</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>In the context of LINQ commands, the word aggregate means "bring together a number of related values
+                    to create a single result".</li>
+                <li>You can use aggregate operators on the results produced by group operations. </li>
+                <li>In this example the Sum operator is used to get the length of all tracks assigned to an artist:
+                    <code>
+                        var artistSummary = from track in musicTracks]
+                        join artist in artists on track.ArtistID equals artist.ID
+                        group track by artist.Name
+                        into artistTrackSummary
+                        select new
+                        {
+                        ID = artistTrackSummary.Key,
+                        Length = artistTrackSummary.Sum(x => x.Length)
+                        };
+                    </code>
+                </li>
+                <li>The Average, Max, and Min operations can also be used to generate other items of aggregate
+                    information.</li>
+                <li>You can also create your own Aggregate behaviour that will be called on each successive item in the
+                    group and will generate a single aggregate result.</li>
             </ul>
         </div>
         <div>
