@@ -927,28 +927,34 @@
         </ul>
         <div>
             <h3>Query Data by Using Operators, Including Projection, Join, Group, Take, Skip, and Aggregate</h3>
-            <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
-            </ul>
-            <h4>Sample Application</h4>
-            <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
-            </ul>
             <h4>Use an Object Initializer</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>Object initializer syntax is used to create new instances of record objects and to initialize thei values at the same time.</li>
+                <li>This is a very useful C# feature that allows you to initialize objects when they are created without the need to create a consturctor method in the class being initialized.</li>
+                <li>In this example the statement creates and initializes a new MusicTrack instance where the braces delimit the items that initialize the instance:
+                    <code>
+                        MusicTrack newTrack = MusicTrack
+                        {
+                            Artist = "Rob Miles",
+                            Title = "My Way",
+                            Length = 150
+                        };
+                    </code>
+                </li>
+                <li>Any properties not initialized are set to their default values (0 for numeric values and null for strings).</li>
+                <li>Properties initialized this way must be made public members of the class.</li>
             </ul>
             <h4>Use a LINQ Operator</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>In this xample, the first statement uses a LINQ query to create an enumerable collection of MusicTracks, which is then enumerated by the foreach construction to print the results:
+                    <code>
+                        IEnumberable&lt;MusicTrack&gt; selectedTracks = from track in musicTracks where track.Arist.Name == "Rob Miles" select track;
+                        foreach (MusicTrack track in selectedTracks)
+                        {
+                            Console.WriteLine("Artist:{0} Title:{1}", track.Artist.Name, track.Title);
+                        }
+                    </code>
+                </li>
             </ul>
             <h4>Use the var Keyword with LINQ</h4>
             <ul>
