@@ -958,21 +958,75 @@
             </ul>
             <h4>Use the var Keyword with LINQ</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>C# is statically typed. Meaning, the type of objects in a program is determined at compile time and the compiler rejects any actions that are not valid.</li>
+                <li>This means that the following code fails to compile because the compiler will not allow strings to be subtracted from numbers:
+                    <code>
+                        string name = "Rob Miles";
+                        int age = 21;
+                        int silly = age - name;
+                    </code>
+                </li>
+                <li>This increases our confidence in our programs being correct when they run, but does involve going through extra effort to give each variable a type when you declare it.</li>
+                <li>The above code can be simplified by using the car keyword to tell the compiler to infer the type of variable being created from the context in which the variable is used:
+                    <code>
+                        var name = "Rob Miles";
+                    </code>
+                </li>
+                <li>This does not mean that the compiler cannot detect compilation errors. The example earlier will still fail to compile.</li>
+                <li>The var keyword is especially useful when using LINQ as the result of a simple LINQ query is an enumerable colection of the type of data element held in the data source:
+                    <code>
+                        var selectedTracks = from track in musicTracks where track.Arist.Name == "Rob Miles" select track;
+                    </code>
+                </li>
+                <li>There are some situations where you won't know the type of a variable when writing the code. These are called anonymous types and the only way to refer to these is by use of variables of type var.</li>
+                <li>You can use var everywhere in your code but you won't be popular with other devs as they'll have to infer the type of variable by diging through the code. When you do use it, make sure the type can be inferred easily by the variable name.</li>
             </ul>
             <h4>LINQ Projection</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>The select operation in LINQ can be used to produce a filtered version of a data source.</li>
+                <li>Projection can be used to ask a query to "project" the data in the class onto new instaces of a class created just to hold the data returned by the query.</li>
+                <li>In this example the query is asked to create a new instance of the TrackDetails class to hold the result of each query.
+                    <code>
+                        class TrackDetails
+                        {
+                            public string ArtistName;
+                            public string Title;
+                        }
+                        
+                        var selectedTracks = from track in musicTracks 
+                            where track.Arist.Name == "Rob Miles" 
+                            select new TrackDetails
+                            {
+                                ArtistName = track.Artist.Name,
+                                track.Title
+                            };
+
+                    </code>
+                </li>
             </ul>
             <h4>Anonymous Types</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>You can remove the need to create a class to hold the result of a search query by making the query return results of an anonymous type:
+                    <code>
+                        var selectedTracks = from track in musicTracks 
+                            where track.Arist.Name == "Rob Miles" 
+                            select new // Project type name missing from here.
+                            {
+                                ArtistName = track.Artist.Name,
+                                track.Title
+                            };
+                    </code>
+                </li>
+                <li>Instances of the new type are initialized using the object initializer syntax.</li>
+                <li>The item that is returned by this query is an enumerable collection of instances of a type that has no name. It is anonymous. You have to use a var reference to refer to the query result.</li>
+                <li>You can iterate through the collection in this result as your would any other, but each item must also be referred to using a var:
+                    <code>
+                        foreach (var item in selectedTracks)
+                        {
+                            console.WriteLine("Artist:{0} Title:{1}", item.ArtistName.Name, item.Title);
+                        }
+                    </code>
+                </li>
             </ul>
             <h4>LINQ Join</h4>
             <ul>
