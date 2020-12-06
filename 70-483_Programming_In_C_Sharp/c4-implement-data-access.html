@@ -1255,15 +1255,61 @@
         <div>
             <h3>Select Data by Using Anonymous Types</h3>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>You can also create anonymous type instances in method-based SQL queries.</li>
+                <li>In this example an intermediate anonymous class is used to implement the join between the two queries and generates objects that contains artist and track information:
+                    <code>
+                        var artistSummary = MusicTracks.Join(
+                            Artists,
+                            track => track.ArtistID,
+                            artist => artist.ID,
+                            (track, artist) =>
+                                new
+                                {
+                                    track = track,
+                                    artist = artist
+                                }
+                        )
+                        .GroupBy(
+                            temp0 => temp0.artist.Name,
+                            temp0 => temp0.track
+                        )
+                        .Select(
+                            artistTrackSummary =>
+                            new
+                            {
+                                ID = artistTrackSummary.Key,
+                                Length = artistTracks.Sum(x => x.Length)
+                            }
+                        );
+                    </code>
+                </li>
             </ul>
-            <h4>SUBHEADING</h4>
+            <h4>Force Execution of a Query</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>The result of a LINQ query is an item that can be iterated.</li>
+                <li>In previous examples we've used the foreach construction to display the results from queries.</li>
+                <li>The actual evaluation of a LINQ query normally only takes place when a program starts to extract results from the query. this is called deferred execution.</li>
+                <li>If you want to force the execution of a query you can use the ToArray() method:
+                    <code>
+                        var artistTracksQuery = from artist in artists
+                            where artist.Name == "Rob Miles"
+                            join track in musicTracks on artist.ID equals track.ArtistID
+                            select new
+                            {
+                                ArtistName = artist.Name,
+                                Title = track.Title
+                            };
+
+                        var artistTrackResult = artistTracksQuery.ToArray();
+
+                        foreach (var item in artistTrackResult)
+                        {
+                            Console.WriteLine("Artist:{0} Title:{1}", item.ArtistName, item.Title);
+                        }
+                    </code>
+                </li>
+                <li>A query result also provides ToList and ToDictionary methods that will force the execution of the query and generate an immediate result of that type.</li>
+                <li>If a query returns a singleton value (the result of an aggregation operation such as sum or count) it will be immediately evaluated.</li>
             </ul>
         </div>
         <div>
