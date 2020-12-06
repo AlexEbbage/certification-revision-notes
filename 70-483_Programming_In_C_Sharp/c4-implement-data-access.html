@@ -996,8 +996,7 @@
                 <li>In this xample, the first statement uses a LINQ query to create an enumerable collection of
                     MusicTracks, which is then enumerated by the foreach construction to print the results:
                     <code>
-                        IEnumberable&lt;MusicTrack&gt; selectedTracks = from track in musicTracks where track.Arist.Name
-                        == "Rob Miles" select track;
+                        IEnumberable&lt;MusicTrack&gt; selectedTracks = from track in musicTracks where track.Arist.Name == "Rob Miles" select track;
                         foreach (MusicTrack track in selectedTracks)
                         {
                         Console.WriteLine("Artist:{0} Title:{1}", track.Artist.Name, track.Title);
@@ -1228,9 +1227,20 @@
         <div>
             <h3>Create Method-base LINQ Queries</h3>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>The first LINQ query we looked at was this:
+                    <code>
+                        IEnumberable&lt;MusicTrack&gt; selectedTracks = from track in musicTracks where track.Arist.Name == "Rob Miles" select track;
+                    </code>
+                </li>
+                <li>The query statements uses query comprehension syntax, which includes the operators from, in, where, and select.</li>
+                <li>The compiler uses these to generate a call to the Where method on the MusicTracks collections.</li>
+                <li>This query can also be written using the Where method which accepts a lambda expression as a parameter:
+                    <code>
+                        IEnumberable&lt;MusicTrack&gt; selectedTracks = musicTracks.Where(track => track.Artist.Name == "Rob Miles");
+                    </code>
+                </li>
+                <li>Programs can use the LINQ query methods on data collections such as lists and arrays, and also on database connections.</li>
+                <li>The methods that implement LINQ query behaviours are not added to the classes that use them. Instead, they are implemented as extension methods.</li>
             </ul>
         </div>
         <div>
