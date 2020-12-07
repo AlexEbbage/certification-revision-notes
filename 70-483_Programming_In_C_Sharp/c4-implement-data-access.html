@@ -1619,9 +1619,59 @@
         <div>
             <h3>Use the Data Contract Serializer</h3>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>The data contract serializer is provided as part of the Windows Communicaiton Framework (WCF).</li>
+                <li>It is located in the System.Runtime.Serialization library. This is not included in the project by default.</li>
+                <li>It differs from the XML serializer in the following ways:
+                    <ul>
+                        <li>Data to be serialized is selected using an "opt in" mechanism, so only items marked with the [DataMember] attribute will be serialized.</li>
+                        <li>It is possible to serialize private class elements (although they will be public in XML text produced by the serializer).</li>
+                        <li>The XML serializer provides options that allow programmers to specify the order in which items are serialized into the data file. These options are not present in the DataContract serializer.</li>
+                    </ul>
+                </li>
+                <li>The class here have been given the data contract attributes that are used to serialize the data in them:
+                    <code>
+                        [DataContract]
+                        public class Artist
+                        {
+                            [DataMember]
+                            public int ID {get;set;}                           
+                            [DataMember]
+                            public string Name {get;set;}
+
+                            [DataContract]
+                            public class MusicTrack
+                            {
+                                [DataMember]
+                                public int ID {get;set;}                           
+                                [DataMember]
+                                public int ArtistID {get;set;}
+                                [DataMember]
+                                public string Title {get;set;}                           
+                                [DataMember]
+                                public int Length {get;set;}
+                            }
+                        }
+                    </code>
+                </li>
+                <li>Once the fields to be serialized have been specified they can be serialized using a DataContractSerializer. Note that the methods to serialize and deserialize are called WriteObject and ReadObject respectively:
+                    <code>
+                        MusicDataStore musicData = MusicDataStore.TestData();
+
+                        DataContractSerializer formatter = new DataContractSerializer(typeof(MusicDataStore));
+
+                        using (FileStream outputStream = new FileStream("MusicTracks.xml", FileMode.OpenOrCreate, FileAccess.Write))
+                        {
+                            formatter.WriteObject(outputStream, musicData);
+                        }
+
+                        MusicDataStore inputData;
+
+                        using (FileStream inputStream = new FileStream("MusicTracks.xml", FileMode.Open, FileAccess.Read))
+                        {
+                            inputData = (MusicDataStore)formatter.ReadObject(inputStream);
+                        }
+                    </code>
+                </li>
             </ul>
         </div>
     </div>
