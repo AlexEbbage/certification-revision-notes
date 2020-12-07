@@ -1605,32 +1605,15 @@
             <h3>Use the XML and JSON Serializers</h3>
             <h4>Use the XML Serializer</h4>
             <ul>
-                <li>When an XmlSerializer instance is create to perform serializaiton, the constructor must be given the type of data being stored:
-                    <code>
-                        MusicDataStore musicData = MusicDataStore.TestData();
-
-                        XmlSerializer formatter = new XmlSerializer(typeof(MusicDataStore));
-                        using (FileStream outputStream = new FileStream("MusicTracks.xml", FileMode.OpenOrCreate, FileAccess.Write))
-                        {
-                            formatter.Serialize(outputStream, musicData);
-                        }
-
-                        MusicDataStore inputData;
-
-                        using (FileStream inputStream = new FileStream("MusicTracks.xml", FileMode.Open, FileAccess.Read))
-                        {
-                            inputData = (MusicDataStore)formatter.Deserialize(inputStream);
-                        }
-                    </code>
-                </li>
-                <li>Xml Serialization is called a text serializer because the serialization process creates text documents.</li>
-                <li>The serialization process handles references to objects differently from binary serialization.</li>
-                <li>If the data is serialized using binary serialization the references are preserved. While with XML serialization, a copy of the reference type is stored in each element.</li>
-                <li>When the XMl data is deserialized each MusicTrack instance will contain a reference to its own Artist instance. If you want to preserve references you must use binary serialization.</li>
+                <li>NOTES</li>
+                <li>NOTES</li>
+                <li>NOTES</li>
             </ul>
             <h4>Use the JSON Serializer</h4>
             <ul>
-                <li>The JSON serialize ruses the JavaScript object Notaiton to store serialized data in a text file.</li>
+                <li>NOTES</li>
+                <li>NOTES</li>
+                <li>NOTES</li>
             </ul>
         </div>
         <div>
