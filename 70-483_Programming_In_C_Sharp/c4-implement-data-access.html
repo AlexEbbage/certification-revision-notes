@@ -1447,18 +1447,92 @@
         </ul>
         <p>This section covers how to:</p>
         <ul>
-            <li>Use binary serialization</li>
+            <li>Use and manage versions with binary serialization</li>
             <li>Use custom serialization</li>
-            <li>Manage versions with binary serialization</li>
-            <li>Use the XML serializer</li>
-            <li>Use the JSON serializer</li>
+            <li>Use the XML and JSON serializers</li>
             <li>Use the data contract serializer</li>
         </ul>
         <div>
-            <h3>Use Binary Serialization</h3>
+            <h3>Use and Manage Versions with Binary Serialization</h3>
+            <h4>Use Binary Serialization</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>There are essentially 2 types of serialization a program can use: binary serialization and text serialization.</li>
+                <li>Binary serialization imposes its own format on the data that is being serialized, mapping the data onto a stream of 8-bit values.</li>
+                <li>The data in a stream created by a binary serializer  can only be read by a corresponding binary de-serializer. Binary serialization can provide a complete "snapshot" of the source data.</li>
+                <li>Both public and private data in an object will be serialized, and the type of each data item is preserved.</li>
+                <li>Classes to be serialized by the binary serializer must be marked with the [Serializable] attribute:
+                    <code>
+                        [Serializable]
+                        class Artist
+                        {
+                            public string Name {get; set;}
+                        }
+                    </code>
+                </li>
+                <li>The binary serialization classes are held in the System.Runtime.Serialization.Formatters.Binary namespace.</li>
+                <li>This example shows how binary serialization is performed:
+                    <code>
+                        MusicDataStore musicData = MusicDataStore.TestData();
+
+                        BinaryFormatter formatter = new BinaryFormatter();
+                        using (FileStream outputStream = new FileStream("MusicTracks.bin", FileMode.OpenOrCreate, FileAccess.Write))
+                        {
+                            formatter.Serialize(outputStream, musicData);
+                        }
+                    </code>
+                </li>
+                <li>An instance of the BinaryFormatter class also provides a behaviour called Deserialize that accepts a stream and returns an object that is has deserialized from that stream.</li>
+                <li>In this example the code uses a cast to convert the object returned by the Deserialize method:
+                    <code>
+                        MusicDataStore inputData;
+
+                        using (FileStream inputStream = new FileStream("MusicTracks.bin", FileMode.Open, FileAccess.Read))
+                        {
+                            inputData = (MusicDataStore)formatter.Deserialize(inputStream);
+                        }
+                    </code>
+                </li>
+                <li>If there are data elements in a class that should not be stored, they can be marked with the [NonSerialized] attribute:
+                    <code>
+                        [Serializable]
+                        class Artist
+                        {
+                            public string Name {get; set;}
+                            [NonSerialized]
+                            int tempData;
+                        }
+                    </code>
+                </li>
+                <li>Binary serialization is the only serialization technique that serializes private data members by default.</li>
+                <li>However, once an object has serialized there is nothing to stop a devious programmer from working with serialized data, perhaps viewing and tampering with the values inside it.</li>
+                <li>A program should treat deserialized inputs with suspicion. Furthermore, any security sensitive information in a class should be explicitly marked NonSerialized.</li>
+                <li>Another way to improve security of a binary serialized file is to encrypt the stream before it is stored, and decrypt it before deserialization.</li>
+            </ul>
+            <h4>Manage Versions with Binary Serialization</h4>
+            <ul>
+                <li>The OnDeserializing method can be used to set values of fields that might not be present in data that is being read from a serialized document. This can be used to manage versions.</li>
+                <li>Say you added a new field to a class, this causes a problem when the program tries to deserialize old data without this information.</li>
+                <li>You can address this by marking the new field with the [OptionalField] attribute and then setting a default value for this element in the OnDeserializing method.</li>
+                <li>The OnDeserializing method is performed during deserialization. The method is called before the data for the object is deserialized and can set default values for fields:
+                    <code>
+                        [Serializable]
+                        class MusicTrack
+                        {
+                            public string Artist {get; set;}
+                            public string Title {get; set;}
+                            public int Length {get; set;}
+
+                            [OptionalField]
+                            public string Style;
+
+                            [OnDeserializing()]
+                            internal void OnDeserializingMethod(StreamingContext context)
+                            {
+                                Style = "Unknown";
+                            }
+                        }
+                    </code>
+                </li>
                 <li>NOTES</li>
             </ul>
         </div>
@@ -1471,23 +1545,14 @@
             </ul>
         </div>
         <div>
-            <h3>Manage Versions with Binary Serialization</h3>
+            <h3>Use the XML and JSON Serializers</h3>
+            <h4>Use the XML Serializer</h4>
             <ul>
                 <li>NOTES</li>
                 <li>NOTES</li>
                 <li>NOTES</li>
             </ul>
-        </div>
-        <div>
-            <h3>Use the XML Serializer</h3>
-            <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
-            </ul>
-        </div>
-        <div>
-            <h3>Use the JSON Serializer</h3>
+            <h4>Use the JSON Serializer</h4>
             <ul>
                 <li>NOTES</li>
                 <li>NOTES</li>
