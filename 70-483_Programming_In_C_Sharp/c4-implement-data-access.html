@@ -1533,15 +1533,72 @@
                         }
                     </code>
                 </li>
-                <li>NOTES</li>
             </ul>
         </div>
         <div>
             <h3>Use Custom Serialization</h3>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>Sometimes it might be necessary for code in a class to get control during the serialization process. Perhaps for checking information, encryption to data elements, or custom compression of data.</li>
+                <li>The first way to do this is to create your own implementation of the serialization process by making a data class implement the ISerializable interface.</li>
+                <li>A class that implements the ISerializable interface must contain a GetObjectData method which gets called when an object is serialized.</li>
+                <li>It takes data out of the object and places it into an object stream. The class must also contain a constructor that will initialize an instance of the class from the serialized data source.</li>
+                <li>GetObjectData has two parameters. The SerializationInfo parameter provides AddValue methods that can be used to store named items in this serialization stream. The StreamingContext paramter provides the serialization method with context about the serialization.
+                    <code>
+                        [Serializable]
+                        class Artist : ISerializable
+                        {
+                            public string Name {get; set;}
+                        
+                            protected Artist (SerializationInfo info, StreamingContext context)
+                            {
+                                Name = info.GetString("name");
+                            }
+
+                            protected Artist(){}
+
+                            [SecurityPermissionAttribute(SecurityAction.Demand, SerializationFormatter = true)]
+                            public void GetObjectData(SerializationInfo info, StreamingContext context)
+                            {
+                                info.AddValue("name", Name);
+                            }
+                        }
+                    </code>
+                </li>
+                <li>The GetObjectData method must access private data in an object in order to store it. This can be used to read the contents of private data in serialized objects. This is why the GetObjectData method definition should be preceded by the security permission attribute.</li>
+                <li>The second way of customizing the serialization process is to add methods that will be called during serialization.</li>
+                <li>The OnSerializing method is called before the serialization is performd and the OnSerialized method is called when the serialization is completed.</li>
+                <li>The same format of attributes is used for the deserialize methods. These methods allow code in a class to customize the serialization process, but they don't have access to the serialization stream, only the streaming context information.</li>
+                <li>In the example below a message is displayed at each stage of the process:
+                    <code>
+                        [Serializable]
+                        class Artist
+                        {
+                            [OnSerializing()]
+                            internal void OnSerializingMethod(StreamingContext context)
+                            {
+                                Console.WriteLine("Called before the artist is serialized.");
+                            }
+                            
+                            [OnSerialized()]
+                            internal void OnSerializedMethod(StreamingContext context)
+                            {
+                                Console.WriteLine("Called after the artist is serialized.");
+                            }
+                            
+                            [OnDeserializing()]
+                            internal void OnDeserializingMethod(StreamingContext context)
+                            {
+                                Console.WriteLine("Called before the artist is deserialized.");
+                            }
+                            
+                            [OnDeserialized()]
+                            internal void OnDeserializedMethod(StreamingContext context)
+                            {
+                                Console.WriteLine("Called after the artist is deserialized.");
+                            }
+                        }
+                    </code>
+                </li>
             </ul>
         </div>
         <div>
