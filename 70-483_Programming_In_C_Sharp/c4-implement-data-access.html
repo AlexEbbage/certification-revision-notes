@@ -1861,8 +1861,34 @@
         <div>
             <h3>Implement Custom Collections</h3>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>A custom collection is one you create for a specific purpose that has behaviours that you need in your application.</li>
+                <li>One way to create them is to create a new type that implements the ICollection interface. Once created it can be used in the same way as any other collection, such as using a foreach construction with it.</li>
+                <li>Another way to create a custom collection is to use an existing collection class as the bas (parent) class of a new collection type. You can then add new behaviours to your new collection, but otherwise, it can be used the same way as any other collection.</li>
+                <li>this example shows how to create a custom MusicTrack store based on the List collection type:
+                    <code>
+                        class TrackStore : List&lt;MusicTrack&gt;
+                        {
+                            public int RemoveArtist(string removeName)
+                            {
+                                List&lt;MusicTrack&gt; removeList = new List&lt;MusicTrack&gt;();
+                                foreach (MusicTrack track in this)
+                                {
+                                    if(track.Artist == removeName)
+                                    {
+                                        removeList.Add(track);
+                                    }
+                                }
+                                
+                                foreach (MusicTrack track in removeList)
+                                {
+                                    this.Remove(track);
+                                }
+
+                                return removeList.Count;
+                            }
+                        }
+                    </code>
+                </li>
                 <li>NOTES</li>
             </ul>
         </div>
