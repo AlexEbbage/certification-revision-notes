@@ -1841,9 +1841,21 @@
         <div>
             <h3>Use Typed Vs. Non-typed Collections</h3>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>ArrayList collections can contain any type of object in the same ArrayList. Though you can do this, it isn't good programming practice:
+                    <code>
+                        ArrayList messyList = new ArrayList();
+                        messyList.Add(1); // An integer.
+                        messyList.Add("Rob Miles"); // A string.
+                        messyList.Add(new ArrayList()); // An ArrayList.
+                    </code>
+                </li>
+                <li>Another difficulty caused by the untyped storage provided by the ArrayList is that all of the references in the list are references to objects.</li>
+                <li>When a program removes an item from an ArrayList it must cast the item into its proper type before it can be used. Meaning, a value must be cast before using it:
+                    <code>
+                        int messyInt = (int) messyList[0];
+                    </code>
+                </li>
+                <li>Due to the issues caused by untyped collections, the ArrayList has been superseded by the List type, whicih uses the generics feature in alter versions of C#.</li>
             </ul>
         </div>
         <div>
