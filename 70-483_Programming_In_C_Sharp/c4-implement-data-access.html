@@ -1782,7 +1782,26 @@
         <div>
             <h3>Initialize a Collection</h3>
             <ul>
-                <li>NOTES</li>
+                <li>This example shows the initialization process for each of the collections discussed before:
+                    <code>
+                        int[] arrayInit = { 1, 2, 3, 4 };
+
+                        ArrayList arrayListInit = new ArrayList { 1, "Rob Miles", new ArrayList() };
+
+                        List&lt;int&gt; listInit = new List&lt;int&gt;{ 1, 2, 3, 4 };
+
+                        Dictionary&lt;int, string&gt; dictionaryInit = new Dictionary&lt;int, string&gt; {
+                            { 1, "Rob" },
+                            { 2, "Immy" }
+                        };
+
+                        HashSet&lt;string&gt; setInit = new HashSet&lt;string&gt;{ "Electronic", "Disco", "Fast" };
+
+                        Queue&lt;string&gt; queueInit = new Queue&lt;string&gt;(new string[] { "Rob", "Immy" });
+
+                        Stack&lt;string&gt; stackInit = new Stack&lt;string&gt;(new string[] { "Rob", "Immy" });
+                    </code>
+                </li>
                 <li>NOTES</li>
                 <li>NOTES</li>
             </ul>
