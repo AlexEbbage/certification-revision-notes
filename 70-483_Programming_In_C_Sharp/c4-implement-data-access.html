@@ -1843,15 +1843,49 @@
             </ul>
             <h4>Use an ArrayList</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>An array is limited by having to decide in advance the number of items it can hold. The size can't be changed once it has been created.</li>
+                <li>The ArrayList class was created to address this issue by storing a dynamic structure that grows as more items are added to it.</li>
+                <li>In this example an ArrayList is created, items are added, and then read:
+                    <code>
+                        ArrayList arrayList = new ArrayList();
+
+                        arrayList.add(1);
+                        arrayList.add(2);
+                        arrayList.add(3);
+
+                        for (int i = 0; i &lt; arrayList.Count; i++)
+                        {
+                            Console.WriteLine(arrayList[i]);
+                        }
+                    </code>
+                </li>
+                <li>The ArrayList provides an Add method that adds items to the end of the list, an Inserrt method to insert items in a list, and a Remove method to remove items.</li>
+                <li>Items in an ArrayList are managed by reference and the reference that is used is of type object. Meaning that an ArrayList can hold references to any type of object. This can lead to programming difficulties which are discussed later on.</li>
             </ul>
             <h4>Use a List</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>When a List is created the type of data that the list is to hold is specified using C# generic notation.</li>
+                <li>Only references of the specified type can be added to the list, and values obtained from the list are of the specified type.</li>
+                <li>In this example a list of names is created, added to, printed out and modified:
+                    <code>
+                        List&lt;string&gt; names = new List&lt;string&gt;();
+
+                        names.Add("Rob Miles");
+                        names.Add("Immy Brown");
+
+                        for (int i = 0; i &lt; names.Count; i++)
+                        {
+                            Console.WriteLine(names[i]);
+                        }
+
+                        names[0] = "Fred Bloggs";
+                        foreach (string name in names)
+                        {
+                            Console.WriteLine(name);
+                        }
+                    </code>
+                </li>
+                <li>The List type implements the ICollection and IList interfaces.</li>
             </ul>
             <h4>Use a Dictionary</h4>
             <ul>
