@@ -1759,52 +1759,223 @@
         </ul>
         <div>
             <h3>Store and Retrieve Data by Using Dictionaries, Arrays, Lists, Sets, and Queues</h3>
-            <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
-            </ul>
             <h4>Use an Array</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>An array is the simplest way to create a collection of items of a particular type.</li>
+                <li>An array is assigned a size when it is created and the elements in the array are accessed using an index or subscript value.</li>
+                <li>An array instance is a C# object that is managed by reference. A program creates an array by declaring the array variable and then makes the variable refer to an array instance.</li>
+                <li>In this example an array variable that holds integer values, then it is made to refer to a new array that contains 5 elements:
+                    <code>
+                        int[] intArray;
+                        intArray = new int[5];
+
+                        // These can also be combined.
+                        int[] intArray = new int[5];
+                    </code>
+                </li>
+                <li>An array of value types holds the values themselves within the array, whereas for an array of reference types each element in the array holds a reference to the object.</li>
+                <li>When an array is created, each element in the array is initialized to the default value for that type. Numeric elements are initialized to 0, reference elements to null, and Boolean elements to false.</li>
+                <li>Arrays implement the IEnumerable interface, so can be enumerated using the foreach construction.</li>
+                <li>Any array that uses a single index to access the elements in the array is called a one dimensional array. It is analogous to a list of items. Arrays can have more than one dimension.</li>
+                <li>In this example a variety of array behaviours are covered:
+                    <code>
+                        // Array of integers.
+                        int[] intArray = new int[5];
+
+                        int[0] = 99; // Put 99 in the first element.
+                        int[4] = 100; // Put 100 in the last element.
+
+                        // Use an index to work through the array.
+                        for (int i = 0; i &lt; intArray.Length; i++)
+                        {
+                            Console.WriteLine(intArray[i]);
+                        }
+
+                        // Use an foreach to work through the array.
+                        for (int intValue in intArray)
+                        {
+                            Console.WriteLine(intValue);
+                        }
+
+                        // Initialize a new aray.
+                        intArray = new int[] { 1, 2, 3, 4 };
+                        
+                        // Use an foreach to work through the array.
+                        for (int intValue in intArray)
+                        {
+                            Console.WriteLine(intValue);
+                        }
+                    </code>
+                </li>
             </ul>
             <h4>Multi-dimensional Arrays</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>An array with two dimensions is analogous to a table of data that is made up of rows and columns.</li>
+                <li>An array with three dimensions is analohous to a book containg a number of pages, with a table on each page.</li>
+                <li>If you need an array with more than three dimensions, consider a different data arrangement.</li>
+                <li>In this example a 2d array for a compass is created:
+                    <code>
+                        string [,] compass = new string [3,3];
+                        {
+                            { "NW", "N", "NE" },
+                            { "W",  "C",  "E" },
+                            { "SW", "S", "SE" }
+                        };
+
+                        Console.WriteLine(compass[0,0]); // Prints NW.
+                        Console.WriteLine(compass[2,2]); // Prints SE.
+                    </code>
+                </li>
             </ul>
             <h4>Jagged Arrays</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>You can view a 2d array as an array of 1d arrays. A "jagged array" is a 2d array in which each of the rows are a different length:
+                    <code>
+                        int[][] jaggedArray = new int[][];
+                        {
+                            new int[] { 1, 2, 3, 4 },
+                            new int[] { 5, 6, 7 },
+                            new int[] { 8, 9 },
+                            new int[] { 10, 11, 12 }
+                        };
+                    </code>
+                </li>
             </ul>
             <h4>Use an ArrayList</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>An array is limited by having to decide in advance the number of items it can hold. The size can't be changed once it has been created.</li>
+                <li>The ArrayList class was created to address this issue by storing a dynamic structure that grows as more items are added to it.</li>
+                <li>In this example an ArrayList is created, items are added, and then read:
+                    <code>
+                        ArrayList arrayList = new ArrayList();
+
+                        arrayList.add(1);
+                        arrayList.add(2);
+                        arrayList.add(3);
+
+                        for (int i = 0; i &lt; arrayList.Count; i++)
+                        {
+                            Console.WriteLine(arrayList[i]);
+                        }
+                    </code>
+                </li>
+                <li>The ArrayList provides an Add method that adds items to the end of the list, an Inserrt method to insert items in a list, and a Remove method to remove items.</li>
+                <li>Items in an ArrayList are managed by reference and the reference that is used is of type object. Meaning that an ArrayList can hold references to any type of object. This can lead to programming difficulties which are discussed later on.</li>
             </ul>
             <h4>Use a List</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>When a List is created the type of data that the list is to hold is specified using C# generic notation.</li>
+                <li>Only references of the specified type can be added to the list, and values obtained from the list are of the specified type.</li>
+                <li>In this example a list of names is created, added to, printed out and modified:
+                    <code>
+                        List&lt;string&gt; names = new List&lt;string&gt;();
+
+                        names.Add("Rob Miles");
+                        names.Add("Immy Brown");
+
+                        for (int i = 0; i &lt; names.Count; i++)
+                        {
+                            Console.WriteLine(names[i]);
+                        }
+
+                        names[0] = "Fred Bloggs";
+                        foreach (string name in names)
+                        {
+                            Console.WriteLine(name);
+                        }
+                    </code>
+                </li>
+                <li>The List type implements the ICollection and IList interfaces.</li>
             </ul>
             <h4>Use a Dictionary</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>A Dictionary allows you to access data using a key. This is analogous with an actual dictionary where to look up the definition of a word, you find the word in a dictionary and read the definition.</li>
+                <li>In this example a dictionary of shapes is stored where the name is the key and the value is the number of sides.
+                    <code>
+                        Dictionary&lt;string, int&gt; shapes = new Dictionary&lt;string, int&gt;();
+
+                        shapes.Add("Circle", 1);
+                        shapes.Add("Triangle", 3);
+
+                        shapes["Square"] = 4;
+                        shapes["Pentagon"] = 5;
+
+                        Console.WriteLine(shapes["Square"]);
+
+                        if (shapes.ContainsKey("Circle"))
+                        {
+                            Console.WriteLine($"Shape sides: {shapes["Circle"]});
+                        }
+                    </code>
+                </li>
+                <li>A dictionary can be used to implement data storage, but it is also useful in a number of other contexts. Such as for counting the number of words in a file:
+                    <code>
+                        Dictionary&lt;string, int&gt; counters = new Dictionary&lt;string, int&gt;();
+
+                        string text = File.ReadAllText("input.txt");
+                        string[] words = text.Split(new char[] {' ', '.', ','}, StringSplitOptions.RemoveEmptyEntires);
+
+                        foreach (string word in words){
+                            string lowWord = word.ToLower();
+                            if (counters.ContainsKey(lowWord))
+                            {
+                                counters[lowWord]++;
+                            }
+                            else
+                            {
+                                counters.Add(lowWord, 1);
+                            }
+                        }
+                    </code>
+                </li>
+                <li>List and array instances provide a Sort method than can be used to sort their contents. Unfortunately, the Dictionary class does not provide a sort behaviour.</li>
+                <li>A LINQ query can be used on a dictionary to produce a sorted iteration of the dictionary contents which can be used in conjunction with a foreach loop to generate sorted output:
+                    <code>
+                        var items = from pair in counters
+                            orderby pair.Value descending
+                            select pair;
+
+                        foreach (var pair in items)
+                        {
+                            Console.WriteLine($"{pair.Key} : {pair.Value}");
+                        }
+                    </code>
+                </li>
             </ul>
             <h4>Use a Set</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>A set is an unordered collection of items. Each of the items in a set will be present only once.</li>
+                <li>A set can be used to contain tags or attributes that might be applied to a data item.</li>
+                <li>C# doesn't have a built-in set type, but the HashSet class can be used to implement sets.</li>
+                <li>The HasShet class provides methods that implement set operations. The IsSubsetOf method returns true if the given set is a subset of another.</li>
+                <li>In this example three sets of music genres are created and then IsSubsetOf is tested:
+                    <code>
+                        HashSet&lt;string&gt; t1Styles = new HashSet&lt;string&gt;();
+                        t1Styles.Add("Electronic");
+                        t1Styles.Add("Disco");
+                        t1Styles.Add("Fast");
+                        
+                        HashSet&lt;string&gt; t2Styles = new HashSet&lt;string&gt;();
+                        t2Styles.Add("Orchestral");
+                        t2Styles.Add("Classical");
+                        t2Styles.Add("Fast");
+
+                        HashSet&lt;string&gt; search = new HashSet&lt;string&gt;();
+                        search.Add("Disco");
+                        search.Add("Fast");
+
+                        if(search.IsSubsetOf(t1Styles))
+                        {
+                            Console.WriteLine("All search styles present in T1");
+                        }
+
+                        if(search.IsSubsetOf(t2Styles))
+                        {
+                            Console.WriteLine("All search styles present in T2");
+                        }
+                    </code>
+                </li>
+                <li>Other set methods can be used to combine set values to produce unions, differences, and to test supersets and subsets.</li>
             </ul>
             <h4>Use a Queue</h4>
             <ul>
