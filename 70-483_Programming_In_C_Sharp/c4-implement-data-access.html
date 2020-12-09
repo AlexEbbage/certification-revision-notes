@@ -1889,9 +1889,58 @@
             </ul>
             <h4>Use a Dictionary</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>A Dictionary allows you to access data using a key. This is analogous with an actual dictionary where to look up the definition of a word, you find the word in a dictionary and read the definition.</li>
+                <li>In this example a dictionary of shapes is stored where the name is the key and the value is the number of sides.
+                    <code>
+                        Dictionary&lt;string, int&gt; shapes = new Dictionary&lt;string, int&gt;();
+
+                        shapes.Add("Circle", 1);
+                        shapes.Add("Triangle", 3);
+
+                        shapes["Square"] = 4;
+                        shapes["Pentagon"] = 5;
+
+                        Console.WriteLine(shapes["Square"]);
+
+                        if (shapes.ContainsKey("Circle"))
+                        {
+                            Console.WriteLine($"Shape sides: {shapes["Circle"]});
+                        }
+                    </code>
+                </li>
+                <li>A dictionary can be used to implement data storage, but it is also useful in a number of other contexts. Such as for counting the number of words in a file:
+                    <code>
+                        Dictionary&lt;string, int&gt; counters = new Dictionary&lt;string, int&gt;();
+
+                        string text = File.ReadAllText("input.txt");
+                        string[] words = text.Split(new char[] {' ', '.', ','}, StringSplitOptions.RemoveEmptyEntires);
+
+                        foreach (string word in words){
+                            string lowWord = word.ToLower();
+                            if (counters.ContainsKey(lowWord))
+                            {
+                                counters[lowWord]++;
+                            }
+                            else
+                            {
+                                counters.Add(lowWord, 1);
+                            }
+                        }
+                    </code>
+                </li>
+                <li>List and array instances provide a Sort method than can be used to sort their contents. Unfortunately, the Dictionary class does not provide a sort behaviour.</li>
+                <li>A LINQ query can be used on a dictionary to produce a sorted iteration of the dictionary contents which can be used in conjunction with a foreach loop to generate sorted output:
+                    <code>
+                        var items = from pair in counters
+                            orderby pair.Value descending
+                            select pair;
+
+                        foreach (var pair in items)
+                        {
+                            Console.WriteLine($"{pair.Key} : {pair.Value}");
+                        }
+                    </code>
+                </li>
             </ul>
             <h4>Use a Set</h4>
             <ul>
