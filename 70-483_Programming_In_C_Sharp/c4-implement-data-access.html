@@ -1944,9 +1944,38 @@
             </ul>
             <h4>Use a Set</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>A set is an unordered collection of items. Each of the items in a set will be present only once.</li>
+                <li>A set can be used to contain tags or attributes that might be applied to a data item.</li>
+                <li>C# doesn't have a built-in set type, but the HashSet class can be used to implement sets.</li>
+                <li>The HasShet class provides methods that implement set operations. The IsSubsetOf method returns true if the given set is a subset of another.</li>
+                <li>In this example three sets of music genres are created and then IsSubsetOf is tested:
+                    <code>
+                        HashSet&lt;string&gt; t1Styles = new HashSet&lt;string&gt;();
+                        t1Styles.Add("Electronic");
+                        t1Styles.Add("Disco");
+                        t1Styles.Add("Fast");
+                        
+                        HashSet&lt;string&gt; t2Styles = new HashSet&lt;string&gt;();
+                        t2Styles.Add("Orchestral");
+                        t2Styles.Add("Classical");
+                        t2Styles.Add("Fast");
+
+                        HashSet&lt;string&gt; search = new HashSet&lt;string&gt;();
+                        search.Add("Disco");
+                        search.Add("Fast");
+
+                        if(search.IsSubsetOf(t1Styles))
+                        {
+                            Console.WriteLine("All search styles present in T1");
+                        }
+
+                        if(search.IsSubsetOf(t2Styles))
+                        {
+                            Console.WriteLine("All search styles present in T2");
+                        }
+                    </code>
+                </li>
+                <li>Other set methods can be used to combine set values to produce unions, differences, and to test supersets and subsets.</li>
             </ul>
             <h4>Use a Queue</h4>
             <ul>
