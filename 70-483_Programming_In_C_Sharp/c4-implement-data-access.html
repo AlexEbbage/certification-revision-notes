@@ -1438,12 +1438,19 @@
         <h2 id="skill-4-4">Skill 4.4: Serialize and Deserialize Data by Using Binary and Custom Serialization, and XML,
             JSON and Data Contract Serializer</h2>
         <ul>
-            <li>Serialiation does not store any of the active elements in an object. The behaviours (methods) in a class are not stored when it is serialized.</li>
-            <li>This means the application deserializing the data must have impementations of the classes that can be used to manipulate the data after it has been read.</li>
-            <li>Serialization is a complex process. If a data strcture contains a graph of objects that have a large number of associations between them, the serialization process will have to persist each of these associations in the stored file.</li>
-            <li>It is best used for transporting data between applicaitons. You can think of it as transferring the "value" ov an object from one place to another.</li>
-            <li>Serialization can be used for persisting data, and a serialized stream can be directed into a file, but this is not normally how applications store their state.</li>
-            <li>It can lead to problems if the structure or behaviour of the classes implementing the data storage changes during the lifetime of the application.</li>
+            <li>Serialiation does not store any of the active elements in an object. The behaviours (methods) in a class
+                are not stored when it is serialized.</li>
+            <li>This means the application deserializing the data must have impementations of the classes that can be
+                used to manipulate the data after it has been read.</li>
+            <li>Serialization is a complex process. If a data strcture contains a graph of objects that have a large
+                number of associations between them, the serialization process will have to persist each of these
+                associations in the stored file.</li>
+            <li>It is best used for transporting data between applicaitons. You can think of it as transferring the
+                "value" ov an object from one place to another.</li>
+            <li>Serialization can be used for persisting data, and a serialized stream can be directed into a file, but
+                this is not normally how applications store their state.</li>
+            <li>It can lead to problems if the structure or behaviour of the classes implementing the data storage
+                changes during the lifetime of the application.</li>
         </ul>
         <p>This section covers how to:</p>
         <ul>
@@ -1456,80 +1463,97 @@
             <h3>Use and Manage Versions with Binary Serialization</h3>
             <h4>Use Binary Serialization</h4>
             <ul>
-                <li>There are essentially 2 types of serialization a program can use: binary serialization and text serialization.</li>
-                <li>Binary serialization imposes its own format on the data that is being serialized, mapping the data onto a stream of 8-bit values.</li>
-                <li>The data in a stream created by a binary serializer  can only be read by a corresponding binary de-serializer. Binary serialization can provide a complete "snapshot" of the source data.</li>
-                <li>Both public and private data in an object will be serialized, and the type of each data item is preserved.</li>
+                <li>There are essentially 2 types of serialization a program can use: binary serialization and text
+                    serialization.</li>
+                <li>Binary serialization imposes its own format on the data that is being serialized, mapping the data
+                    onto a stream of 8-bit values.</li>
+                <li>The data in a stream created by a binary serializer can only be read by a corresponding binary
+                    de-serializer. Binary serialization can provide a complete "snapshot" of the source data.</li>
+                <li>Both public and private data in an object will be serialized, and the type of each data item is
+                    preserved.</li>
                 <li>Classes to be serialized by the binary serializer must be marked with the [Serializable] attribute:
                     <code>
                         [Serializable]
                         class Artist
                         {
-                            public string Name {get; set;}
+                        public string Name {get; set;}
                         }
                     </code>
                 </li>
-                <li>The binary serialization classes are held in the System.Runtime.Serialization.Formatters.Binary namespace.</li>
+                <li>The binary serialization classes are held in the System.Runtime.Serialization.Formatters.Binary
+                    namespace.</li>
                 <li>This example shows how binary serialization is performed:
                     <code>
                         MusicDataStore musicData = MusicDataStore.TestData();
 
                         BinaryFormatter formatter = new BinaryFormatter();
-                        using (FileStream outputStream = new FileStream("MusicTracks.bin", FileMode.OpenOrCreate, FileAccess.Write))
+                        using (FileStream outputStream = new FileStream("MusicTracks.bin", FileMode.OpenOrCreate,
+                        FileAccess.Write))
                         {
-                            formatter.Serialize(outputStream, musicData);
+                        formatter.Serialize(outputStream, musicData);
                         }
                     </code>
                 </li>
-                <li>An instance of the BinaryFormatter class also provides a behaviour called Deserialize that accepts a stream and returns an object that is has deserialized from that stream.</li>
+                <li>An instance of the BinaryFormatter class also provides a behaviour called Deserialize that accepts a
+                    stream and returns an object that is has deserialized from that stream.</li>
                 <li>In this example the code uses a cast to convert the object returned by the Deserialize method:
                     <code>
                         MusicDataStore inputData;
 
-                        using (FileStream inputStream = new FileStream("MusicTracks.bin", FileMode.Open, FileAccess.Read))
+                        using (FileStream inputStream = new FileStream("MusicTracks.bin", FileMode.Open,
+                        FileAccess.Read))
                         {
-                            inputData = (MusicDataStore)formatter.Deserialize(inputStream);
+                        inputData = (MusicDataStore)formatter.Deserialize(inputStream);
                         }
                     </code>
                 </li>
-                <li>If there are data elements in a class that should not be stored, they can be marked with the [NonSerialized] attribute:
+                <li>If there are data elements in a class that should not be stored, they can be marked with the
+                    [NonSerialized] attribute:
                     <code>
                         [Serializable]
                         class Artist
                         {
-                            public string Name {get; set;}
-                            [NonSerialized]
-                            int tempData;
+                        public string Name {get; set;}
+                        [NonSerialized]
+                        int tempData;
                         }
                     </code>
                 </li>
-                <li>Binary serialization is the only serialization technique that serializes private data members by default.</li>
-                <li>However, once an object has serialized there is nothing to stop a devious programmer from working with serialized data, perhaps viewing and tampering with the values inside it.</li>
-                <li>A program should treat deserialized inputs with suspicion. Furthermore, any security sensitive information in a class should be explicitly marked NonSerialized.</li>
-                <li>Another way to improve security of a binary serialized file is to encrypt the stream before it is stored, and decrypt it before deserialization.</li>
+                <li>Binary serialization is the only serialization technique that serializes private data members by
+                    default.</li>
+                <li>However, once an object has serialized there is nothing to stop a devious programmer from working
+                    with serialized data, perhaps viewing and tampering with the values inside it.</li>
+                <li>A program should treat deserialized inputs with suspicion. Furthermore, any security sensitive
+                    information in a class should be explicitly marked NonSerialized.</li>
+                <li>Another way to improve security of a binary serialized file is to encrypt the stream before it is
+                    stored, and decrypt it before deserialization.</li>
             </ul>
             <h4>Manage Versions with Binary Serialization</h4>
             <ul>
-                <li>The OnDeserializing method can be used to set values of fields that might not be present in data that is being read from a serialized document. This can be used to manage versions.</li>
-                <li>Say you added a new field to a class, this causes a problem when the program tries to deserialize old data without this information.</li>
-                <li>You can address this by marking the new field with the [OptionalField] attribute and then setting a default value for this element in the OnDeserializing method.</li>
-                <li>The OnDeserializing method is performed during deserialization. The method is called before the data for the object is deserialized and can set default values for fields:
+                <li>The OnDeserializing method can be used to set values of fields that might not be present in data
+                    that is being read from a serialized document. This can be used to manage versions.</li>
+                <li>Say you added a new field to a class, this causes a problem when the program tries to deserialize
+                    old data without this information.</li>
+                <li>You can address this by marking the new field with the [OptionalField] attribute and then setting a
+                    default value for this element in the OnDeserializing method.</li>
+                <li>The OnDeserializing method is performed during deserialization. The method is called before the data
+                    for the object is deserialized and can set default values for fields:
                     <code>
                         [Serializable]
                         class MusicTrack
                         {
-                            public string Artist {get; set;}
-                            public string Title {get; set;}
-                            public int Length {get; set;}
+                        public string Artist {get; set;}
+                        public string Title {get; set;}
+                        public int Length {get; set;}
 
-                            [OptionalField]
-                            public string Style;
+                        [OptionalField]
+                        public string Style;
 
-                            [OnDeserializing()]
-                            internal void OnDeserializingMethod(StreamingContext context)
-                            {
-                                Style = "Unknown";
-                            }
+                        [OnDeserializing()]
+                        internal void OnDeserializingMethod(StreamingContext context)
+                        {
+                        Style = "Unknown";
+                        }
                         }
                     </code>
                 </li>
@@ -1538,64 +1562,76 @@
         <div>
             <h3>Use Custom Serialization</h3>
             <ul>
-                <li>Sometimes it might be necessary for code in a class to get control during the serialization process. Perhaps for checking information, encryption to data elements, or custom compression of data.</li>
-                <li>The first way to do this is to create your own implementation of the serialization process by making a data class implement the ISerializable interface.</li>
-                <li>A class that implements the ISerializable interface must contain a GetObjectData method which gets called when an object is serialized.</li>
-                <li>It takes data out of the object and places it into an object stream. The class must also contain a constructor that will initialize an instance of the class from the serialized data source.</li>
-                <li>GetObjectData has two parameters. The SerializationInfo parameter provides AddValue methods that can be used to store named items in this serialization stream. The StreamingContext paramter provides the serialization method with context about the serialization.
+                <li>Sometimes it might be necessary for code in a class to get control during the serialization process.
+                    Perhaps for checking information, encryption to data elements, or custom compression of data.</li>
+                <li>The first way to do this is to create your own implementation of the serialization process by making
+                    a data class implement the ISerializable interface.</li>
+                <li>A class that implements the ISerializable interface must contain a GetObjectData method which gets
+                    called when an object is serialized.</li>
+                <li>It takes data out of the object and places it into an object stream. The class must also contain a
+                    constructor that will initialize an instance of the class from the serialized data source.</li>
+                <li>GetObjectData has two parameters. The SerializationInfo parameter provides AddValue methods that can
+                    be used to store named items in this serialization stream. The StreamingContext paramter provides
+                    the serialization method with context about the serialization.
                     <code>
                         [Serializable]
                         class Artist : ISerializable
                         {
-                            public string Name {get; set;}
-                        
-                            protected Artist (SerializationInfo info, StreamingContext context)
-                            {
-                                Name = info.GetString("name");
-                            }
+                        public string Name {get; set;}
 
-                            protected Artist(){}
+                        protected Artist (SerializationInfo info, StreamingContext context)
+                        {
+                        Name = info.GetString("name");
+                        }
 
-                            [SecurityPermissionAttribute(SecurityAction.Demand, SerializationFormatter = true)]
-                            public void GetObjectData(SerializationInfo info, StreamingContext context)
-                            {
-                                info.AddValue("name", Name);
-                            }
+                        protected Artist(){}
+
+                        [SecurityPermissionAttribute(SecurityAction.Demand, SerializationFormatter = true)]
+                        public void GetObjectData(SerializationInfo info, StreamingContext context)
+                        {
+                        info.AddValue("name", Name);
+                        }
                         }
                     </code>
                 </li>
-                <li>The GetObjectData method must access private data in an object in order to store it. This can be used to read the contents of private data in serialized objects. This is why the GetObjectData method definition should be preceded by the security permission attribute.</li>
-                <li>The second way of customizing the serialization process is to add methods that will be called during serialization.</li>
-                <li>The OnSerializing method is called before the serialization is performd and the OnSerialized method is called when the serialization is completed.</li>
-                <li>The same format of attributes is used for the deserialize methods. These methods allow code in a class to customize the serialization process, but they don't have access to the serialization stream, only the streaming context information.</li>
+                <li>The GetObjectData method must access private data in an object in order to store it. This can be
+                    used to read the contents of private data in serialized objects. This is why the GetObjectData
+                    method definition should be preceded by the security permission attribute.</li>
+                <li>The second way of customizing the serialization process is to add methods that will be called during
+                    serialization.</li>
+                <li>The OnSerializing method is called before the serialization is performd and the OnSerialized method
+                    is called when the serialization is completed.</li>
+                <li>The same format of attributes is used for the deserialize methods. These methods allow code in a
+                    class to customize the serialization process, but they don't have access to the serialization
+                    stream, only the streaming context information.</li>
                 <li>In the example below a message is displayed at each stage of the process:
                     <code>
                         [Serializable]
                         class Artist
                         {
-                            [OnSerializing()]
-                            internal void OnSerializingMethod(StreamingContext context)
-                            {
-                                Console.WriteLine("Called before the artist is serialized.");
-                            }
-                            
-                            [OnSerialized()]
-                            internal void OnSerializedMethod(StreamingContext context)
-                            {
-                                Console.WriteLine("Called after the artist is serialized.");
-                            }
-                            
-                            [OnDeserializing()]
-                            internal void OnDeserializingMethod(StreamingContext context)
-                            {
-                                Console.WriteLine("Called before the artist is deserialized.");
-                            }
-                            
-                            [OnDeserialized()]
-                            internal void OnDeserializedMethod(StreamingContext context)
-                            {
-                                Console.WriteLine("Called after the artist is deserialized.");
-                            }
+                        [OnSerializing()]
+                        internal void OnSerializingMethod(StreamingContext context)
+                        {
+                        Console.WriteLine("Called before the artist is serialized.");
+                        }
+
+                        [OnSerialized()]
+                        internal void OnSerializedMethod(StreamingContext context)
+                        {
+                        Console.WriteLine("Called after the artist is serialized.");
+                        }
+
+                        [OnDeserializing()]
+                        internal void OnDeserializingMethod(StreamingContext context)
+                        {
+                        Console.WriteLine("Called before the artist is deserialized.");
+                        }
+
+                        [OnDeserialized()]
+                        internal void OnDeserializedMethod(StreamingContext context)
+                        {
+                        Console.WriteLine("Called after the artist is deserialized.");
+                        }
                         }
                     </code>
                 </li>
@@ -1605,87 +1641,104 @@
             <h3>Use the XML and JSON Serializers</h3>
             <h4>Use the XML Serializer</h4>
             <ul>
-                <li>When an XmlSerializer instance is create to perform serializaiton, the constructor must be given the type of data being stored:
+                <li>When an XmlSerializer instance is create to perform serializaiton, the constructor must be given the
+                    type of data being stored:
                     <code>
                         MusicDataStore musicData = MusicDataStore.TestData();
 
                         XmlSerializer formatter = new XmlSerializer(typeof(MusicDataStore));
-                        using (FileStream outputStream = new FileStream("MusicTracks.xml", FileMode.OpenOrCreate, FileAccess.Write))
+                        using (FileStream outputStream = new FileStream("MusicTracks.xml", FileMode.OpenOrCreate,
+                        FileAccess.Write))
                         {
-                            formatter.Serialize(outputStream, musicData);
+                        formatter.Serialize(outputStream, musicData);
                         }
 
                         MusicDataStore inputData;
 
-                        using (FileStream inputStream = new FileStream("MusicTracks.xml", FileMode.Open, FileAccess.Read))
+                        using (FileStream inputStream = new FileStream("MusicTracks.xml", FileMode.Open,
+                        FileAccess.Read))
                         {
-                            inputData = (MusicDataStore)formatter.Deserialize(inputStream);
+                        inputData = (MusicDataStore)formatter.Deserialize(inputStream);
                         }
                     </code>
                 </li>
-                <li>Xml Serialization is called a text serializer because the serialization process creates text documents.</li>
+                <li>Xml Serialization is called a text serializer because the serialization process creates text
+                    documents.</li>
                 <li>The serialization process handles references to objects differently from binary serialization.</li>
-                <li>If the data is serialized using binary serialization the references are preserved. While with XML serialization, a copy of the reference type is stored in each element.</li>
-                <li>When the XMl data is deserialized each MusicTrack instance will contain a reference to its own Artist instance. If you want to preserve references you must use binary serialization.</li>
+                <li>If the data is serialized using binary serialization the references are preserved. While with XML
+                    serialization, a copy of the reference type is stored in each element.</li>
+                <li>When the XMl data is deserialized each MusicTrack instance will contain a reference to its own
+                    Artist instance. If you want to preserve references you must use binary serialization.</li>
             </ul>
             <h4>Use the JSON Serializer</h4>
             <ul>
-                <li>The JSON serialize ruses the JavaScript object Notaiton to store serialized data in a text file.</li>
+                <li>The JSON serialize ruses the JavaScript object Notaiton to store serialized data in a text file.
+                </li>
             </ul>
         </div>
         <div>
             <h3>Use the Data Contract Serializer</h3>
             <ul>
                 <li>The data contract serializer is provided as part of the Windows Communicaiton Framework (WCF).</li>
-                <li>It is located in the System.Runtime.Serialization library. This is not included in the project by default.</li>
+                <li>It is located in the System.Runtime.Serialization library. This is not included in the project by
+                    default.</li>
                 <li>It differs from the XML serializer in the following ways:
                     <ul>
-                        <li>Data to be serialized is selected using an "opt in" mechanism, so only items marked with the [DataMember] attribute will be serialized.</li>
-                        <li>It is possible to serialize private class elements (although they will be public in XML text produced by the serializer).</li>
-                        <li>The XML serializer provides options that allow programmers to specify the order in which items are serialized into the data file. These options are not present in the DataContract serializer.</li>
+                        <li>Data to be serialized is selected using an "opt in" mechanism, so only items marked with the
+                            [DataMember] attribute will be serialized.</li>
+                        <li>It is possible to serialize private class elements (although they will be public in XML text
+                            produced by the serializer).</li>
+                        <li>The XML serializer provides options that allow programmers to specify the order in which
+                            items are serialized into the data file. These options are not present in the DataContract
+                            serializer.</li>
                     </ul>
                 </li>
-                <li>The class here have been given the data contract attributes that are used to serialize the data in them:
+                <li>The class here have been given the data contract attributes that are used to serialize the data in
+                    them:
                     <code>
                         [DataContract]
                         public class Artist
                         {
-                            [DataMember]
-                            public int ID {get;set;}                           
-                            [DataMember]
-                            public string Name {get;set;}
+                        [DataMember]
+                        public int ID {get;set;}
+                        [DataMember]
+                        public string Name {get;set;}
 
-                            [DataContract]
-                            public class MusicTrack
-                            {
-                                [DataMember]
-                                public int ID {get;set;}                           
-                                [DataMember]
-                                public int ArtistID {get;set;}
-                                [DataMember]
-                                public string Title {get;set;}                           
-                                [DataMember]
-                                public int Length {get;set;}
-                            }
+                        [DataContract]
+                        public class MusicTrack
+                        {
+                        [DataMember]
+                        public int ID {get;set;}
+                        [DataMember]
+                        public int ArtistID {get;set;}
+                        [DataMember]
+                        public string Title {get;set;}
+                        [DataMember]
+                        public int Length {get;set;}
+                        }
                         }
                     </code>
                 </li>
-                <li>Once the fields to be serialized have been specified they can be serialized using a DataContractSerializer. Note that the methods to serialize and deserialize are called WriteObject and ReadObject respectively:
+                <li>Once the fields to be serialized have been specified they can be serialized using a
+                    DataContractSerializer. Note that the methods to serialize and deserialize are called WriteObject
+                    and ReadObject respectively:
                     <code>
                         MusicDataStore musicData = MusicDataStore.TestData();
 
                         DataContractSerializer formatter = new DataContractSerializer(typeof(MusicDataStore));
 
-                        using (FileStream outputStream = new FileStream("MusicTracks.xml", FileMode.OpenOrCreate, FileAccess.Write))
+                        using (FileStream outputStream = new FileStream("MusicTracks.xml", FileMode.OpenOrCreate,
+                        FileAccess.Write))
                         {
-                            formatter.WriteObject(outputStream, musicData);
+                        formatter.WriteObject(outputStream, musicData);
                         }
 
                         MusicDataStore inputData;
 
-                        using (FileStream inputStream = new FileStream("MusicTracks.xml", FileMode.Open, FileAccess.Read))
+                        using (FileStream inputStream = new FileStream("MusicTracks.xml", FileMode.Open,
+                        FileAccess.Read))
                         {
-                            inputData = (MusicDataStore)formatter.ReadObject(inputStream);
+                        inputData = (MusicDataStore)formatter.ReadObject(inputStream);
                         }
                     </code>
                 </li>
@@ -1770,12 +1823,17 @@
             <h3>Choose a Collection Type</h3>
             <ul>
                 <li>The type of collection to use normally falls naturally from the demands of the application.</li>
-                <li>If you need to store a list of values, use a List in preference to an array or ArrayList. An array is fixed in size and an ArrayList does not provide type safety.</li>
-                <li>A list can only contain objects of the list type and can grow and contract. It is also very easy to remove a value from the middle of a list or to insert an extra value.</li>
-                <li>Use an array if you are concerned about performance and you are holding value types, since the data will be accessed more quickly. Or when the program needs to store 2d data.</li>
+                <li>If you need to store a list of values, use a List in preference to an array or ArrayList. An array
+                    is fixed in size and an ArrayList does not provide type safety.</li>
+                <li>A list can only contain objects of the list type and can grow and contract. It is also very easy to
+                    remove a value from the middle of a list or to insert an extra value.</li>
+                <li>Use an array if you are concerned about performance and you are holding value types, since the data
+                    will be accessed more quickly. Or when the program needs to store 2d data.</li>
                 <li>Use a dictionary when there is an obvious value in an object upon which it can be indexed.</li>
-                <li>Use a List and LINQ if you need to locate a data value based on different elements, such as needing to find a customer based on their customer ID, name, or address.</li>
-                <li>Sets are useful when working with tags. Their built-in operations are much easier to use than writing your own code to match elements together.</li>
+                <li>Use a List and LINQ if you need to locate a data value based on different elements, such as needing
+                    to find a customer based on their customer ID, name, or address.</li>
+                <li>Sets are useful when working with tags. Their built-in operations are much easier to use than
+                    writing your own code to match elements together.</li>
                 <li>Queues and stacks are used when the needs of the application require LIFO or FIFO behaviour.</li>
             </ul>
         </div>
@@ -1791,8 +1849,8 @@
                         List&lt;int&gt; listInit = new List&lt;int&gt;{ 1, 2, 3, 4 };
 
                         Dictionary&lt;int, string&gt; dictionaryInit = new Dictionary&lt;int, string&gt; {
-                            { 1, "Rob" },
-                            { 2, "Immy" }
+                        { 1, "Rob" },
+                        { 2, "Immy" }
                         };
 
                         HashSet&lt;string&gt; setInit = new HashSet&lt;string&gt;{ "Electronic", "Disco", "Fast" };
@@ -1802,46 +1860,81 @@
                         Stack&lt;string&gt; stackInit = new Stack&lt;string&gt;(new string[] { "Rob", "Immy" });
                     </code>
                 </li>
-                <li>NOTES</li>
-                <li>NOTES</li>
             </ul>
         </div>
         <div>
             <h3>Add and Remove Items from a Collection</h3>
-            <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
-            </ul>
             <h4>Add and Remove Items from an Array</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>The array class does not provide any methods that can add or remove elements.</li>
+                <li>The size of an array is fixed when it is created. The only way to modify the size of an existing
+                    array is to create a new array of the reqired type and then copy the elements from one to the other.
+                </li>
+                <li>The array class provides a CopyTo method that will copy the contents of an array into another array.
+                    The first parameter of CopyTo is the destination array. The second parameter is the start position
+                    in the destination array for the copied values.</li>
+                <li>In this example the CopyTo method is used to migrate data to a larger array:
+                    <code>
+                        int[] dataArray = { 1, 2, 3, 4 };
+                        int[] tempArray = new int[5];
+                        dataArray.CopyTo(tempArray, 0);
+                        dataArray = tempArray;
+                    </code>
+                </li>
             </ul>
             <h4>Add and Remove Items in ArrayList and List</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>There are a number of methods that can be used to modify the contents of the ArrayList and List
+                    collectons:
+                    <code>
+                        List&lt;string&gt; = new List&lt;string&gt;();
+                        list.Add("Add to the end of the list");
+                        list.Insert(0, "Insert at the start of the list");
+                        list.Insert(1, "Insert new item at the 2nd index");
+                        list.InsertRange(2, new string[] { "Rob", "Immy" });
+                        list.Remove("Rob"); // Removes the first occurrence of "Rob".
+                        list.RemoveAt(0); // Removes the first element.
+                        list.RemoveRange(1, 2); // Remove 2 elements.
+                        list.Clear(); // Clears the entire list.
+                    </code>
+                </li>
+            </ul>
+            <h4>Add and Remove Items from a Dictionary</h4>
+            <ul>
+                <li>The Dictionary type provides Add and Remove methods:
+                    <code>
+                        Dictionary&lt;int, string&gt; dictionary = new Dictionary&lt;int, string&gt;();
+                        dictionary.Add(1, "Rob Miles"); // Add an entry.
+                        dictionary.Remove(1); // Remove the entry with the given key.
+                    </code>
+                </li>
             </ul>
             <h4>Add and Remove Items from a Set</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>The Set type provides Add, Remove and RemoveWhere methods.</li>
+                <li>The RemoveWhere function is given a predicate (a behaviour that generates either true or false) to
+                    determine which elements are to be removed:
+                    <code>
+                        HashSet&lt;string&gt; set = new HashSet&lt;string&gt;();
+                        set.Add("Rob Miles"); // Add an item.
+                        set.Remove("Rob Miles"); // Remove and item.
+                        set.RemoveWhere(x => x.StartsWith("R")); // Remove all items that start with 'R'.
+                    </code>
+                </li>
             </ul>
             <h4>Add and Remove Items in Queue and Stack</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>The most important aspect of the behaviour of queues and stacks is the way that items are added and
+                    removed.</li>
+                <li>For this reason, the only actions that allow their contents to be changed are the ones you have seen
+                    earlier.</li>
             </ul>
         </div>
         <div>
             <h3>Use Typed Vs. Non-typed Collections</h3>
             <ul>
-                <li>ArrayList collections can contain any type of object in the same ArrayList. Though you can do this, it isn't good programming practice:
+                <li>ArrayList collections can contain any type of object in the same ArrayList. Though you can do this,
+                    it isn't good programming practice:
                     <code>
                         ArrayList messyList = new ArrayList();
                         messyList.Add(1); // An integer.
@@ -1849,43 +1942,51 @@
                         messyList.Add(new ArrayList()); // An ArrayList.
                     </code>
                 </li>
-                <li>Another difficulty caused by the untyped storage provided by the ArrayList is that all of the references in the list are references to objects.</li>
-                <li>When a program removes an item from an ArrayList it must cast the item into its proper type before it can be used. Meaning, a value must be cast before using it:
+                <li>Another difficulty caused by the untyped storage provided by the ArrayList is that all of the
+                    references in the list are references to objects.</li>
+                <li>When a program removes an item from an ArrayList it must cast the item into its proper type before
+                    it can be used. Meaning, a value must be cast before using it:
                     <code>
                         int messyInt = (int) messyList[0];
                     </code>
                 </li>
-                <li>Due to the issues caused by untyped collections, the ArrayList has been superseded by the List type, whicih uses the generics feature in alter versions of C#.</li>
+                <li>Due to the issues caused by untyped collections, the ArrayList has been superseded by the List type,
+                    whicih uses the generics feature in alter versions of C#.</li>
             </ul>
         </div>
         <div>
             <h3>Implement Custom Collections</h3>
             <ul>
-                <li>A custom collection is one you create for a specific purpose that has behaviours that you need in your application.</li>
-                <li>One way to create them is to create a new type that implements the ICollection interface. Once created it can be used in the same way as any other collection, such as using a foreach construction with it.</li>
-                <li>Another way to create a custom collection is to use an existing collection class as the bas (parent) class of a new collection type. You can then add new behaviours to your new collection, but otherwise, it can be used the same way as any other collection.</li>
+                <li>A custom collection is one you create for a specific purpose that has behaviours that you need in
+                    your application.</li>
+                <li>One way to create them is to create a new type that implements the ICollection interface. Once
+                    created it can be used in the same way as any other collection, such as using a foreach construction
+                    with it.</li>
+                <li>Another way to create a custom collection is to use an existing collection class as the bas (parent)
+                    class of a new collection type. You can then add new behaviours to your new collection, but
+                    otherwise, it can be used the same way as any other collection.</li>
                 <li>this example shows how to create a custom MusicTrack store based on the List collection type:
                     <code>
                         class TrackStore : List&lt;MusicTrack&gt;
                         {
-                            public int RemoveArtist(string removeName)
-                            {
-                                List&lt;MusicTrack&gt; removeList = new List&lt;MusicTrack&gt;();
-                                foreach (MusicTrack track in this)
-                                {
-                                    if(track.Artist == removeName)
-                                    {
-                                        removeList.Add(track);
-                                    }
-                                }
-                                
-                                foreach (MusicTrack track in removeList)
-                                {
-                                    this.Remove(track);
-                                }
+                        public int RemoveArtist(string removeName)
+                        {
+                        List&lt;MusicTrack&gt; removeList = new List&lt;MusicTrack&gt;();
+                        foreach (MusicTrack track in this)
+                        {
+                        if(track.Artist == removeName)
+                        {
+                        removeList.Add(track);
+                        }
+                        }
 
-                                return removeList.Count;
-                            }
+                        foreach (MusicTrack track in removeList)
+                        {
+                        this.Remove(track);
+                        }
+
+                        return removeList.Count;
+                        }
                         }
                     </code>
                 </li>
@@ -1894,52 +1995,57 @@
         <div>
             <h3>Implement Collection Interfaces</h3>
             <ul>
-                <li>The behaviour of a collection type is expressed by the ICollection interface which is a child of the IEnumerator interface.</li>
-                <li>Interface hierarchies work in exactly the same way as class hierarchies, in that a child of a parent interface contains all of the methods that are described in the parent.</li>
-                <li>In this example is a class that implementes the ICollection interface. It can be used the same way as any other collection, and can be enumerated as it provides a GetEnumerator method:
+                <li>The behaviour of a collection type is expressed by the ICollection interface which is a child of the
+                    IEnumerator interface.</li>
+                <li>Interface hierarchies work in exactly the same way as class hierarchies, in that a child of a parent
+                    interface contains all of the methods that are described in the parent.</li>
+                <li>In this example is a class that implementes the ICollection interface. It can be used the same way
+                    as any other collection, and can be enumerated as it provides a GetEnumerator method:
                     <code>
                         class CompassCollection : ICollection
                         {
-                            // Array containing values in this collection.
-                            string[] compassPoints = { "North", "East", "South", "West" };
+                        // Array containing values in this collection.
+                        string[] compassPoints = { "North", "East", "South", "West" };
 
-                            // Count property to return the length of the collection.
-                            public int Count
-                            {
-                                get { return compassPoints.Length };
-                            }
+                        // Count property to return the length of the collection.
+                        public int Count
+                        {
+                        get { return compassPoints.Length };
+                        }
 
-                            // Returns an object that can be used to synchronise access to this object.
-                            public object SyncRoot
-                            {
-                                get { return this; }
-                            }
+                        // Returns an object that can be used to synchronise access to this object.
+                        public object SyncRoot
+                        {
+                        get { return this; }
+                        }
 
-                            // Returns true if the collection is thread safe. This collection is not.
-                            public bool IsSynchronized
-                            {
-                                get { return false; }
-                            }
+                        // Returns true if the collection is thread safe. This collection is not.
+                        public bool IsSynchronized
+                        {
+                        get { return false; }
+                        }
 
-                            // Provide a copyto behaviour.
-                            public void CopyTo(Array array, int index)
-                            {
-                                foreach (string point in compassPoints)
-                                {
-                                    array.SetValue(point, index);
-                                    index++;
-                                }
-                            }
+                        // Provide a copyto behaviour.
+                        public void CopyTo(Array array, int index)
+                        {
+                        foreach (string point in compassPoints)
+                        {
+                        array.SetValue(point, index);
+                        index++;
+                        }
+                        }
 
-                            // Required for IEnumerate. Returns the enumerator from the embedded array.
-                            public IEnumerator GetEnumerator()
-                            {
-                                return compassPoints.GetEnumerator();
-                            }
+                        // Required for IEnumerate. Returns the enumerator from the embedded array.
+                        public IEnumerator GetEnumerator()
+                        {
+                        return compassPoints.GetEnumerator();
+                        }
                         }
                     </code>
                 </li>
-                <li>If you want the new collection type to be used with LINQ enquires it must implement the IEnumberable&lt;type&gt; interface. This means the type must contain a GetEnumerator&lt;string&gt; method.</li>
+                <li>If you want the new collection type to be used with LINQ enquires it must implement the
+                    IEnumberable&lt;type&gt; interface. This means the type must contain a GetEnumerator&lt;string&gt;
+                    method.</li>
             </ul>
         </div>
     </div>
