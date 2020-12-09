@@ -1889,15 +1889,57 @@
                         }
                     </code>
                 </li>
-                <li>NOTES</li>
             </ul>
         </div>
         <div>
             <h3>Implement Collection Interfaces</h3>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>The behaviour of a collection type is expressed by the ICollection interface which is a child of the IEnumerator interface.</li>
+                <li>Interface hierarchies work in exactly the same way as class hierarchies, in that a child of a parent interface contains all of the methods that are described in the parent.</li>
+                <li>In this example is a class that implementes the ICollection interface. It can be used the same way as any other collection, and can be enumerated as it provides a GetEnumerator method:
+                    <code>
+                        class CompassCollection : ICollection
+                        {
+                            // Array containing values in this collection.
+                            string[] compassPoints = { "North", "East", "South", "West" };
+
+                            // Count property to return the length of the collection.
+                            public int Count
+                            {
+                                get { return compassPoints.Length };
+                            }
+
+                            // Returns an object that can be used to synchronise access to this object.
+                            public object SyncRoot
+                            {
+                                get { return this; }
+                            }
+
+                            // Returns true if the collection is thread safe. This collection is not.
+                            public bool IsSynchronized
+                            {
+                                get { return false; }
+                            }
+
+                            // Provide a copyto behaviour.
+                            public void CopyTo(Array array, int index)
+                            {
+                                foreach (string point in compassPoints)
+                                {
+                                    array.SetValue(point, index);
+                                    index++;
+                                }
+                            }
+
+                            // Required for IEnumerate. Returns the enumerator from the embedded array.
+                            public IEnumerator GetEnumerator()
+                            {
+                                return compassPoints.GetEnumerator();
+                            }
+                        }
+                    </code>
+                </li>
+                <li>If you want the new collection type to be used with LINQ enquires it must implement the IEnumberable&lt;type&gt; interface. This means the type must contain a GetEnumerator&lt;string&gt; method.</li>
             </ul>
         </div>
     </div>
