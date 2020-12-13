@@ -2026,9 +2026,21 @@
             </ul>
             <h4>Use a Stack</h4>
             <ul>
-                <li>NOTES</li>
-                <li>NOTES</li>
-                <li>NOTES</li>
+                <li>A stack is similar to a queue, but the most important difference is that a stack is organized as LIFO (Last-In-First-Out).</li>
+                <li>The Push method pushes items to the top of the stack.</li>
+                <li>The Pop method removes items from the top of the stack.</li>
+                <li>
+                    <code>
+                        Stack&lt;string&gt; demoStack = new Stack&lt;string&gt;;
+
+                        demoStack.Push("Rob Miles");
+                        demoStack.Push("Immy Brown");
+
+                        Console.WriteLine(demoStack.Pop());
+                        Console.WriteLine(demoStack.Pop());
+                    </code>
+                </li>
+                <li>The ConcurrentStack should be used when different Tasks are using the same Stack.</li>
             </ul>
         </div>
         <div>
