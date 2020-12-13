@@ -2022,11 +2022,13 @@
                         Console.WriteLine(demoQueue.Dequeue());
                     </code>
                 </li>
-                <li>A potential use for a queue is for passing work items from one thread to another. The ConcurrentQueue should be used for this.</li>
+                <li>A potential use for a queue is for passing work items from one thread to another. The
+                    ConcurrentQueue should be used for this.</li>
             </ul>
             <h4>Use a Stack</h4>
             <ul>
-                <li>A stack is similar to a queue, but the most important difference is that a stack is organized as LIFO (Last-In-First-Out).</li>
+                <li>A stack is similar to a queue, but the most important difference is that a stack is organized as
+                    LIFO (Last-In-First-Out).</li>
                 <li>The Push method pushes items to the top of the stack.</li>
                 <li>The Pop method removes items from the top of the stack.</li>
                 <li>
@@ -2276,12 +2278,555 @@
     <div>
         <h2 id="qa-4">Thought Experiments</h2>
         <div>
-            <h3>HEADING</h3>
-            <p>DESCRIPTION</p>
+            <h3>1 Perform I/O Operations</h3>
+            <p>Class hierarchies are an important element in the design of the data management mechanisms provided by
+                .NET. The Stream class sets out the fundamental data movement commands and is used as the basis of
+                classes that provide data storage on a variety of platforms. Streams can also be chained together so
+                that character encoding, encryption and compression can be performed on data being moved to or from any
+                stream-base store.</p>
             <p>Here are some questions to consider:</p>
             <ol>
                 <li class="question-answer">
-                    <div class="question">QUESTION</div>
+                    <div class="question">Why can't a program create and instance of the Stream type?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">When would a program modify the file pointer in a file?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">What is the difference between UTF8 UNicode and UTF32 Unicode?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">Is there such a thing as a "text file"?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">Can a prorma both read from and write to a single file?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">What is the difference between a TextWriter and a StreamWriter?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">Why is it useful for a stream class to have a constructor that accepts an
+                        object of the stream type?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">What is the File class for?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">Will you need to re-compile a program for it to be used on a system with a
+                        different file system?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">What happens to the files in a directory when you delete the directory?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">How can you tell if a file path is an absolute path to the file?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">Why should you use the Path class to construct file paths in your programs?
+                    </div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">What is the difference between HTTP and HTML?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">When should you use the HttpWebRequest class to contact a web server?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">Can a program make web requests asynchronously?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">Why is it a good idea to perform file operations asynchronously?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+            </ol>
+        </div>
+        <div>
+            <h3>2 Consume Data</h3>
+            <p>Databases are the storage resource that underpins many applications. This section has shown how SQL is
+                used to interact with a database, how to use a database in ASP, and how JSON and XML documents allow
+                programs to exchange structured data. Also, web services were covered; a means by which a server can
+                expose resources in the form of method calls.</p>
+            <p>Here are some questions to consider:</p>
+            <ol>
+                <li class="question-answer">
+                    <div class="question">Does each suer of a database need their own copy of the data?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">What would happpen if two users of a database updated the same record at the
+                        same time?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">What would happen if two items in a database had the same ID value?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">Why do you need to protect your database connection string?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">Do you always have to write SQL queries to interact with a database?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">What is an SQL injection attack, and how do you protect against one?
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">You can see how to read JSON data from a server, but is it possible to store
+                        JSON formatted data values on a server?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">What is the difference between a web service and just downloading JSON
+                        documents from a server?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+            </ol>
+        </div>
+        <div>
+            <h3>3 Query and Manipulate Data and Objects by Using LINQ</h3>
+            <p>LINQ allows developers to take their SQL skills in building queries and apply them to software objects.
+                By exposing query elements as C# operators using the query comprehension syntax LINQ allows you to
+                create C# statements that closely resemble SQL queries. These queries can be applied to structured data
+                from a database, but they can also be applied to normal collections and XML documents. LINQ is useful
+                for filtering data and extracting subsets; it also provides the group operator that can be used to
+                summarize data. LINQ queries are actually implemented as method calls onto objects and can be created
+                that way if preferred.</p>
+            <p>Here are some questions to consider:</p>
+            <ol>
+                <li class="question-answer">
+                    <div class="question">What does "Language Integrated Query" actually mean?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">Does LINQ add new features for data manipulation?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">Is it more efficient to build and perform our own SQL queries than to use
+                        LINQ?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">Why would the statement var counter; cause a compilation error?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">What is an anonymous type?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">What does "deferred execution" of a LINQ query mean?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">What does the group behaviour do in a LINQ query?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">What do the take and skip behaviours do?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">What is the differnece between query comprehension and method-based LINQ
+                        queries?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">What is the difference between the XDocument and XElement types?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">What is the difference between the XmlDocument and XDocument types?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+            </ol>
+        </div>
+        <div>
+            <h3>4 Serialize and Deserialize Data</h3>
+            <p>Serialization is very useful when you want to store or transfer structured data. It is susceptible to
+                problems if the content or arrangement of data items that have been serialized change in later versions
+                of an application. But, it is possible with sensible data design.</p>
+            <p>Here are some questions to consider:</p>
+            <ol>
+                <li class="question-answer">
+                    <div class="question">When should you use serialization in your program?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">Do you need a copy of the type to read a serialized object?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">Can any data type be serialized?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">Can vlaue types and reference types be stored using serialization?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">Does serialization store al of the elements of a class?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">When should you use binary serialization and when should you use XML
+                        serialization?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">Why should you be concerned about security when using binary serialization?
+                    </div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">Can you use a custom serializer when serializing to an XML document?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">Is it possible to encrypt a serialized class?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">What is the difference between an XML serializer and a DataContract
+                        serializer?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+            </ol>
+        </div>
+        <div>
+            <h3>5 Store Data in and Retrieve Data from Collections</h3>
+            <p>Collections provided by .NET can be thought of as a set of tools. Each tool suited to a particular
+                situation. Most of the time storage demands are met by List or Dictionary types, but there are
+                occassions when a queue or set can save a lot of work. Extending a parent collection type is a great way
+                to add custom behaviours. It is possible to perform LINQ queries on collections, which can save a lot of
+                work writing code to search through them.</p>
+            <p>Here are some questions to consider:</p>
+            <ol>
+                <li class="question-answer">
+                    <div class="question">When should you use a collection, and when should you use a database?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">Can you create an array of arrays?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">Can you create a twenty-dimensional array?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">Why do the program keep crashing with an array index error?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">The array is one element too small. How do you add a new element on the end of the array?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">Why do you use Length to get the length of an array and Count to get the number of items in an ArrayList?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">How does a Dictionary actually work?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">When would you use a set?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">What is the difference between a stack and a queue?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>ANSWER</li>
+                            <li>ANSWER</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">Could you use a List to store every type of data in a program?</div>
                     <div class="answer">
                         <ul>
                             <li>ANSWER</li>
