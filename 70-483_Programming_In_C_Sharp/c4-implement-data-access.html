@@ -2290,8 +2290,7 @@
                     <div class="question">Why can't a program create and instance of the Stream type?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>Because the Stream class is defined as abstract and intended to be used as a base class for child classes that contain implementions of the behaviours described by Stream.</li>
                         </ul>
                     </div>
                 </li>
@@ -2299,8 +2298,12 @@
                     <div class="question">When would a program modify the file pointer in a file?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>The file pointer value is maanged by a stream and specifies the position at which the next I/L transaction will be performed.</li>
+                            <li>When a file is read, the pointer is at the beginning of the file.</li>
+                            <li>The pointer can skip some of the file by updating the file pointer location.</li>
+                            <li>Updating the value is faster than reading through the file.</li>
+                            <li>When writing into a file, the point is updated as the file is written.</li>
+                            <li>When a file is opened in append mode the file pointer is moved to the end of the file.</li>
                         </ul>
                     </div>
                 </li>
@@ -2308,8 +2311,9 @@
                     <div class="question">What is the difference between UTF8 UNicode and UTF32 Unicode?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>Unicode is a mapping between values and text characters.</li>
+                            <li>The UTF8 standard maps Unicode characters onto one or more 8-bit storage locations.</li>
+                            <li>The UTF32 standard maps Unicode characters onto one or more 32-bit storage locations.</li>
                         </ul>
                     </div>
                 </li>
@@ -2317,17 +2321,19 @@
                     <div class="question">Is there such a thing as a "text file"?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>The file system makes no distinciton between a "text" file and a "binary" file.</li>
+                            <li>This distinction is made by programs using the file system to store files.</li>
+                            <li>In C#, a text file is one that contains values which represent text.</li>
+                            <li>The values in the text file will be encoded using a standard that maps numeric values onto characters. Typically Unicode.</li>
                         </ul>
                     </div>
                 </li>
                 <li class="question-answer">
-                    <div class="question">Can a prorma both read from and write to a single file?</div>
+                    <div class="question">Can a program both read from and write to a single file?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>Yes. If a stream is opened for ReadWrite access, then it can be read from and written to.</li>
+                            <li>The file usually holds fixed length records, so a single record in the middle of a file can be changed without affecting any of the other records in the file.</li>
                         </ul>
                     </div>
                 </li>
@@ -2335,8 +2341,8 @@
                     <div class="question">What is the difference between a TextWriter and a StreamWriter?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>The TextWriter class is abstract and specifies operations that can be performed to write text into a stream.</li>
+                            <li>The StreamWriter class is a child of the TextWriter class that can be instantiated and used to write text into a stream.</li>
                         </ul>
                     </div>
                 </li>
@@ -2345,8 +2351,8 @@
                         object of the stream type?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>A stream can be constructed from another stream to allow streams to be "chained" together.</li>
+                            <li>The output of one stream can be sent into the next.</li>
                         </ul>
                     </div>
                 </li>
@@ -2354,8 +2360,8 @@
                     <div class="question">What is the File class for?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>It provides a set of very useful methods which allow the creation and population of files with only a small number of statements.</li>
+                            <li>It also provides useful file management commands.</li>
                         </ul>
                     </div>
                 </li>
