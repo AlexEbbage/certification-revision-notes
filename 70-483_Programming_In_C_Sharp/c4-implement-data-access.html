@@ -2290,7 +2290,8 @@
                     <div class="question">Why can't a program create and instance of the Stream type?</div>
                     <div class="answer">
                         <ul>
-                            <li>Because the Stream class is defined as abstract and intended to be used as a base class for child classes that contain implementions of the behaviours described by Stream.</li>
+                            <li>Because the Stream class is defined as abstract and intended to be used as a base class
+                                for child classes that contain implementions of the behaviours described by Stream.</li>
                         </ul>
                     </div>
                 </li>
@@ -2298,12 +2299,14 @@
                     <div class="question">When would a program modify the file pointer in a file?</div>
                     <div class="answer">
                         <ul>
-                            <li>The file pointer value is maanged by a stream and specifies the position at which the next I/L transaction will be performed.</li>
+                            <li>The file pointer value is maanged by a stream and specifies the position at which the
+                                next I/L transaction will be performed.</li>
                             <li>When a file is read, the pointer is at the beginning of the file.</li>
                             <li>The pointer can skip some of the file by updating the file pointer location.</li>
                             <li>Updating the value is faster than reading through the file.</li>
                             <li>When writing into a file, the point is updated as the file is written.</li>
-                            <li>When a file is opened in append mode the file pointer is moved to the end of the file.</li>
+                            <li>When a file is opened in append mode the file pointer is moved to the end of the file.
+                            </li>
                         </ul>
                     </div>
                 </li>
@@ -2313,7 +2316,8 @@
                         <ul>
                             <li>Unicode is a mapping between values and text characters.</li>
                             <li>The UTF8 standard maps Unicode characters onto one or more 8-bit storage locations.</li>
-                            <li>The UTF32 standard maps Unicode characters onto one or more 32-bit storage locations.</li>
+                            <li>The UTF32 standard maps Unicode characters onto one or more 32-bit storage locations.
+                            </li>
                         </ul>
                     </div>
                 </li>
@@ -2324,7 +2328,8 @@
                             <li>The file system makes no distinciton between a "text" file and a "binary" file.</li>
                             <li>This distinction is made by programs using the file system to store files.</li>
                             <li>In C#, a text file is one that contains values which represent text.</li>
-                            <li>The values in the text file will be encoded using a standard that maps numeric values onto characters. Typically Unicode.</li>
+                            <li>The values in the text file will be encoded using a standard that maps numeric values
+                                onto characters. Typically Unicode.</li>
                         </ul>
                     </div>
                 </li>
@@ -2332,8 +2337,10 @@
                     <div class="question">Can a program both read from and write to a single file?</div>
                     <div class="answer">
                         <ul>
-                            <li>Yes. If a stream is opened for ReadWrite access, then it can be read from and written to.</li>
-                            <li>The file usually holds fixed length records, so a single record in the middle of a file can be changed without affecting any of the other records in the file.</li>
+                            <li>Yes. If a stream is opened for ReadWrite access, then it can be read from and written
+                                to.</li>
+                            <li>The file usually holds fixed length records, so a single record in the middle of a file
+                                can be changed without affecting any of the other records in the file.</li>
                         </ul>
                     </div>
                 </li>
@@ -2341,8 +2348,10 @@
                     <div class="question">What is the difference between a TextWriter and a StreamWriter?</div>
                     <div class="answer">
                         <ul>
-                            <li>The TextWriter class is abstract and specifies operations that can be performed to write text into a stream.</li>
-                            <li>The StreamWriter class is a child of the TextWriter class that can be instantiated and used to write text into a stream.</li>
+                            <li>The TextWriter class is abstract and specifies operations that can be performed to write
+                                text into a stream.</li>
+                            <li>The StreamWriter class is a child of the TextWriter class that can be instantiated and
+                                used to write text into a stream.</li>
                         </ul>
                     </div>
                 </li>
@@ -2351,7 +2360,8 @@
                         object of the stream type?</div>
                     <div class="answer">
                         <ul>
-                            <li>A stream can be constructed from another stream to allow streams to be "chained" together.</li>
+                            <li>A stream can be constructed from another stream to allow streams to be "chained"
+                                together.</li>
                             <li>The output of one stream can be sent into the next.</li>
                         </ul>
                     </div>
@@ -2360,7 +2370,8 @@
                     <div class="question">What is the File class for?</div>
                     <div class="answer">
                         <ul>
-                            <li>It provides a set of very useful methods which allow the creation and population of files with only a small number of statements.</li>
+                            <li>It provides a set of very useful methods which allow the creation and population of
+                                files with only a small number of statements.</li>
                             <li>It also provides useful file management commands.</li>
                         </ul>
                     </div>
@@ -2370,7 +2381,8 @@
                         different file system?</div>
                     <div class="answer">
                         <ul>
-                            <li>No. The precise way a given file system works is completely hidden from the program using it.</li>
+                            <li>No. The precise way a given file system works is completely hidden from the program
+                                using it.</li>
                         </ul>
                     </div>
                 </li>
@@ -2378,7 +2390,8 @@
                     <div class="question">What happens to the files in a directory when you delete the directory?</div>
                     <div class="answer">
                         <ul>
-                            <li>An exception will be thrown when a program tries to delete a directory containing a file.</li>
+                            <li>An exception will be thrown when a program tries to delete a directory containing a
+                                file.</li>
                             <li>All the files in a directory must be deleted first.</li>
                         </ul>
                     </div>
@@ -2387,7 +2400,8 @@
                     <div class="question">How can you tell if a file path is an absolute path to the file?</div>
                     <div class="answer">
                         <ul>
-                            <li>An absolute file path will start with the drive letter on which the file is stored and contains all the directories to be traversed to reach the file.</li>
+                            <li>An absolute file path will start with the drive letter on which the file is stored and
+                                contains all the directories to be traversed to reach the file.</li>
                             <li>A relative path will not contain a drive letter.</li>
                         </ul>
                     </div>
@@ -2397,8 +2411,10 @@
                     </div>
                     <div class="answer">
                         <ul>
-                            <li>The Path class provides a static Combine method that makes sure that all path separators are correctly inserted int the path that is created.</li>
-                            <li>This is much less error prone that trying to make sure that the correct number of "\" characters have been included.</li>
+                            <li>The Path class provides a static Combine method that makes sure that all path separators
+                                are correctly inserted int the path that is created.</li>
+                            <li>This is much less error prone that trying to make sure that the correct number of "\"
+                                characters have been included.</li>
                         </ul>
                     </div>
                 </li>
@@ -2406,8 +2422,10 @@
                     <div class="question">What is the difference between HTTP and HTML?</div>
                     <div class="answer">
                         <ul>
-                            <li>HTTP (Hyper Text Transfer Protocol) defines the way that a client can give instructions to a web server.</li>
-                            <li>HTMl (Hyper Text Markup Language) defines the format of documents that are sent back from the server in response to an HTTP request.</li>
+                            <li>HTTP (Hyper Text Transfer Protocol) defines the way that a client can give instructions
+                                to a web server.</li>
+                            <li>HTMl (Hyper Text Markup Language) defines the format of documents that are sent back
+                                from the server in response to an HTTP request.</li>
                         </ul>
                     </div>
                 </li>
@@ -2415,7 +2433,8 @@
                     <div class="question">When should you use the HttpWebRequest class to contact a web server?</div>
                     <div class="answer">
                         <ul>
-                            <li>The HttpWebRequest class is extremely customizable and provides much more flexibility that the WebClient class when creating requests to be sent to web servers.</li>
+                            <li>The HttpWebRequest class is extremely customizable and provides much more flexibility
+                                that the WebClient class when creating requests to be sent to web servers.</li>
                             <li>Some forms of web request can only be sent using an HttpWebRequest.</li>
                         </ul>
                     </div>
@@ -2424,7 +2443,8 @@
                     <div class="question">Can a program make web requests asynchronously?</div>
                     <div class="answer">
                         <ul>
-                            <li>Yes. The WebClient and HttpClient classes support the use of async and await making asynchronous web requests.</li>
+                            <li>Yes. The WebClient and HttpClient classes support the use of async and await making
+                                asynchronous web requests.</li>
                         </ul>
                     </div>
                 </li>
@@ -2433,7 +2453,8 @@
                     <div class="answer">
                         <ul>
                             <li>Because they are frequently the slowest actions performed on a computer.</li>
-                            <li>Writing to a physical disk takes much longer than calculations, and disk transactions may take much longer if the system is busy.</li>
+                            <li>Writing to a physical disk takes much longer than calculations, and disk transactions
+                                may take much longer if the system is busy.</li>
                         </ul>
                     </div>
                 </li>
@@ -2452,8 +2473,11 @@
                     <div class="answer">
                         <ul>
                             <li>A database server provides access to a central store of data.</li>
-                            <li>It is a bad idea for each user to have their own copy of the data as it can become updated in different ways.</li>
-                            <li>It is possible to keep a local copy of a database for use when the system is not connected to a network and then apply the updates to a database when the connection is available.</li>
+                            <li>It is a bad idea for each user to have their own copy of the data as it can become
+                                updated in different ways.</li>
+                            <li>It is possible to keep a local copy of a database for use when the system is not
+                                connected to a network and then apply the updates to a database when the connection is
+                                available.</li>
                         </ul>
                     </div>
                 </li>
@@ -2463,8 +2487,10 @@
                     <div class="answer">
                         <ul>
                             <li>A database server is designed to ensure that the stored data is always consistent.</li>
-                            <li>If two users updated a particular record at the same time the updates wll be performed in sequence and the server will make sure the data isn't corrupted.</li>
-                            <li>It is possible for a database user to flag actions as atomic so they are either completed or the database is "rolled back" to the state it had before the action.</li>
+                            <li>If two users updated a particular record at the same time the updates wll be performed
+                                in sequence and the server will make sure the data isn't corrupted.</li>
+                            <li>It is possible for a database user to flag actions as atomic so they are either
+                                completed or the database is "rolled back" to the state it had before the action.</li>
                         </ul>
                     </div>
                 </li>
@@ -2472,8 +2498,10 @@
                     <div class="question">What would happen if two items in a database had the same ID value?</div>
                     <div class="answer">
                         <ul>
-                            <li>If the ID of an item is being used to uniquely identify the item, it is impossible to create two items with the same ID.</li>
-                            <li>The database will generate ID values for items automatically when they are added to the database.</li>
+                            <li>If the ID of an item is being used to uniquely identify the item, it is impossible to
+                                create two items with the same ID.</li>
+                            <li>The database will generate ID values for items automatically when they are added to the
+                                database.</li>
                         </ul>
                     </div>
                 </li>
@@ -2482,8 +2510,11 @@
                     <div class="answer">
                         <ul>
                             <li>A database connection string is used to create a connection to the database.</li>
-                            <li>If the database is not on the same computer as the program using it, the connection string will include the network address of the server and the authentication information.</li>
-                            <li>Armed with this information anyone can create a connection to the database and send it SQL commands, wich would be a bad thing.</li>
+                            <li>If the database is not on the same computer as the program using it, the connection
+                                string will include the network address of the server and the authentication
+                                information.</li>
+                            <li>Armed with this information anyone can create a connection to the database and send it
+                                SQL commands, wich would be a bad thing.</li>
                         </ul>
                     </div>
                 </li>
@@ -2492,7 +2523,8 @@
                     <div class="answer">
                         <ul>
                             <li>SQL queries are the lowest level of communication with the databse.</li>
-                            <li>ASP.NET applications can perform actions on objects in the program and then update the contents of the database with the new objects.</li>
+                            <li>ASP.NET applications can perform actions on objects in the program and then update the
+                                contents of the database with the new objects.</li>
                         </ul>
                     </div>
                 </li>
@@ -2500,9 +2532,12 @@
                     <div class="question">What is an SQL injection attack, and how do you protect against one?
                         <ul>
                             <li>An SQL command is a construction that contains command and data elements.</li>
-                            <li>An SQL injection attack is performed by "injecting" SQL commands into the data parts of the command.</li>
-                            <li>For example, if a user is asked to enter their name, they can add malicious SQL commands to the name text.</li>
-                            <li>The attacks are prevented using parameterized SQL commands, which specifically separate data from the command elements.</li>
+                            <li>An SQL injection attack is performed by "injecting" SQL commands into the data parts of
+                                the command.</li>
+                            <li>For example, if a user is asked to enter their name, they can add malicious SQL commands
+                                to the name text.</li>
+                            <li>The attacks are prevented using parameterized SQL commands, which specifically separate
+                                data from the command elements.</li>
                         </ul>
                     </div>
                 </li>
@@ -2511,8 +2546,10 @@
                         JSON formatted data values on a server?</div>
                     <div class="answer">
                         <ul>
-                            <li>If your application needs to be able to upload data to a server application it can use the REST (Representational State Transfer) model.</li>
-                            <li>This makes use of the HTTP command set to allow an application to send data between the client and the server.</li>
+                            <li>If your application needs to be able to upload data to a server application it can use
+                                the REST (Representational State Transfer) model.</li>
+                            <li>This makes use of the HTTP command set to allow an application to send data between the
+                                client and the server.</li>
                             <li>This data can be XML or JSON documents.</li>
                         </ul>
                     </div>
@@ -2522,7 +2559,8 @@
                         documents from a server?</div>
                     <div class="answer">
                         <ul>
-                            <li>A web service provides the client applicaiton with a "proxy object" that represents a connection to the service.</li>
+                            <li>A web service provides the client applicaiton with a "proxy object" that represents a
+                                connection to the service.</li>
                             <li>The client can call methods on the proxy to interact with the service.</li>
                             <li>This provides a much richer set of options than simply downloading a file.</li>
                         </ul>
@@ -2545,9 +2583,12 @@
                     <div class="question">What does "Language Integrated Query" actually mean?</div>
                     <div class="answer">
                         <ul>
-                            <li>It refers to the way that a data query can be expressed using language elements in the format called "query comprehension".</li>
-                            <li>The LINQ operators allow the programmer to express thei intent directly without having to make a chain of method calles to create a query.</li>
-                            <li>The compiler converts "query comprehension" notation queries into chains of method calls.</li>
+                            <li>It refers to the way that a data query can be expressed using language elements in the
+                                format called "query comprehension".</li>
+                            <li>The LINQ operators allow the programmer to express thei intent directly without having
+                                to make a chain of method calles to create a query.</li>
+                            <li>The compiler converts "query comprehension" notation queries into chains of method
+                                calls.</li>
                             <li>Programmers can create "method-based" queries if they prefer.</li>
                         </ul>
                     </div>
@@ -2556,7 +2597,8 @@
                     <div class="question">Does LINQ add new features for data manipulation?</div>
                     <div class="answer">
                         <ul>
-                            <li>No. LINQ doesn't create any new data manipulation features, it just makes it easier for programmers to express their intent.</li>
+                            <li>No. LINQ doesn't create any new data manipulation features, it just makes it easier for
+                                programmers to express their intent.</li>
                         </ul>
                     </div>
                 </li>
@@ -2566,8 +2608,10 @@
                     <div class="answer">
                         <ul>
                             <li>Building your own SQl queries is slightly more efficient than using LINQ.</li>
-                            <li>The very first time a LINQ query is used it will be compiled into the method sequence that is then called to deliver the result.</li>
-                            <li>This is rearely a problem from a performance point of view, however, LINQ makes programmers more efficient.</li>
+                            <li>The very first time a LINQ query is used it will be compiled into the method sequence
+                                that is then called to deliver the result.</li>
+                            <li>This is rearely a problem from a performance point of view, however, LINQ makes
+                                programmers more efficient.</li>
                         </ul>
                     </div>
                 </li>
@@ -2575,8 +2619,10 @@
                     <div class="question">Why would the statement var counter; cause a compilation error?</div>
                     <div class="answer">
                         <ul>
-                            <li>When declaring a var type variable the compuler needs to be able to infer the type from the value being assigned to it.</li>
-                            <li>If a declaration does not assign an initial value to the variable the compiler will refuse to compile the statement because it has no value to infer the type from.</li>
+                            <li>When declaring a var type variable the compuler needs to be able to infer the type from
+                                the value being assigned to it.</li>
+                            <li>If a declaration does not assign an initial value to the variable the compiler will
+                                refuse to compile the statement because it has no value to infer the type from.</li>
                         </ul>
                     </div>
                 </li>
@@ -2585,9 +2631,11 @@
                     <div class="answer">
                         <ul>
                             <li>It is a type that has no name.</li>
-                            <li>Normally a type is defined and then the new keyword is used to make new instances of that type.</li>
+                            <li>Normally a type is defined and then the new keyword is used to make new instances of
+                                that type.</li>
                             <li>With anonymous types, the instance is created without the associated type.</li>
-                            <li>With LINQ, these objects can be returned as the results of queries. These objects contain custom result types that exactly match the requested data.</li>
+                            <li>With LINQ, these objects can be returned as the results of queries. These objects
+                                contain custom result types that exactly match the requested data.</li>
                             <li>The objects must be referred to using the var keyword.</li>
                         </ul>
                     </div>
@@ -2596,9 +2644,12 @@
                     <div class="question">What does "deferred execution" of a LINQ query mean?</div>
                     <div class="answer">
                         <ul>
-                            <li>A LINQ query will return a result that describes an iteration that can then be processed using a foreach construction.</li>
-                            <li>If the query contains many result values, it takes a long time (and a lot of memory) to actually generate that result when the query is performed.</li>
-                            <li>So instead, the iteration is evaluated and each result is generated in turn when it is to be consumed.</li>
+                            <li>A LINQ query will return a result that describes an iteration that can then be processed
+                                using a foreach construction.</li>
+                            <li>If the query contains many result values, it takes a long time (and a lot of memory) to
+                                actually generate that result when the query is performed.</li>
+                            <li>So instead, the iteration is evaluated and each result is generated in turn when it is
+                                to be consumed.</li>
                         </ul>
                     </div>
                 </li>
@@ -2607,7 +2658,8 @@
                     <div class="answer">
                         <ul>
                             <li>It creates a new dataset grouped around the value of one item in the input dataset.</li>
-                            <li>Aggregate operations can then be used on the group to do things such as count the number of tracks and sum the total length of tracks for each artist.</li>
+                            <li>Aggregate operations can then be used on the group to do things such as count the number
+                                of tracks and sum the total length of tracks for each artist.</li>
                         </ul>
                     </div>
                 </li>
@@ -2615,9 +2667,12 @@
                     <div class="question">What do the take and skip behaviours do?</div>
                     <div class="answer">
                         <ul>
-                            <li>The take behaviour creates a LINQ query that takes a particular number of items from the source set.</li>
-                            <li>The skip behaviour skips down the dataset by a given number of items before the query starts taking values.</li>
-                            <li>Used in combination they allow a programmer to work through a dataset one "page" at a time.</li>
+                            <li>The take behaviour creates a LINQ query that takes a particular number of items from the
+                                source set.</li>
+                            <li>The skip behaviour skips down the dataset by a given number of items before the query
+                                starts taking values.</li>
+                            <li>Used in combination they allow a programmer to work through a dataset one "page" at a
+                                time.</li>
                         </ul>
                     </div>
                 </li>
@@ -2627,7 +2682,8 @@
                     <div class="answer">
                         <ul>
                             <li>Both can be used interchangeably in programs.</li>
-                            <li>You can use both in a given program, depending on which is most convenient at any given point in the program.</li>
+                            <li>You can use both in a given program, depending on which is most convenient at any given
+                                point in the program.</li>
                         </ul>
                     </div>
                 </li>
@@ -2635,8 +2691,11 @@
                     <div class="question">What is the difference between the XDocument and XElement types?</div>
                     <div class="answer">
                         <ul>
-                            <li>The XDocument class can hold an XML document, including the elements that can be used to express a "fully formed" XML document, including metadata about the document contents.</li>
-                            <li>An XElement can contain an element in an XML document, which can contain a tree of other XElement objects.</li>
+                            <li>The XDocument class can hold an XML document, including the elements that can be used to
+                                express a "fully formed" XML document, including metadata about the document contents.
+                            </li>
+                            <li>An XElement can contain an element in an XML document, which can contain a tree of other
+                                XElement objects.</li>
                             <li>An XDocument contains XElement objects that contain the data in the document.</li>
                         </ul>
                     </div>
@@ -2646,7 +2705,8 @@
                     <div class="answer">
                         <ul>
                             <li>The XmlDocument implements a DOM (Document Object Model) for XML documents.</li>
-                            <li>The XDocument builds on the ability of an XmlDocument to allow it to work with LINQ.</li>
+                            <li>The XDocument builds on the ability of an XmlDocument to allow it to work with LINQ.
+                            </li>
                             <li>The same relationship applies between XmlElement and XElement.</li>
                         </ul>
                     </div>
@@ -2666,7 +2726,8 @@
                         <ul>
                             <li>It's very useful when storing small amounts of structured data.</li>
                             <li>The highscore table for a game can be stored as a serialized object.</li>
-                            <li>It would be less sensible to store large data strcutures as serialized objects, particularly if the object has to be repeatedly updated.</li>
+                            <li>It would be less sensible to store large data strcutures as serialized objects,
+                                particularly if the object has to be repeatedly updated.</li>
                         </ul>
                     </div>
                 </li>
@@ -2675,10 +2736,17 @@
                     <div class="answer">
                         <ul>
                             <li>Serialization takes a snapshot of the data elemnts in a particular type.</li>
-                            <li>During the deserialization process a new instance of the serialized type is created. This process requires the type to be deserialzied to be available on the receiving machine.</li>
-                            <li>With binary serialization, the binary file contains type information that is compared with type information in the destination class. If this information doesn't match, the deserialization fails.</li>
-                            <li>In XML and JSON serialization, this matching does not take place. These types can be regarded as more portable, at the expense of security.</li>
-                            <li>The DataContract serialization process allows the serialized object to contain type information that can be checked during deserialization, but the format of the serialized file is still human readable XML.</li>
+                            <li>During the deserialization process a new instance of the serialized type is created.
+                                This process requires the type to be deserialzied to be available on the receiving
+                                machine.</li>
+                            <li>With binary serialization, the binary file contains type information that is compared
+                                with type information in the destination class. If this information doesn't match, the
+                                deserialization fails.</li>
+                            <li>In XML and JSON serialization, this matching does not take place. These types can be
+                                regarded as more portable, at the expense of security.</li>
+                            <li>The DataContract serialization process allows the serialized object to contain type
+                                information that can be checked during deserialization, but the format of the serialized
+                                file is still human readable XML.</li>
                         </ul>
                     </div>
                 </li>
@@ -2686,13 +2754,23 @@
                     <div class="question">Can any data type be serialized?</div>
                     <div class="answer">
                         <ul>
-                            <li>Binary serialization can store reference types as references.</li>
-                            <li>XML, JSON and DataContract serialization will resolve references to obtain values that are then serialized.</li>
+                            <li>Binary serialization can store any type of data, but XML serialization is restricted to
+                                numeric and text types.</li>
                         </ul>
                     </div>
                 </li>
                 <li class="question-answer">
                     <div class="question">Can value types and reference types be stored using serialization?</div>
+                    <div class="answer">
+                        <ul>
+                            <li>Binary serialization can store reference types as references.</li>
+                            <li>XML, JSON and DataContract serialization will resolve references to obtain values that
+                                are then serialized.</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="question-answer">
+                    <div class="question">Does serialization store all of the elements of a class?</div>
                     <div class="answer">
                         <ul>
                             <li>Serialization does not store the methods in a class, or any static elements.</li>
@@ -2702,21 +2780,20 @@
                     </div>
                 </li>
                 <li class="question-answer">
-                    <div class="question">Does serialization store al of the elements of a class?</div>
-                    <div class="answer">
-                        <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="question-answer">
                     <div class="question">When should you use binary serialization and when should you use XML
                         serialization?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>Binary serialization is very useful for taking a complete snapshot of the data content
+                                of a class.</li>
+                            <li>It forces the serialize and deserialize process to make use of identical classes.</li>
+                            <li>It is very useful for transferring an object from one process to another, where the
+                                serialized data stream will not be persisted.</li>
+                            <li>I'm not keen on using it to persist data for long periods of time because it is
+                                vulnerable to changes in the classes used.</li>
+                            <li>Text serialization such as XMl is very sueful if you want to trasnfer data from one
+                                language or host to another. It is highly portable and useful for storing small amounts
+                                of structured data.</li>
                         </ul>
                     </div>
                 </li>
@@ -2725,8 +2802,12 @@
                     </div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>Binary serialization produces a stream that represents the entire contents of a class,
+                                including all private content.</li>
+                            <li>With an understanding of the content, it is posible that it can be compromised, allowing
+                                the private content of an object to be viewed and changed.</li>
+                            <li>Just because you can't view the contents of a binary serialized object with a text
+                                editor does not mean that it is immune to tampering.</li>
                         </ul>
                     </div>
                 </li>
@@ -2734,8 +2815,10 @@
                     <div class="question">Can you use a custom serializer when serializing to an XML document?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>A custom serializer allows the programmer to get control of the serializaiton process
+                                either by creating their own process or by getting control during the phases of the
+                                process.</li>
+                            <li>These customization are only possible when using binary data serialization.</li>
                         </ul>
                     </div>
                 </li>
@@ -2743,8 +2826,9 @@
                     <div class="question">Is it possible to encrypt a serialized class?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>All serialziers use data streams to transfer data being serialized and deserialized.
+                            </li>
+                            <li>It is possible to use an encrypting stream to compress serialized data.</li>
                         </ul>
                     </div>
                 </li>
@@ -2753,8 +2837,14 @@
                         serializer?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>Both XMl and DataContract serializers produce XML output.</li>
+                            <li>With XML, if a class is marked as serializable, all of the data elements in the class
+                                will be serialized and the programmer must mark as NonSerialized any data members that
+                                should not be serialized.</li>
+                            <li>In the case of DataContract serialization, the programmer must mark elements to be
+                                serialized.</li>
+                            <li>The other function differnece is that private data memebers can be serialized using
+                                DataContract serialization.</li>
                         </ul>
                     </div>
                 </li>
@@ -2806,7 +2896,8 @@
                     </div>
                 </li>
                 <li class="question-answer">
-                    <div class="question">The array is one element too small. How do you add a new element on the end of the array?</div>
+                    <div class="question">The array is one element too small. How do you add a new element on the end of
+                        the array?</div>
                     <div class="answer">
                         <ul>
                             <li>ANSWER</li>
@@ -2815,7 +2906,8 @@
                     </div>
                 </li>
                 <li class="question-answer">
-                    <div class="question">Why do you use Length to get the length of an array and Count to get the number of items in an ArrayList?</div>
+                    <div class="question">Why do you use Length to get the length of an array and Count to get the
+                        number of items in an ArrayList?</div>
                     <div class="answer">
                         <ul>
                             <li>ANSWER</li>
