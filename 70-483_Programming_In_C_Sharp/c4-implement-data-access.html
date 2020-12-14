@@ -2664,8 +2664,9 @@
                     <div class="question">When should you use serialization in your program?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>It's very useful when storing small amounts of structured data.</li>
+                            <li>The highscore table for a game can be stored as a serialized object.</li>
+                            <li>It would be less sensible to store large data strcutures as serialized objects, particularly if the object has to be repeatedly updated.</li>
                         </ul>
                     </div>
                 </li>
@@ -2673,8 +2674,11 @@
                     <div class="question">Do you need a copy of the type to read a serialized object?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>Serialization takes a snapshot of the data elemnts in a particular type.</li>
+                            <li>During the deserialization process a new instance of the serialized type is created. This process requires the type to be deserialzied to be available on the receiving machine.</li>
+                            <li>With binary serialization, the binary file contains type information that is compared with type information in the destination class. If this information doesn't match, the deserialization fails.</li>
+                            <li>In XML and JSON serialization, this matching does not take place. These types can be regarded as more portable, at the expense of security.</li>
+                            <li>The DataContract serialization process allows the serialized object to contain type information that can be checked during deserialization, but the format of the serialized file is still human readable XML.</li>
                         </ul>
                     </div>
                 </li>
@@ -2682,17 +2686,18 @@
                     <div class="question">Can any data type be serialized?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>Binary serialization can store reference types as references.</li>
+                            <li>XML, JSON and DataContract serialization will resolve references to obtain values that are then serialized.</li>
                         </ul>
                     </div>
                 </li>
                 <li class="question-answer">
-                    <div class="question">Can vlaue types and reference types be stored using serialization?</div>
+                    <div class="question">Can value types and reference types be stored using serialization?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>Serialization does not store the methods in a class, or any static elements.</li>
+                            <li>Binary serialization will store private data memebers of a type.</li>
+                            <li>DataContract Serialization can store private data members as XML text.</li>
                         </ul>
                     </div>
                 </li>
