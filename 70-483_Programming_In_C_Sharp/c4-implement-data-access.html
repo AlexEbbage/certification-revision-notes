@@ -2584,8 +2584,11 @@
                     <div class="question">What is an anonymous type?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>It is a type that has no name.</li>
+                            <li>Normally a type is defined and then the new keyword is used to make new instances of that type.</li>
+                            <li>With anonymous types, the instance is created without the associated type.</li>
+                            <li>With LINQ, these objects can be returned as the results of queries. These objects contain custom result types that exactly match the requested data.</li>
+                            <li>The objects must be referred to using the var keyword.</li>
                         </ul>
                     </div>
                 </li>
@@ -2593,8 +2596,9 @@
                     <div class="question">What does "deferred execution" of a LINQ query mean?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>A LINQ query will return a result that describes an iteration that can then be processed using a foreach construction.</li>
+                            <li>If the query contains many result values, it takes a long time (and a lot of memory) to actually generate that result when the query is performed.</li>
+                            <li>So instead, the iteration is evaluated and each result is generated in turn when it is to be consumed.</li>
                         </ul>
                     </div>
                 </li>
@@ -2602,8 +2606,8 @@
                     <div class="question">What does the group behaviour do in a LINQ query?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>It creates a new dataset grouped around the value of one item in the input dataset.</li>
+                            <li>Aggregate operations can then be used on the group to do things such as count the number of tracks and sum the total length of tracks for each artist.</li>
                         </ul>
                     </div>
                 </li>
@@ -2611,18 +2615,19 @@
                     <div class="question">What do the take and skip behaviours do?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>The take behaviour creates a LINQ query that takes a particular number of items from the source set.</li>
+                            <li>The skip behaviour skips down the dataset by a given number of items before the query starts taking values.</li>
+                            <li>Used in combination they allow a programmer to work through a dataset one "page" at a time.</li>
                         </ul>
                     </div>
                 </li>
                 <li class="question-answer">
-                    <div class="question">What is the differnece between query comprehension and method-based LINQ
+                    <div class="question">What is the difference between query comprehension and method-based LINQ
                         queries?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>Both can be used interchangeably in programs.</li>
+                            <li>You can use both in a given program, depending on which is most convenient at any given point in the program.</li>
                         </ul>
                     </div>
                 </li>
@@ -2630,8 +2635,9 @@
                     <div class="question">What is the difference between the XDocument and XElement types?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>The XDocument class can hold an XML document, including the elements that can be used to express a "fully formed" XML document, including metadata about the document contents.</li>
+                            <li>An XElement can contain an element in an XML document, which can contain a tree of other XElement objects.</li>
+                            <li>An XDocument contains XElement objects that contain the data in the document.</li>
                         </ul>
                     </div>
                 </li>
@@ -2639,8 +2645,9 @@
                     <div class="question">What is the difference between the XmlDocument and XDocument types?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>The XmlDocument implements a DOM (Document Object Model) for XML documents.</li>
+                            <li>The XDocument builds on the ability of an XmlDocument to allow it to work with LINQ.</li>
+                            <li>The same relationship applies between XmlElement and XElement.</li>
                         </ul>
                     </div>
                 </li>
