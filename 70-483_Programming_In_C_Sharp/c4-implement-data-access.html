@@ -2415,8 +2415,8 @@
                     <div class="question">When should you use the HttpWebRequest class to contact a web server?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>The HttpWebRequest class is extremely customizable and provides much more flexibility that the WebClient class when creating requests to be sent to web servers.</li>
+                            <li>Some forms of web request can only be sent using an HttpWebRequest.</li>
                         </ul>
                     </div>
                 </li>
@@ -2424,8 +2424,7 @@
                     <div class="question">Can a program make web requests asynchronously?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>Yes. The WebClient and HttpClient classes support the use of async and await making asynchronous web requests.</li>
                         </ul>
                     </div>
                 </li>
@@ -2433,8 +2432,8 @@
                     <div class="question">Why is it a good idea to perform file operations asynchronously?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>Because they are frequently the slowest actions performed on a computer.</li>
+                            <li>Writing to a physical disk takes much longer than calculations, and disk transactions may take much longer if the system is busy.</li>
                         </ul>
                     </div>
                 </li>
@@ -2449,11 +2448,12 @@
             <p>Here are some questions to consider:</p>
             <ol>
                 <li class="question-answer">
-                    <div class="question">Does each suer of a database need their own copy of the data?</div>
+                    <div class="question">Does each user of a database need their own copy of the data?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>A database server provides access to a central store of data.</li>
+                            <li>It is a bad idea for each user to have their own copy of the data as it can become updated in different ways.</li>
+                            <li>It is possible to keep a local copy of a database for use when the system is not connected to a network and then apply the updates to a database when the connection is available.</li>
                         </ul>
                     </div>
                 </li>
@@ -2462,8 +2462,9 @@
                         same time?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>A database server is designed to ensure that the stored data is always consistent.</li>
+                            <li>If two users updated a particular record at the same time the updates wll be performed in sequence and the server will make sure the data isn't corrupted.</li>
+                            <li>It is possible for a database user to flag actions as atomic so they are either completed or the database is "rolled back" to the state it had before the action.</li>
                         </ul>
                     </div>
                 </li>
@@ -2471,8 +2472,8 @@
                     <div class="question">What would happen if two items in a database had the same ID value?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>If the ID of an item is being used to uniquely identify the item, it is impossible to create two items with the same ID.</li>
+                            <li>The database will generate ID values for items automatically when they are added to the database.</li>
                         </ul>
                     </div>
                 </li>
@@ -2480,8 +2481,9 @@
                     <div class="question">Why do you need to protect your database connection string?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>A database connection string is used to create a connection to the database.</li>
+                            <li>If the database is not on the same computer as the program using it, the connection string will include the network address of the server and the authentication information.</li>
+                            <li>Armed with this information anyone can create a connection to the database and send it SQL commands, wich would be a bad thing.</li>
                         </ul>
                     </div>
                 </li>
