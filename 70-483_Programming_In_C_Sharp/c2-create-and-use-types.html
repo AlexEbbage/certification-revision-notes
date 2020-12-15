@@ -34,47 +34,47 @@
                     set to 100.</li>
                 <li>Structure variables are managed by value and class variables are managed by reference.</li>
             </ul>
-            <h4>Value and Referene Types in .NET</h3>
-                <ul>
-                    <li>A good example of a value type is the DateTime structure provided by the .NET library.</li>
-                    <li>You could represent date values in the form of a collection of individual values, but assigning
-                        one date to another would be time-consuming as the program would have to transfer each value.
-                    </li>
-                    <li>Having a DateTime type means you can move a date value between variables with a single
-                        assignment. During a DateTime assignment all the values that represent the date are copied into
-                        the destination variable.</li>
-                    <li>A good example of a reference type is the Bitmap class from the System.Drawing library in .NET.
-                    </li>
-                    <li>The Bitmap class is used to create objects that hold the pixels which make up an image which
-                        could be millions.</li>
-                    <li>If a Bitmap is held as a value type, when one is assigned to another, all the pixels in the
-                        source Bitmap must be copied from the source image into the destination.</li>
-                    <li>As they are managed by reference, an assignment simply makes the destination reference refer to
-                        the same object as the source reference.</li>
-                </ul>
-                <h4>Type Design</h3>
-                    <ul>
-                        <li>Using the design of a space shooter game as an example...</li>
-                        <li>The location of the alien on the screen should be a value type, as you'd want the position
-                            as a single value. You don't want to share coordinates between aliens.</li>
-                        <li>A sound effect would be a reference type, as it'd store a large array of integer data which
-                            represent a given sound. You may want serveral aliens to share the same sound.</li>
-                        <li>In C#, value types are enumerated types and references. Reference types are classes.</li>
-                    </ul>
-                    <h4>Immutablity in Types</h3>
-                        <ul>
-                            <li>An immutable type is one whose instances cannot be changed.</li>
-                            <li>The DateTime structure is an immutable type. Once an isntance is created you cannot
-                                change any elements of that instance.</li>
-                            <li>The only way to edit them is to create a new DateTime value that contains the updated
-                                values.</li>
-                            <li>Changing the values of an immutable type is less efficient as it requires the creation
-                                of a new object each time.</li>
-                            <li>However, it removes the possiblity of elements in a variable changing once created.</li>
-                            <li>They are advantagous when writing concurrent programs as they can never be corrupted
-                                because they can never be changed.</li>
-                            <li>The string type in C# is also immutable.</li>
-                        </ul>
+            <h4>Value and Referene Types in .NET</h4>
+            <ul>
+                <li>A good example of a value type is the DateTime structure provided by the .NET library.</li>
+                <li>You could represent date values in the form of a collection of individual values, but assigning
+                    one date to another would be time-consuming as the program would have to transfer each value.
+                </li>
+                <li>Having a DateTime type means you can move a date value between variables with a single
+                    assignment. During a DateTime assignment all the values that represent the date are copied into
+                    the destination variable.</li>
+                <li>A good example of a reference type is the Bitmap class from the System.Drawing library in .NET.
+                </li>
+                <li>The Bitmap class is used to create objects that hold the pixels which make up an image which
+                    could be millions.</li>
+                <li>If a Bitmap is held as a value type, when one is assigned to another, all the pixels in the
+                    source Bitmap must be copied from the source image into the destination.</li>
+                <li>As they are managed by reference, an assignment simply makes the destination reference refer to
+                    the same object as the source reference.</li>
+            </ul>
+            <h4>Type Design</h4>
+            <ul>
+                <li>Using the design of a space shooter game as an example...</li>
+                <li>The location of the alien on the screen should be a value type, as you'd want the position
+                    as a single value. You don't want to share coordinates between aliens.</li>
+                <li>A sound effect would be a reference type, as it'd store a large array of integer data which
+                    represent a given sound. You may want serveral aliens to share the same sound.</li>
+                <li>In C#, value types are enumerated types and references. Reference types are classes.</li>
+            </ul>
+            <h4>Immutablity in Types</h4>
+            <ul>
+                <li>An immutable type is one whose instances cannot be changed.</li>
+                <li>The DateTime structure is an immutable type. Once an isntance is created you cannot
+                    change any elements of that instance.</li>
+                <li>The only way to edit them is to create a new DateTime value that contains the updated
+                    values.</li>
+                <li>Changing the values of an immutable type is less efficient as it requires the creation
+                    of a new object each time.</li>
+                <li>However, it removes the possiblity of elements in a variable changing once created.</li>
+                <li>They are advantagous when writing concurrent programs as they can never be corrupted
+                    because they can never be changed.</li>
+                <li>The string type in C# is also immutable.</li>
+            </ul>
         </div>
         <div>
             <h3>Creating Value Types</h3>
