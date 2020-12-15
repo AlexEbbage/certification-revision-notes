@@ -2863,8 +2863,11 @@
                     <div class="question">When should you use a collection, and when should you use a database?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>A database provids sotrage where database queries are used to manipulate the data stored. The data in the database is moved into the program for processing.</li>
+                            <li>A collection is stored in the memory of the computer and can therefore be accessed much more quickly.</li>
+                            <li>A database is good for very large amounts of data that won't necessaril fit in the memory and have to be shared with multiple users.</li>
+                            <li>In-memory collections have performance many times that of data access from a database, but are limited in capacity to the memory of the computer.</li>
+                            <li>One major attraction of a database is the ease with which queries can be used to extract data. However, LINQ can be used on in-memory collections.</li>
                         </ul>
                     </div>
                 </li>
@@ -2872,8 +2875,7 @@
                     <div class="question">Can you create an array of arrays?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>Yes. Each of the arrays in the array can consist of a different length (a jagged array).</li>
                         </ul>
                     </div>
                 </li>
@@ -2881,17 +2883,16 @@
                     <div class="question">Can you create a twenty-dimensional array?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>Yes, the C# compiler will not complain.</li>
+                            <li>However, it might use up a lot of memory, and it would certainly be very hard to visualize.</li>
                         </ul>
                     </div>
                 </li>
                 <li class="question-answer">
-                    <div class="question">Why do the program keep crashing with an array index error?</div>
+                    <div class="question">Why does the program keep crashing with an array index error?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>C# arrays are zero-indexed. If an array has 4 elements, there is no element with the index value of 4.</li>
                         </ul>
                     </div>
                 </li>
@@ -2900,8 +2901,8 @@
                         the array?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>It is impossible to change the size of an array once it has been created.</li>
+                            <li>A larger array must be created, the contents of the old array must be copied over, and then the new element can be added to the new array.</li>
                         </ul>
                     </div>
                 </li>
