@@ -1,5 +1,5 @@
 <div>
-    <h1 id="summaries">Thought Experiements</h1>
+    <h1 id="thought-experiments">Thought Experiements</h1>
     <ul>
         <li>
             <a href="#c1">Chapter 1: Manage Program Flow</a>
@@ -2765,8 +2765,16 @@
                     <div class="question">When should you use a collection, and when should you use a database?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>A database provids sotrage where database queries are used to manipulate the data
+                                stored. The data in the database is moved into the program for processing.</li>
+                            <li>A collection is stored in the memory of the computer and can therefore be accessed much
+                                more quickly.</li>
+                            <li>A database is good for very large amounts of data that won't necessaril fit in the
+                                memory and have to be shared with multiple users.</li>
+                            <li>In-memory collections have performance many times that of data access from a database,
+                                but are limited in capacity to the memory of the computer.</li>
+                            <li>One major attraction of a database is the ease with which queries can be used to extract
+                                data. However, LINQ can be used on in-memory collections.</li>
                         </ul>
                     </div>
                 </li>
@@ -2774,8 +2782,8 @@
                     <div class="question">Can you create an array of arrays?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>Yes. Each of the arrays in the array can consist of a different length (a jagged array).
+                            </li>
                         </ul>
                     </div>
                 </li>
@@ -2783,17 +2791,18 @@
                     <div class="question">Can you create a twenty-dimensional array?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>Yes, the C# compiler will not complain.</li>
+                            <li>However, it might use up a lot of memory, and it would certainly be very hard to
+                                visualize.</li>
                         </ul>
                     </div>
                 </li>
                 <li class="question-answer">
-                    <div class="question">Why do the program keep crashing with an array index error?</div>
+                    <div class="question">Why does the program keep crashing with an array index error?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>C# arrays are zero-indexed. If an array has 4 elements, there is no element with the
+                                index value of 4.</li>
                         </ul>
                     </div>
                 </li>
@@ -2802,8 +2811,9 @@
                         the array?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>It is impossible to change the size of an array once it has been created.</li>
+                            <li>A larger array must be created, the contents of the old array must be copied over, and
+                                then the new element can be added to the new array.</li>
                         </ul>
                     </div>
                 </li>
@@ -2812,8 +2822,9 @@
                         number of items in an ArrayList?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>An array has the same size all the time so you can get its length.</li>
+                            <li>A dynamic collection such as ArrayList can change its size at any time, so the progrma
+                                will actually have to count the number of items to found out the current size.</li>
                         </ul>
                     </div>
                 </li>
@@ -2821,8 +2832,12 @@
                     <div class="question">How does a Dictionary actually work?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>The Dictionary class uses a hashing algorithm to convert the key value for the item
+                                being stored into a number that will give the location of the time.</li>
+                            <li>When searching for the location represented by a key, the dictionary doesn't have to
+                                search through a list of keys to find the one selected.</li>
+                            <li>It just has to has the supplied key value to calculate exactly there the item is stored.
+                            </li>
                         </ul>
                     </div>
                 </li>
@@ -2830,8 +2845,13 @@
                     <div class="question">When would you use a set?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>If you want to item properties that may grow and change over time, such as with a tag
+                                metadata.</li>
+                            <li>A user can generate new tags as the application is used, and the set provides operators
+                                that can search for items.</li>
+                            <li>The difficulty with tags is that it may be difficult to store them in fixed sized
+                                storage such as databases.</li>
+                            <li>LINQ operators can be used in place of set operations.</li>
                         </ul>
                     </div>
                 </li>
@@ -2839,8 +2859,10 @@
                     <div class="question">What is the difference between a stack and a queue?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>A queue uses the FIFO (First-In-First-Out) ordering.</li>
+                            <li>A stack uses the LIFO (Last-In-First-Out) ordering.</li>
+                            <li>The order of a collecton can be reversed by pushing each item onto a stack and then
+                                popping them all off.</li>
                         </ul>
                     </div>
                 </li>
@@ -2848,8 +2870,8 @@
                     <div class="question">Could you use a List to store every type of data in a program?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>Yes. However, a substantial amount of extra work is required to get a list to perform
+                                like a set or a dictionary.</li>
                         </ul>
                     </div>
                 </li>
