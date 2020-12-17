@@ -1636,8 +1636,9 @@
                         MusicTracks application that were implemented using ASP.NET?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>It can be added as a simple property in the MusicTrack class.</li>
+                            <li>A MusicTrack isntance contains a "foreign key" that identifies the particular Publisher record associated with the track.</li>
+                            <li>Onece the changes are made, the new class can migrate into the Entity Framework model for the application, and the web page views updated to show the new publisher information.</li>
                         </ul>
                     </div>
                 </li>
@@ -1646,8 +1647,8 @@
                         particular artist in the MusicTracks application that you implemented using ASP.NET?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>This requires a new view that takes an artist and the tracks to be displayed.</li>
+                            <li>The behaviour to obtain the ifnormation is added to an existing or new controller class.</li>
                         </ul>
                     </div>
                 </li>
@@ -1656,8 +1657,7 @@
                         public?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>This is only really acceptable if you're highly concerned about performance, and th effect of damage to the object is not critical.</li>
                         </ul>
                     </div>
                 </li>
@@ -1665,8 +1665,8 @@
                     <div class="question">Is it always bad for a method to have "side effects"?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>Side effects of methods are changes made to the environment around it.</li>
+                            <li>Using side effect can improve performance, and a method might have an effect on an object that is passed as a parameter, but try to avoid them and they cause confusion to new developers.</li>
                         </ul>
                     </div>
                 </li>
@@ -1675,8 +1675,9 @@
                     </div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>An object may contain references to other objects.</li>
+                            <li>A shallow copy of the object copies the references themselves.</li>
+                            <li>A deep copy copies all the objects, and each of objects that the references refer to.</li>
                         </ul>
                     </div>
                 </li>
