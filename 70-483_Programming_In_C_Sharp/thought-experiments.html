@@ -1586,8 +1586,9 @@
                     <div class="question">Can a JSON document contain binary data?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>Binary data includes things like images and sounds, which are comprised of a large number of values.</li>
+                            <li>A JSON document can only contain elements that can be represented by text.</li>
+                            <li>so binary values are converted into text using encoding by JSON.NET before they are added to the document</li>
                         </ul>
                     </div>
                 </li>
@@ -1595,8 +1596,7 @@
                     <div class="question">Can a JSON document contain a structure?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>Yes, it can contain class or struct types.</li>
                         </ul>
                     </div>
                 </li>
@@ -1604,8 +1604,10 @@
                     <div class="question">Does a program run faster if it uses untyped collection classes?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>An untyped collection manages all of the elements that it stores in term of references to objects.</li>
+                            <li>It may offer a slight increase in speed to adding and removing objects from the collection, as the collection won't be performing any type validation.</li>
+                            <li>However, the speed increase will be barely measurable.</li>
+                            <li>The benefits of using typed collections and discovering type errors at compile time, rather than when the program runs, far outwigh any performance gains.</li>
                         </ul>
                     </div>
                 </li>
@@ -1614,8 +1616,8 @@
                         What data structure do you use?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>By using a dicitonary of integers indexed on strings.</li>
+                            <li>As the document is processed and each word is isolated, if the string is not found in the dictionary, add it with a value of 1, otherwise, increment the value.</li>
                         </ul>
                     </div>
                 </li>
@@ -1624,8 +1626,8 @@
                         them?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>The models holds the data. The view displays information about the model to the user. The controller generates the information to populate the view and responds to messages from the view.</li>
+                            <li>In ASP.NET terms, the model is the database connection. The views are the HTML web endpoints. The controllers are C# classes bound to events produced by the views.</li>
                         </ul>
                     </div>
                 </li>
