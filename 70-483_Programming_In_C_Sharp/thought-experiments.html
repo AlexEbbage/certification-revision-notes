@@ -1880,18 +1880,18 @@
                     <div class="question">How should you organize the elements in my assemblies?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>It makes sense to organize the elements in an assembly on the basis of function.</li>
+                            <li>The data access elements can be placed in one assembly, the business model behaviours in another and the user interface in a third.</li>
+                            <li>Be mindful of dependencies when designing assemblies, ideally you should not have two assemblies that each contain classes that are dependent on each other.</li>
                         </ul>
                     </div>
                 </li>
                 <li class="question-answer">
-                    <div class="question">What is the difference between an seembly written in C# and one written in
+                    <div class="question">What is the difference between an assembly written in C# and one written in
                         Visual Basic .NET?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>The assembly contains the compiled code so there should be no difference in the MSIL produced for the different languages.</li>
                         </ul>
                     </div>
                 </li>
@@ -1899,8 +1899,8 @@
                     <div class="question">Can a library assembly contain a main method?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>A library method should not have an entry point.</li>
+                            <li>An assembly is always loaded by a program that is already executing.</li>
                         </ul>
                     </div>
                 </li>
@@ -1909,8 +1909,8 @@
                         well as any other assembly libraries that it uses?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>An assembly is not just dependent on components that we have written. It can also be dependent on the behaviour of system routines.</li>
+                            <li>If an assembly specifies the particular version of a system library that it will use this means that it will not be affected by changes to that library.</li>
                         </ul>
                     </div>
                 </li>
@@ -1919,8 +1919,8 @@
                         start up more quickly if it didn't have to be compiled before it can be run?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>MSIL adds a great deal of flexibility. A system can support multiple programming languages and can also execute on a range of systems.</li>
+                            <li>The use of MSIL also makes it easy to create an application out of several different programming languages.</li>
                         </ul>
                     </div>
                 </li>
