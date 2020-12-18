@@ -1730,8 +1730,8 @@
                     <div class="question">When in a project should you consider the use of encryption?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>Encryption should be taken into consideration from the start of the development process.</li>
+                            <li>A risk-based approach to design is good. Find the chances of exploits occurring and the impact they'd have.</li>
                         </ul>
                     </div>
                 </li>
@@ -1739,8 +1739,9 @@
                     <div class="question">What is the difference between encoding and encryption?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>Encoding is a process which takes data and represents it in some way, such as UNICODE which encoding character data into particular numeric values.</li>
+                            <li>Encryption is a process that takes data and converts it into a form where it must be decrypted before it cna be read.</li>
+                            <li>In other words, encoding keeps the meaning of the data, whereas encryption tries to hide it.</li>
                         </ul>
                     </div>
                 </li>
@@ -1748,8 +1749,9 @@
                     <div class="question">Is it really impossible to encrypt data without using a key?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>Encryption without a key is very dangerous, and very open to attack.</li>
+                            <li>This technology is more often call "obfuscation", which is the process of making something hard to read.</li>
+                            <li>Obfuscation is used to hide compiled code you intend to distribute and don't want other developers to be able to decompile and read.</li>
                         </ul>
                     </div>
                 </li>
@@ -1757,17 +1759,18 @@
                     <div class="question">Can you encrypt using a private key?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>You can, but since the public key is public, there is not a lot of point in doing this for data protection, as anyone can obtain your public key and use it to decrypt the data.</li>
+                            <li>However, encrypting with a private key is useful if you want to prove the origins of a document. It is the basis of document signing.</li>
                         </ul>
                     </div>
                 </li>
                 <li class="question-answer">
-                    <div class="question">What happes if you lose your private key?</div>
+                    <div class="question">What happens if you lose your private key?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>If you lose a private key you will be unable to read any messages that have been encoded with your public key.</li>
+                            <li>There is no "back door" that will allow you to recover your key from your public key.</li>
+                            <li>This is why computers have key stores and certificate stores built into them, so that the user doesn't need to worry about this.</li>
                         </ul>
                     </div>
                 </li>
