@@ -1832,8 +1832,8 @@
                     <div class="question">Can you prove your identity without using a certificaiton authority?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>You can but you'd have to physically meet them and show them some means of identity.</li>
+                            <li>Doing this and handing them a memory drive with the key files on will work.</li>
                         </ul>
                     </div>
                 </li>
@@ -1841,8 +1841,8 @@
                     <div class="question">Why can't you use asymmetric encryption to encrypt a stream?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>Asymmetric encryption shouldn't be used to encrypt large amounts of data as it might be passed through a stream.</li>
+                            <li>Asymmetric encryption is demanding on the processor and vulnerable to attack if used for large amounts of data.</li>
                         </ul>
                     </div>
                 </li>
@@ -1850,8 +1850,7 @@
                     <div class="question">What does it mean when a hashing algorithm is considered compromised?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>It means that techniques have been discovered that allow the contents of a document to be changed without the hash value (manifest) changing.</li>
                         </ul>
                     </div>
                 </li>
@@ -1859,8 +1858,11 @@
                     <div class="question">How would you write your own hasing algorithm for your own data types?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>The object cass contains a virtual method called GetHash(), which is used within .NET to calculate a value that represents the content of the object.</li>
+                            <li>This method can be overloaded so that it uses the contents of the object to gnerate a value that represents those contents.</li>
+                            <li>However, it is not possible to create a cryptohraphically secure hash value this way as the result of the GetHash method is only a single integer.</li>
+                            <li>An integer value is useful in a data management context, but for document signing you need a bigger hash code.</li>
+                            <li>So, you have to create your own hashing technology. One way of doing this is to combine elements in the object into a block of bytes and then use an SHA2 method to create a manifest from this block.</li>
                         </ul>
                     </div>
                 </li>
