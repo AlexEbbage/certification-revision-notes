@@ -1694,8 +1694,9 @@
                     <div class="question">When should you consider risk in software development?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>Risk should be considered at all stages of development.</li>
+                            <li>It is not enough to perform risk analysis at the start of a project and then assume all risks have been addressed.</li>
+                            <li>Risks should be monitored and the search for new risks should continue through all stages of development.</li>
                         </ul>
                     </div>
                 </li>
@@ -1703,8 +1704,8 @@
                     <div class="question">What is a regular expression?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>Regular expressions can be used to match the contents of a string.</li>
+                            <li>The are well suited for data validation and search queries.</li>
                         </ul>
                     </div>
                 </li>
@@ -1729,8 +1730,8 @@
                     <div class="question">When in a project should you consider the use of encryption?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>Encryption should be taken into consideration from the start of the development process.</li>
+                            <li>A risk-based approach to design is good. Find the chances of exploits occurring and the impact they'd have.</li>
                         </ul>
                     </div>
                 </li>
@@ -1738,8 +1739,9 @@
                     <div class="question">What is the difference between encoding and encryption?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>Encoding is a process which takes data and represents it in some way, such as UNICODE which encoding character data into particular numeric values.</li>
+                            <li>Encryption is a process that takes data and converts it into a form where it must be decrypted before it cna be read.</li>
+                            <li>In other words, encoding keeps the meaning of the data, whereas encryption tries to hide it.</li>
                         </ul>
                     </div>
                 </li>
@@ -1747,8 +1749,9 @@
                     <div class="question">Is it really impossible to encrypt data without using a key?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>Encryption without a key is very dangerous, and very open to attack.</li>
+                            <li>This technology is more often call "obfuscation", which is the process of making something hard to read.</li>
+                            <li>Obfuscation is used to hide compiled code you intend to distribute and don't want other developers to be able to decompile and read.</li>
                         </ul>
                     </div>
                 </li>
@@ -1756,17 +1759,18 @@
                     <div class="question">Can you encrypt using a private key?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>You can, but since the public key is public, there is not a lot of point in doing this for data protection, as anyone can obtain your public key and use it to decrypt the data.</li>
+                            <li>However, encrypting with a private key is useful if you want to prove the origins of a document. It is the basis of document signing.</li>
                         </ul>
                     </div>
                 </li>
                 <li class="question-answer">
-                    <div class="question">What happes if you lose your private key?</div>
+                    <div class="question">What happens if you lose your private key?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>If you lose a private key you will be unable to read any messages that have been encoded with your public key.</li>
+                            <li>There is no "back door" that will allow you to recover your key from your public key.</li>
+                            <li>This is why computers have key stores and certificate stores built into them, so that the user doesn't need to worry about this.</li>
                         </ul>
                     </div>
                 </li>
@@ -1775,8 +1779,13 @@
                         you securely send a large document to someone you've never met?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>Asymmetric encryption is not suitable for encrypting large documents for two reasons:
+                                <ul>
+                                    <li>The process is quite processor intensive.</li>
+                                    <li>The larger the encrypted message the more vulnerable that message is to a "brute force" attack to determine the keys used to encrypt it.</li>
+                                </ul>
+                            </li>
+                            <li>If you want to send someone a large document, use asymmetric encryption to securely obtain a symmetric key from the document recipient and then use this key to send the document using asymmetric encryption.</li>
                         </ul>
                     </div>
                 </li>
@@ -1784,8 +1793,9 @@
                     <div class="question">Does signing a document keep it secret?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>Signing a document is a way of proving that the document is authentic.</li>
+                            <li>It allows the recipient to be confident that they know who sent the document and that the contents of the document has not been tampered with.</li>
+                            <li>However, signing a document does not protect the contents of the document from being read.</li>
                         </ul>
                     </div>
                 </li>
@@ -1793,8 +1803,9 @@
                     <div class="question">What is "padding"?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>The same message encrypted using RAS always produces the same output.</li>
+                            <li>Padding adds randomness to a message so that the same text always appears different.</li>
+                            <li>It is added and removed by the encryption and decryption process.</li>
                         </ul>
                     </div>
                 </li>
@@ -1802,18 +1813,18 @@
                     <div class="question">Is it hard to add encryption to an existing .NET application?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>Add encryption to the movement of data is easy because the encryption process for symmetric encryption is impemented as a stream that can be inserted into the data movement process.</li>
+                            <li>The hardest aspect of adding encryption will be the management of keys.</li>
                         </ul>
                     </div>
                 </li>
                 <li class="question-answer">
-                    <div class="question">is it hard to change from one encryption algorithm to another in a .NET
+                    <div class="question">Is it hard to change from one encryption algorithm to another in a .NET
                         program?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>All the encryption in the System.Security.Cryptography namespace are child classes of the SymmetricAlgorithm class, so switching to another encryption method is easy.</li>
+                            <li>However, you may have to handle existing data that has been encoded using the previous algorithm.</li>
                         </ul>
                     </div>
                 </li>
@@ -1821,8 +1832,8 @@
                     <div class="question">Can you prove your identity without using a certificaiton authority?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>You can but you'd have to physically meet them and show them some means of identity.</li>
+                            <li>Doing this and handing them a memory drive with the key files on will work.</li>
                         </ul>
                     </div>
                 </li>
@@ -1830,8 +1841,8 @@
                     <div class="question">Why can't you use asymmetric encryption to encrypt a stream?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>Asymmetric encryption shouldn't be used to encrypt large amounts of data as it might be passed through a stream.</li>
+                            <li>Asymmetric encryption is demanding on the processor and vulnerable to attack if used for large amounts of data.</li>
                         </ul>
                     </div>
                 </li>
@@ -1839,8 +1850,7 @@
                     <div class="question">What does it mean when a hashing algorithm is considered compromised?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>It means that techniques have been discovered that allow the contents of a document to be changed without the hash value (manifest) changing.</li>
                         </ul>
                     </div>
                 </li>
@@ -1848,8 +1858,11 @@
                     <div class="question">How would you write your own hasing algorithm for your own data types?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>The object cass contains a virtual method called GetHash(), which is used within .NET to calculate a value that represents the content of the object.</li>
+                            <li>This method can be overloaded so that it uses the contents of the object to gnerate a value that represents those contents.</li>
+                            <li>However, it is not possible to create a cryptohraphically secure hash value this way as the result of the GetHash method is only a single integer.</li>
+                            <li>An integer value is useful in a data management context, but for document signing you need a bigger hash code.</li>
+                            <li>So, you have to create your own hashing technology. One way of doing this is to combine elements in the object into a block of bytes and then use an SHA2 method to create a manifest from this block.</li>
                         </ul>
                     </div>
                 </li>
