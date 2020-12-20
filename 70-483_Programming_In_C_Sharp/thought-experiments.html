@@ -2067,8 +2067,9 @@
                         this?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>This is usually because the build type for the project is now release rather than debug.</li>
+                            <li>The release version of a program contains optimizations that mean the running code may not perform actions in the same sequence as the compiled source, making it impossible to set breakpoints and step through the code.</li>
+                            <li>The other reason could be that the debug database is not accessible.</li>
                         </ul>
                     </div>
                 </li>
@@ -2076,8 +2077,7 @@
                     <div class="question">What type of data is a symbol defined by the #define directive?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>The #define directive creates a symbol. The symbol itself doesn't hold any data unlike in C and C++.</li>
                         </ul>
                     </div>
                 </li>
@@ -2085,8 +2085,7 @@
                     <div class="question">Do I always have to #define my symbols in my program source files?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>You can use #define symbols at the top of source file, but you can also define symbols in the Visual Studio project for an application.</li>
                         </ul>
                     </div>
                 </li>
@@ -2094,8 +2093,8 @@
                     <div class="question">Can a program create a #define symbol when it runs?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>No, by the time the program runs the pre-processor is long gone.</li>
+                            <li>The pre-processor just controls what code statements are processed by the C# compiler, so there is no way that a running program can create #define symbols.</li>
                         </ul>
                     </div>
                 </li>
@@ -2104,8 +2103,8 @@
                     </div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>The #pragma directive tells the compiler to ignore all, or nominated warnings.</li>
+                            <li>It is not possible to make the compiler ignore compilation errors. This would be a very dangerous thing to do.</li>
                         </ul>
                     </div>
                 </li>
