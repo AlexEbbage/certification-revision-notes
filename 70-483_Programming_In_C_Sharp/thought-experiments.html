@@ -2177,7 +2177,9 @@
                     <div class="answer">
                         <ul>
                             <li>They should be planned at the very start of the design process.</li>
-                            <li>The more important a component is, the more carefull it should be considered to determine the proper operation of that component and the ease with which you can investigate failures.</li>
+                            <li>The more important a component is, the more carefull it should be considered to
+                                determine the proper operation of that component and the ease with which you can
+                                investigate failures.</li>
                         </ul>
                     </div>
                 </li>
@@ -2185,8 +2187,11 @@
                     <div class="question">What is the difference between logging and tracing?</div>
                     <div class="answer">
                         <ul>
-                            <li>Logging is the production of output every time your program does something interesting. E.g. Each time a bank app processes a transaction, it can write an entry to a log file.</li>
-                            <li>Tracing is the production of output that shows the path followed by the program. E.g. Methods can generate messages when they are entered and when they are completed.</li>
+                            <li>Logging is the production of output every time your program does something interesting.
+                                E.g. Each time a bank app processes a transaction, it can write an entry to a log file.
+                            </li>
+                            <li>Tracing is the production of output that shows the path followed by the program. E.g.
+                                Methods can generate messages when they are entered and when they are completed.</li>
                         </ul>
                     </div>
                 </li>
@@ -2194,8 +2199,10 @@
                     <div class="question">What is the difference between the Debug and Trace classes?</div>
                     <div class="answer">
                         <ul>
-                            <li>The Debug and Trace classes provide similar behaviours. Both generate events, and both support assertions and can support listeners that receive the events they generate.</li>
-                            <li>The difference is that Debug behaviours are not present in release builds, and the Trace class supports levels of tracing output alongside simple messages.</li>
+                            <li>The Debug and Trace classes provide similar behaviours. Both generate events, and both
+                                support assertions and can support listeners that receive the events they generate.</li>
+                            <li>The difference is that Debug behaviours are not present in release builds, and the Trace
+                                class supports levels of tracing output alongside simple messages.</li>
                         </ul>
                     </div>
                 </li>
@@ -2204,9 +2211,13 @@
                     </div>
                     <div class="answer">
                         <ul>
-                            <li>The Debug elements are not active in an application when the application is compiled in Release mode.</li>
-                            <li>The Trace elements will always be performed when the program runs, although this may only take the form of a single test to determine if a given TraceSource object has any listeners assigned to it.</li>
-                            <li>The performance impact of inactive tracing is trivial, compared with the benefits of having trace data in th event of problems.</li>
+                            <li>The Debug elements are not active in an application when the application is compiled in
+                                Release mode.</li>
+                            <li>The Trace elements will always be performed when the program runs, although this may
+                                only take the form of a single test to determine if a given TraceSource object has any
+                                listeners assigned to it.</li>
+                            <li>The performance impact of inactive tracing is trivial, compared with the benefits of
+                                having trace data in th event of problems.</li>
                         </ul>
                     </div>
                 </li>
@@ -2214,9 +2225,13 @@
                     <div class="question">Do you have to modify the program to add tracing to it?</div>
                     <div class="answer">
                         <ul>
-                            <li>If you want to add tracing to a program that contains no trace code at all, you will have to modify the program.</li>
-                            <li>However, you can create a program that contains tracing elements that you can then control by modification of the application configuration file.</li>
-                            <li>So, rather than modifying the application, you can instead add a section to the application configuration file and even create listeners and specify where their output is to be sent.</li>
+                            <li>If you want to add tracing to a program that contains no trace code at all, you will
+                                have to modify the program.</li>
+                            <li>However, you can create a program that contains tracing elements that you can then
+                                control by modification of the application configuration file.</li>
+                            <li>So, rather than modifying the application, you can instead add a section to the
+                                application configuration file and even create listeners and specify where their output
+                                is to be sent.</li>
                         </ul>
                     </div>
                 </li>
@@ -2224,9 +2239,12 @@
                     <div class="question">What is the difference between the TraceSwitch and SourceSwitch classes?</div>
                     <div class="answer">
                         <ul>
-                            <li>The TraceSwitch class allows a program to create an object that a program can use to control any tracing activities it may perform.</li>
-                            <li>The program can set the required tracing level on the TraceSwitch instance, and then test the instance to decide what tracing output to produce.</li>
-                            <li>The SourceSwitch class is used with the TraceSource class to specify the level of tracing to be produced by a TraceSource instance.</li>
+                            <li>The TraceSwitch class allows a program to create an object that a program can use to
+                                control any tracing activities it may perform.</li>
+                            <li>The program can set the required tracing level on the TraceSwitch instance, and then
+                                test the instance to decide what tracing output to produce.</li>
+                            <li>The SourceSwitch class is used with the TraceSource class to specify the level of
+                                tracing to be produced by a TraceSource instance.</li>
                         </ul>
                     </div>
                 </li>
@@ -2234,7 +2252,8 @@
                     <div class="question">Where does the program store its performance counter information?</div>
                     <div class="answer">
                         <ul>
-                            <li>A program doesn't have to store any of the performance counter information that it works with.</li>
+                            <li>A program doesn't have to store any of the performance counter information that it works
+                                with.</li>
                             <li>Performance counters are managed by the OS on the computer.</li>
                         </ul>
                     </div>
@@ -2244,7 +2263,8 @@
                     <div class="answer">
                         <ul>
                             <li>A log event is a packet of data that describes a particular event.</li>
-                            <li>It will typically contain the data and time the event occurreed, an event status, and some text.</li>
+                            <li>It will typically contain the data and time the event occurreed, an event status, and
+                                some text.</li>
                         </ul>
                     </div>
                 </li>
@@ -2253,8 +2273,9 @@
                         updating its performance counter. Can you think of any reason why this would happen?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>A program is only permitted to create performance counters and log events if it is
+                                running with Administrator permissions.</li>
+                            <li>It might be that the failing program is not running with these permissions enabled.</li>
                         </ul>
                     </div>
                 </li>
@@ -2262,8 +2283,11 @@
                     <div class="question">Does the OS generate events when perforamcne counter values are updated?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>A "dashboard" application can read performance counters that are set by the system being
+                                monitored.</li>
+                            <li>It can also read event log entries produced by the system, and also binds to log events
+                                so that the dashboard display can be updated as the status of the application changes.
+                            </li>
                         </ul>
                     </div>
                 </li>
@@ -2272,8 +2296,8 @@
                         as the application runs?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>An application can read the appropriate performance counter, several of which deal with
+                                memory use.</li>
                         </ul>
                     </div>
                 </li>
