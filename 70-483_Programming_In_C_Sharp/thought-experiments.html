@@ -2038,8 +2038,9 @@
                     <div class="question">When does the C# pre-processor run?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>It runs when the compiler starts running.</li>
+                            <li>It opens the file and reads lines looking for pre-processor directive; these are
+                                statements that start with a # character.</li>
                         </ul>
                     </div>
                 </li>
@@ -2048,8 +2049,10 @@
                         variable?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>The #if conditional compilation directive performs a test when the program is compiled,
+                                not when it runs.</li>
+                            <li>So, it cannot test the contents of any variable because at this point the variables have
+                                not been given any values.</li>
                         </ul>
                     </div>
                 </li>
@@ -2057,8 +2060,10 @@
                     <div class="question">Some of the lines in the Visual Studio editor are gray. Why is this?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>Visual Studio is aware of pre-processor directives. In fact, you can regard the Visual
+                                Studio text editor as having a pre-processor built-in.</li>
+                            <li>This means that it is able to identify which lines will not will not be compiled because
+                                of pre-processor directives. These lines are drawn grayed out.</li>
                         </ul>
                     </div>
                 </li>
@@ -2067,8 +2072,12 @@
                         this?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>This is usually because the build type for the project is now release rather than debug.
+                            </li>
+                            <li>The release version of a program contains optimizations that mean the running code may
+                                not perform actions in the same sequence as the compiled source, making it impossible to
+                                set breakpoints and step through the code.</li>
+                            <li>The other reason could be that the debug database is not accessible.</li>
                         </ul>
                     </div>
                 </li>
@@ -2076,8 +2085,8 @@
                     <div class="question">What type of data is a symbol defined by the #define directive?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>The #define directive creates a symbol. The symbol itself doesn't hold any data unlike
+                                in C and C++.</li>
                         </ul>
                     </div>
                 </li>
@@ -2085,8 +2094,8 @@
                     <div class="question">Do I always have to #define my symbols in my program source files?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>You can use #define symbols at the top of source file, but you can also define symbols
+                                in the Visual Studio project for an application.</li>
                         </ul>
                     </div>
                 </li>
@@ -2094,8 +2103,9 @@
                     <div class="question">Can a program create a #define symbol when it runs?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>No, by the time the program runs the pre-processor is long gone.</li>
+                            <li>The pre-processor just controls what code statements are processed by the C# compiler,
+                                so there is no way that a running program can create #define symbols.</li>
                         </ul>
                     </div>
                 </li>
@@ -2104,8 +2114,9 @@
                     </div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>The #pragma directive tells the compiler to ignore all, or nominated warnings.</li>
+                            <li>It is not possible to make the compiler ignore compilation errors. This would be a very
+                                dangerous thing to do.</li>
                         </ul>
                     </div>
                 </li>
@@ -2114,8 +2125,11 @@
                         the product?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>The user of your program has no particular use for a program debug database, but it can
+                                be a good idea to provide the file to them as error reports produced by the program can
+                                contain more detail.</li>
+                            <li>They also allow remote debugging of the application so it can be useful to have the file
+                                on the machine.</li>
                         </ul>
                     </div>
                 </li>
@@ -2124,8 +2138,12 @@
                         this a bad idea?</div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>This is a very bad idea as thought they're not needed to run the application, they are
+                                vital for debugging.</li>
+                            <li>If a pdb file is lost, it cannot be recreated because any new file will not have the
+                                same GUID as the orginal and will not be recognized by the debugger.</li>
+                            <li>It is possible to send a compiled application to a customer without the pdb files, but
+                                the files themselves should be retained.</li>
                         </ul>
                     </div>
                 </li>
@@ -2134,8 +2152,11 @@
                     </div>
                     <div class="answer">
                         <ul>
-                            <li>ANSWER</li>
-                            <li>ANSWER</li>
+                            <li>A symbol server provides a program debug database information in place of a local
+                                program debug database file.</li>
+                            <li>The symbols are accessed via a network connection which means that loading an assembly
+                                might take longer as the debug symbols are loaded.</li>
+                            <li>This can result in a slowdown of the applicaiton.</li>
                         </ul>
                     </div>
                 </li>
